@@ -1,0 +1,92 @@
+class AppStrings {
+  ///====================== Initial ========================
+  static const String signInAsWorker = "Sign in as a worker";
+  static const String signInAsClient = "Sign in as a client";
+
+  ///====================== Auth ========================
+  static const String signUp = "Sign Up";
+  static const String email = "Email";
+  static const String password = "Password";
+  static const String confirmPassword = "Confirm Password";
+  static const String byRegistering = "By registering you are agree to our";
+  static const String termsOfUse = "terms of use";
+  static const String and = "and";
+  static const String privacyPolicy = "privacy policy";
+  static const String login = "Login";
+  static const String alreadyHaveaAccount = "Already have a account?";
+  static const String verification = "Verification";
+  static const String enterVerificationCode = "Enter verification code";
+  static const String resend = "resend";
+  static const String didntRecieveAnyCode = "Didn't recieved any code?";
+  static const String go = "Go";
+  static const String rememberMe = "Remember me";
+  static const String forgotPassword = "Forgot password";
+  static const String dontWorryItOccurs =
+      "Don’t worry! It Occurs. Please enter the email address linked with your account.";
+  static const String sendCode = "Send Code";
+  static const String verify = "Verify";
+  static const String submit = "Submit";
+  static const String dontHaveAAccount = "Don’t have a account? Sign up";
+
+  ///====================== SubsCription ========================
+  static const String subscription = "Subscription";
+  static const String buyNow = "Buy Now";
+  static const String payment = "SubPaymentmit";
+  static const String paymentOptions = "Payment Options";
+  static const String applePay = "Apple pay";
+  static const String pay = "Pay";
+  static const String couponCode = "Coupon Code";
+  static String ifYouUseOurCouponCode(
+          {required String price, required String percentage}) =>
+      "If you use our coupon code on your total price of $price, you will get $percentage discount.";
+  static const String applyCouponCode = "Apply Coupon Code";
+  static String totalPrice({required String price}) => "Total Price $price";
+  static const String dontHaveACouponCode =
+      "Don’t have coupon code? Go to the Payment";
+  static const String apply = "Apply";
+  static const String location = "Location";
+  static const String subsCriptionBuyingDate = "Subscription buying date";
+  static const String subsCriptionEndDate = "Subscription end date";
+  static const String package = "Package";
+
+  ///====================== Home ========================
+  static const String orderHistory = "Order History";
+  static const String searchhere = "Search here";
+  static const String newOrder = "New Order";
+  static const String spam = "Spam";
+  static const String total = "Total";
+  static const String taken = "Taken";
+  static const String remains = "Remains";
+  static const String upcomingDate = "Upcoming Date";
+  static const String current = "Current";
+  static const String completed = "Completed";
+  static const String nextDate = "Next Date";
+  static const String time = "Time";
+  static const String addDate = "Add Date";
+  static const String noDataFound = "No Data Found";
+
+  static const String history = "History";
+  static const String carWashingService = "Car Washing Service";
+  static const String cancel = "Cancel";
+  static const String start = "Start";
+  static const String date = "Date";
+
+  static const String contactNumber = "Contact Number:";
+  static const String description = "Description :";
+  static const String startWork = "Start Work";
+  static const String startTime = "Start Time";
+  static const String endTime = "End Time";
+  static const String beforeCleaning = "Before Cleaning";
+  static const String afterCleaning = "After Cleaning";
+  static const String endWork = "End Work";
+
+  ///====================== Profile ========================
+  static const String profile = "Profile";
+  static const String name = "Name";
+  static const String editProfile = "Edit Profile";
+
+  ///====================== Notification ========================
+  static const String notification = "Notification";
+  static String youHaveNewNotifications({required String count}) =>
+      "You have $count new Notifications";
+}
