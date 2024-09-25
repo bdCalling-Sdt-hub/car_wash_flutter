@@ -5,50 +5,44 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-TextStyle style = const TextStyle(color: AppColors.greyColor);
+TextStyle style = const TextStyle(color: AppColors.blackLightColor);
 
 const lightThemeFont = "Inter", darkThemeFont = "Inter";
 
 final lightTheme = ThemeData(
   primaryColor: AppColors.primaryColor,
   scaffoldBackgroundColor: AppColors.whiteColor,
-
   brightness: Brightness.light,
   useMaterial3: true,
   fontFamily: lightThemeFont,
   splashColor: Colors.transparent,
-  inputDecorationTheme: const InputDecorationTheme(
-      fillColor: AppColors.whiteColor,
-      contentPadding: EdgeInsets.symmetric(
-        vertical: 16,
-        horizontal: 24,
-      ),
-      hintStyle: TextStyle(color: AppColors.greyColor)),
+  inputDecorationTheme: inputDecorationTheme,
   textTheme: TextTheme(
     bodySmall: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
-    bodyMedium: GoogleFonts.inter(color: AppColors.greyColor, fontSize: 18),
+    bodyMedium:
+        GoogleFonts.inter(color: AppColors.blackLightColor, fontSize: 18),
     bodyLarge: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     labelSmall: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     labelMedium: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     labelLarge: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     displaySmall: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     displayMedium: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
     displayLarge: const TextStyle(
-      color: AppColors.greyColor,
+      color: AppColors.blackLightColor,
     ),
   ),
   // switchTheme: SwitchThemeData(
@@ -59,7 +53,7 @@ final lightTheme = ThemeData(
     //color:CustomColor.kPrimaryColorx,
 
     elevation: 0,
-    centerTitle: false,
+    centerTitle: true,
     iconTheme: const IconThemeData(color: AppColors.primaryColor),
     backgroundColor: AppColors.whiteColor,
     scrolledUnderElevation: 0,
@@ -67,10 +61,10 @@ final lightTheme = ThemeData(
     actionsIconTheme: const IconThemeData(color: AppColors.primaryColor),
     systemOverlayStyle: const SystemUiOverlayStyle(
       // Status bar color
-      statusBarColor: AppColors.whiteColor,
+      statusBarColor: Colors.black,
       // Status bar brightness (optional)
-      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-      statusBarBrightness: Brightness.dark, // For iOS (dark icons)
+      statusBarIconBrightness: Brightness.light, // For Android (dark icons)
+      statusBarBrightness: Brightness.light, // For iOS (dark icons)
     ),
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -85,7 +79,29 @@ final lightTheme = ThemeData(
   // colorScheme: ColorScheme(background: CustomColor.whiteColor, brightness: null, primary: null, onPrimary: null)
 );
 
-// colors
+////=================== Input Decoration =======================
+
+final InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.grayColor, width: 1),
+        gapPadding: 0),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.primaryColor, width: 1),
+        gapPadding: 0),
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: AppColors.grayColor, width: 1),
+        gapPadding: 0),
+    fillColor: AppColors.grayColor,
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 16,
+      horizontal: 24,
+    ),
+    hintStyle: const TextStyle(color: AppColors.blackLightColor));
+
+// ===================== Comon colors =========================
 const Color lightThemeColor = Colors.white,
     white = Colors.white,
     black = Colors.black,

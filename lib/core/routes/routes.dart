@@ -35,7 +35,7 @@ class AppRouter {
         GoRoute(
             name: RoutePath.login,
             path: RoutePath.login.addBasePath,
-            builder: (context, state) => const LogInScreen()),
+            builder: (context, state) => LogInScreen()),
       ]);
 
   static GoRouter get route => initRoute;

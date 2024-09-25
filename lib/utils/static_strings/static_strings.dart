@@ -6,7 +6,17 @@ class AppStrings {
   ///====================== Auth ========================
   static const String signUp = "Sign Up";
   static const String email = "Email";
+  static const String enterValidEmail = "Enter a valid email";
+  static RegExp emailRegexp = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static const String password = "Password";
+  static const String passWordMustBeAtLeast =
+      "Password must contain at least one uppercase letter, one lowercase letter, one number";
+  static RegExp passRegexp =
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+
+  static const String passwordLengthAndContain =
+      "Password must be at least 8 characters long and at least one uppercase letter, one lowercase letter, one number";
   static const String confirmPassword = "Confirm Password";
   static const String byRegistering = "By registering you are agree to our";
   static const String termsOfUse = "terms of use";

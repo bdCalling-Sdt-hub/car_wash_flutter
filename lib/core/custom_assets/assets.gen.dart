@@ -24,9 +24,6 @@ class $AssetsIconsGen {
   /// File path: assets/icons/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/icons/edit.svg');
 
-  /// File path: assets/icons/forgot.svg
-  SvgGenImage get forgot => const SvgGenImage('assets/icons/forgot.svg');
-
   /// File path: assets/icons/history.svg
   SvgGenImage get history => const SvgGenImage('assets/icons/history.svg');
 
@@ -65,7 +62,6 @@ class $AssetsIconsGen {
         apple,
         clock,
         edit,
-        forgot,
         history,
         image,
         location,
@@ -82,6 +78,12 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/forget.png
+  AssetGenImage get forget => const AssetGenImage('assets/images/forget.png');
+
+  /// File path: assets/images/login.png
+  AssetGenImage get login => const AssetGenImage('assets/images/login.png');
+
   /// File path: assets/images/onBoarding.png
   AssetGenImage get onBoarding =>
       const AssetGenImage('assets/images/onBoarding.png');
@@ -91,7 +93,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/splashLogo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [onBoarding, splashLogo];
+  List<AssetGenImage> get values => [forget, login, onBoarding, splashLogo];
 }
 
 class Assets {
