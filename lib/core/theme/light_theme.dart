@@ -11,7 +11,7 @@ const lightThemeFont = "Inter", darkThemeFont = "Inter";
 
 final lightTheme = ThemeData(
   primaryColor: AppColors.primaryColor,
-  scaffoldBackgroundColor: AppColors.primaryColor,
+  scaffoldBackgroundColor: AppColors.whiteColor,
 
   brightness: Brightness.light,
   useMaterial3: true,
