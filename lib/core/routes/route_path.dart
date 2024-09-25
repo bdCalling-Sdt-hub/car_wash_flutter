@@ -7,4 +7,8 @@ class RoutePath {
 
   //=================== Auth screens ===================
   static const String login = 'login';
+  static const String forgotPass = 'forgotPass';
+  static const String resetPass = 'resetPass';
+  static const String varification = 'varification';
+  static const String signUp = 'signUp';
 }

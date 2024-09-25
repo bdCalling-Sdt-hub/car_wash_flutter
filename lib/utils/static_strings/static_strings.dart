@@ -6,6 +6,8 @@ class AppStrings {
   ///====================== Auth ========================
   static const String signUp = "Sign Up";
   static const String email = "Email";
+  static const String chooseARole = "Choose a role";
+
   static const String enterValidEmail = "Enter a valid email";
   static RegExp emailRegexp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -14,7 +16,7 @@ class AppStrings {
       "Password must contain at least one uppercase letter, one lowercase letter, one number";
   static RegExp passRegexp =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-
+  static const fieldCantNotBeEmpty = "Field can't be empty";
   static const String passwordLengthAndContain =
       "Password must be at least 8 characters long and at least one uppercase letter, one lowercase letter, one number";
   static const String confirmPassword = "Confirm Password";
@@ -23,8 +25,13 @@ class AppStrings {
   static const String and = "and";
   static const String privacyPolicy = "privacy policy";
   static const String login = "Login";
+  static const String forgot = "Forgot";
   static const String alreadyHaveaAccount = "Already have a account?";
   static const String verification = "Verification";
+
+  static const String client = "Client";
+  static const String worker = "Worker";
+
   static const String enterVerificationCode = "Enter verification code";
   static const String resend = "resend";
   static const String didntRecieveAnyCode = "Didn't recieved any code?";

@@ -54,11 +54,11 @@ final lightTheme = ThemeData(
 
     elevation: 0,
     centerTitle: true,
-    iconTheme: const IconThemeData(color: AppColors.primaryColor),
+    iconTheme: const IconThemeData(color: AppColors.blackLightColor),
     backgroundColor: AppColors.whiteColor,
     scrolledUnderElevation: 0,
     titleTextStyle: interMedium.copyWith(fontSize: 16.sp, color: black),
-    actionsIconTheme: const IconThemeData(color: AppColors.primaryColor),
+    actionsIconTheme: const IconThemeData(color: AppColors.blackLightColor),
     systemOverlayStyle: const SystemUiOverlayStyle(
       // Status bar color
       statusBarColor: Colors.black,

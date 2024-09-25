@@ -39,14 +39,15 @@ class Dimensions {
       context.width >= 1300 ? 15.sp : 13.sp;
   static double getFontSizeDefault(BuildContext context) =>
       context.width >= 1300 ? 17.sp : 14.sp;
-  static double getButtonFontSize(BuildContext context) =>
-      context.width >= 1300 ? 26.sp : 20.sp;
-  static double getButtonFontSizeLarge(BuildContext context) =>
-      context.width >= 1300 ? 30.sp : 24.sp;
   static double getFontSizeLarge(BuildContext context) =>
       context.width >= 1300 ? 20.sp : 16.sp;
   static double getFontSizeExtraLarge(BuildContext context) =>
       context.width >= 1300 ? 20.sp : 18.sp;
+  static double getButtonFontSize(BuildContext context) =>
+      context.width >= 1300 ? 26.sp : 20.sp;
+  static double getButtonFontSizeLarge(BuildContext context) =>
+      context.width >= 1300 ? 30.sp : 24.sp;
+
   static double getFontSizeOverLarge(BuildContext context) =>
       context.width >= 1300 ? 56.sp : 46.sp;
   static double getFontSizeForReview(BuildContext context) => 36.sp;

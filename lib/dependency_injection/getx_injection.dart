@@ -3,5 +3,5 @@ import 'package:get/get.dart';
 
 void initGetx() {
   // ================== Auth Controller ==================
-  Get.lazyPut(() => AuthController());
+  Get.lazyPut(() => AuthController(), fenix: true);
 }

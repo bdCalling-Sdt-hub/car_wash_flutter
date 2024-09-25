@@ -1,4 +1,5 @@
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/auth/controller/auth_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
@@ -17,13 +19,6 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: CustomText(
-      //     text: AppStrings.login,
-      //     fontWeight: FontWeight.w500,
-      //     fontSize: Dimensions.getButtonFontSizeLarge(context),
-      //   ),
-      // ),
       body: Obx(() {
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -44,8 +39,12 @@ class LogInScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Gap(24.h),
-              const CustomText(text: AppStrings.email),
+
+              CustomText(
+                text: AppStrings.email,
+                bottom: 16.h,
+                top: 24.h,
+              ),
 
               ///===================== Email Login ==========================
               CustomTextField(
@@ -62,9 +61,11 @@ class LogInScreen extends StatelessWidget {
                 },
               ),
 
-              Gap(16.h),
-
-              const CustomText(text: AppStrings.password),
+              CustomText(
+                top: 16.h,
+                text: AppStrings.password,
+                bottom: 8.h,
+              ),
 
               ///===================== Password Login ==========================
               CustomTextField(
@@ -106,7 +107,9 @@ class LogInScreen extends StatelessWidget {
                   ///==================== Forgot Password Button ===================
 
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(RoutePath.forgotPass);
+                      },
                       child: CustomText(
                         text: AppStrings.forgotPassword,
                         fontSize: Dimensions.getFontSizeSmall(context),
@@ -119,10 +122,14 @@ class LogInScreen extends StatelessWidget {
               CustomButton(onTap: () {}),
               Gap(16.h),
 
+              /// ==================== Log In Button ===================
+
               Align(
                 alignment: Alignment.center,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed(RoutePath.signUp);
+                    },
                     child: const CustomText(text: AppStrings.dontHaveAAccount)),
               )
             ],
