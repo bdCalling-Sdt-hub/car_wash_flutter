@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/dependency_injection/path.dart';
-import 'package:car_wash/helper/local_db.dart';
+import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
 import 'package:car_wash/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
@@ -79,17 +79,23 @@ class ApiMethod {
     } on SocketException {
       log.e('🐞🐞🐞 Error Alert on Socket Exception 🐞🐞🐞');
 
-      showSnackBar(context!, 'Check your Internet Connection and try again!');
-      context.pushNamed(Routes.ErrorPage);
+      //showSnackBar(context!, 'Check your Internet Connection and try again!');
+      //context.pushNamed(RoutePath.errorScreen);
+
+      if (context != null && context.mounted) {
+        showSnackBar(context, 'Check your Internet Connection and try again!');
+        context.pushNamed(RoutePath.errorScreen);
+      }
       return null;
     } on TimeoutException {
       log.e('🐞🐞🐞 Error Alert Timeout Exception🐞🐞🐞');
 
       log.e('Time out exception$url');
 
-      showSnackBar(context!, 'Something Went Wrong! Try again');
-
-      context.pushNamed(Routes.ErrorPage);
+      if (context != null && context.mounted) {
+        showSnackBar(context, 'Check your Internet Connection and try again!');
+        context.pushNamed(RoutePath.errorScreen);
+      }
 
       return null;
     } on http.ClientException catch (err, stackrace) {
@@ -100,7 +106,9 @@ class ApiMethod {
       log.e(err.toString());
 
       log.e(stackrace.toString());
-      context!.pushNamed(Routes.ErrorPage);
+      if (context != null && context.mounted) {
+        context.pushNamed(RoutePath.errorScreen);
+      }
       return null;
     } catch (e) {
       log.e('🐞🐞🐞 Other Error Alert 🐞🐞🐞');
@@ -108,7 +116,9 @@ class ApiMethod {
       log.e('❌❌❌ unlisted error received');
 
       log.e("❌❌❌ $e");
-      context!.pushNamed(Routes.ErrorPage);
+      if (context != null && context.mounted) {
+        context.pushNamed(RoutePath.errorScreen);
+      }
       return null;
     }
   }
