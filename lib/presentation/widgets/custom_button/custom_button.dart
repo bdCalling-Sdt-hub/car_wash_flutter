@@ -14,11 +14,14 @@ class CustomButton extends StatelessWidget {
       this.marginVerticel = 0,
       this.marginHorizontal = 0,
       this.fillColor = AppColors.primaryColor,
-      this.textColor = AppColors.blackLightColor});
+      this.textColor = AppColors.blackLightColor,
+      this.borderColor = AppColors.primaryColor});
 
   final double height;
   final double width;
   final Color fillColor;
+  final Color borderColor;
+
   final Color textColor;
 
   final VoidCallback onTap;
@@ -41,7 +44,9 @@ class CustomButton extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: fillColor),
+            border: Border.all(color: borderColor),
+            borderRadius: BorderRadius.circular(8.r),
+            color: fillColor),
         child: CustomText(
             fontWeight: FontWeight.w500,
             color: textColor,

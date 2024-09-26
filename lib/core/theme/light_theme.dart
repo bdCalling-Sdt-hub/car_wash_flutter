@@ -11,12 +11,13 @@ const lightThemeFont = "Inter", darkThemeFont = "Inter";
 
 final lightTheme = ThemeData(
   primaryColor: AppColors.primaryColor,
-  scaffoldBackgroundColor: AppColors.whiteColor,
+  scaffoldBackgroundColor: AppColors.grayColor,
   brightness: Brightness.light,
   useMaterial3: true,
   fontFamily: lightThemeFont,
   splashColor: Colors.transparent,
   inputDecorationTheme: inputDecorationTheme,
+
   textTheme: TextTheme(
     bodySmall: const TextStyle(
       color: AppColors.blackLightColor,
@@ -61,7 +62,8 @@ final lightTheme = ThemeData(
     actionsIconTheme: const IconThemeData(color: AppColors.blackLightColor),
     systemOverlayStyle: const SystemUiOverlayStyle(
       // Status bar color
-      statusBarColor: Colors.black,
+
+      statusBarColor: AppColors.whiteColor,
       // Status bar brightness (optional)
       statusBarIconBrightness: Brightness.light, // For Android (dark icons)
       statusBarBrightness: Brightness.light, // For iOS (dark icons)

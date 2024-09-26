@@ -11,4 +11,7 @@ class RoutePath {
   static const String resetPass = 'resetPass';
   static const String varification = 'varification';
   static const String signUp = 'signUp';
+
+  //=================== Worker screens ===================
+  static const String workerHome = 'workerHome';
 }

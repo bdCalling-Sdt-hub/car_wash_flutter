@@ -6,12 +6,13 @@ import 'package:car_wash/presentation/screens/auth/reset_pass.dart';
 import 'package:car_wash/presentation/screens/auth/sign_up.dart';
 import 'package:car_wash/presentation/screens/auth/varification.dart';
 import 'package:car_wash/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:car_wash/presentation/screens/worker/worker_home/worker_home.dart';
 import 'package:car_wash/presentation/widgets/error_screen/error_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter initRoute = GoRouter(
-      initialLocation: RoutePath.splashScreen.addBasePath,
+      initialLocation: RoutePath.workerHome.addBasePath,
       // navigatorKey: Get.key,
       debugLogDiagnostics: true,
       routes: [
@@ -63,6 +64,14 @@ class AppRouter {
             name: RoutePath.signUp,
             path: RoutePath.signUp.addBasePath,
             builder: (context, state) => SignUpScreen()),
+
+        /// <<<<<<<<<<<<<<======================= Worker Route =======================>>>>>>>>>>>>>>>>>>
+
+        /// ==================== Worker Home ====================
+        GoRoute(
+            name: RoutePath.workerHome,
+            path: RoutePath.workerHome.addBasePath,
+            builder: (context, state) => WorkerHome()),
       ]);
 
   static GoRouter get route => initRoute;

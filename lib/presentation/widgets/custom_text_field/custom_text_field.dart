@@ -22,7 +22,6 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.suffixIconColor,
     this.isPassword = false,
-    this.isPrefixIcon = true,
     this.readOnly = false,
     this.maxLength,
     super.key,
@@ -33,6 +32,7 @@ class CustomTextField extends StatefulWidget {
     this.border,
     this.focusedBorder,
     this.enabledBorder,
+    this.fillColor,
   });
 
   final TextEditingController? textEditingController;
@@ -52,6 +52,8 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? hintStyle;
 
   final Color? suffixIconColor;
+  final Color? fillColor;
+
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final OutlineInputBorder? border;
@@ -60,7 +62,7 @@ class CustomTextField extends StatefulWidget {
   final OutlineInputBorder? enabledBorder;
 
   final bool isPassword;
-  final bool isPrefixIcon;
+
   final bool readOnly;
   final int? maxLength;
   final bool? isCollapsed;
@@ -95,6 +97,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
       decoration: InputDecoration(
+          fillColor: widget.fillColor,
           isCollapsed: widget.isCollapsed,
           isDense: widget.isDense,
           errorMaxLines: 2,

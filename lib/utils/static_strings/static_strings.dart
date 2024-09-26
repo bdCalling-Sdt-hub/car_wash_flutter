@@ -61,7 +61,7 @@ class AppStrings {
   static const String dontHaveACouponCode =
       "Don’t have coupon code? Go to the Payment";
   static const String apply = "Apply";
-  static const String location = "Location";
+  static const String location = "Location: ";
   static const String subsCriptionBuyingDate = "Subscription buying date";
   static const String subsCriptionEndDate = "Subscription end date";
   static const String package = "Package";
@@ -78,7 +78,7 @@ class AppStrings {
   static const String current = "Current";
   static const String completed = "Completed";
   static const String nextDate = "Next Date";
-  static const String time = "Time";
+  static const String time = "Time: ";
   static const String addDate = "Add Date";
   static const String noDataFound = "No Data Found";
 
@@ -86,10 +86,10 @@ class AppStrings {
   static const String carWashingService = "Car Washing Service";
   static const String cancel = "Cancel";
   static const String start = "Start";
-  static const String date = "Date";
+  static const String date = "Date: ";
 
-  static const String contactNumber = "Contact Number:";
-  static const String description = "Description :";
+  static const String contactNumber = "Contact Number: ";
+  static const String description = "Description:  ";
   static const String startWork = "Start Work";
   static const String startTime = "Start Time";
   static const String endTime = "End Time";
