@@ -3,6 +3,7 @@ import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/auth/controller/auth_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
+import 'package:car_wash/utils/app_colors/app_colors.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/utils/dimensions/dimensions.dart';
@@ -19,6 +20,7 @@ class ForgotPass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: CustomText(
           text: AppStrings.forgot,
@@ -26,7 +28,7 @@ class ForgotPass extends StatelessWidget {
           fontSize: Dimensions.getButtonFontSize(context),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Center(
           child: Column(

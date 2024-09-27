@@ -78,6 +78,8 @@ class AppStrings {
   static const String upcomingDate = "Upcoming Date";
   static const String current = "Current";
   static const String completed = "Completed";
+  static const String logOut = "Log Out";
+
   static const String nextDate = "Next Date";
   static const String time = "Time: ";
   static const String addDate = "Add Date";

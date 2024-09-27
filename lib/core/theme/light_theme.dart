@@ -75,7 +75,8 @@ final InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
       vertical: 16,
       horizontal: 24,
     ),
-    hintStyle: const TextStyle(color: AppColors.blackLightColor));
+    hintStyle: const TextStyle(
+        color: AppColors.blackLightColor, fontWeight: FontWeight.w300));
 
 //=========================== App Bar =============================
 final AppBarTheme appBarTheme = AppBarTheme(

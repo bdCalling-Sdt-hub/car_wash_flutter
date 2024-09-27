@@ -4,6 +4,7 @@ import 'package:car_wash/presentation/screens/auth/controller/auth_controller.da
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
+import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/dimensions/dimensions.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       body: Obx(() {
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -69,6 +71,7 @@ class LogInScreen extends StatelessWidget {
 
               ///===================== Password Login ==========================
               CustomTextField(
+                isDense: true,
                 textEditingController: authController.passController.value,
                 isPassword: true,
                 validator: (value) {
@@ -119,7 +122,9 @@ class LogInScreen extends StatelessWidget {
 
               /// ==================== Log In Button ===================
               Gap(44.h),
-              CustomButton(onTap: () {}),
+              CustomButton(onTap: () {
+                context.pushReplacementNamed(RoutePath.workerHome);
+              }),
               Gap(16.h),
 
               /// ==================== Log In Button ===================

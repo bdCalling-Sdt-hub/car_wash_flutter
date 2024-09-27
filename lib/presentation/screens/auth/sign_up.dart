@@ -19,7 +19,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: CustomText(
           text: AppStrings.signUp,
@@ -115,6 +116,7 @@ class SignUpScreen extends StatelessWidget {
               ///======================== Password Field =======================
 
               CustomTextField(
+                isDense: true,
                 textEditingController: authController.passController.value,
                 isPassword: true,
                 validator: (value) {
@@ -138,6 +140,7 @@ class SignUpScreen extends StatelessWidget {
               ///======================== Confirm Password Field =======================
 
               CustomTextField(
+                isDense: true,
                 textEditingController: authController.confirmController.value,
                 isPassword: true,
                 validator: (value) {

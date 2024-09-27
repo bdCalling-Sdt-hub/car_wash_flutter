@@ -15,7 +15,7 @@ class SystemUtil {
   }
 
   //----------------------------------------change the status bar color
-  static void setStatusBarColor(Color color) {
+  static void setStatusBarColor({required Color color}) {
     try {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarBrightness: Brightness.light,

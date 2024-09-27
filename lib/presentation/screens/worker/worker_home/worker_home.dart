@@ -1,3 +1,4 @@
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_start.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
@@ -12,6 +13,7 @@ import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class WorkerHome extends StatelessWidget {
   WorkerHome({super.key});
@@ -23,7 +25,17 @@ class WorkerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideDrawer(),
+      drawer: SideDrawer(
+        onTapOrderHistory: () {
+          context.pushNamed(RoutePath.orderHistory);
+        },
+        onTapProfile: () {
+          context.pushNamed(RoutePath.workerProfile);
+        },
+        onTapSubscription: () {
+          // context.pushNamed(RoutePath.orderHistory);
+        },
+      ),
       key: scafoldKey,
       appBar: AppBar(
         toolbarHeight: 0,
