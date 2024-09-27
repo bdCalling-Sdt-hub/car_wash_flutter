@@ -31,6 +31,7 @@ class AppStrings {
 
   static const String client = "Client";
   static const String worker = "Worker";
+  static const String workingTime = "Working Time";
 
   static const String enterVerificationCode = "Enter verification code";
   static const String resend = "resend";

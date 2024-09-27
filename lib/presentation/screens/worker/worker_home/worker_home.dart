@@ -1,8 +1,10 @@
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
+import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_start.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/presentation/widgets/service_card/service_card.dart';
+import 'package:car_wash/presentation/widgets/side_drawer/side_drawer.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
@@ -17,9 +19,12 @@ class WorkerHome extends StatelessWidget {
   final WorkerHomeController workerHomeController =
       Get.find<WorkerHomeController>();
 
+  final scafoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawer(),
+      key: scafoldKey,
       appBar: AppBar(
         toolbarHeight: 0,
       ),
@@ -32,7 +37,9 @@ class WorkerHome extends StatelessWidget {
                 image: AppConstants.onlineImage,
                 name: "Fatma",
                 location: "Soudi Arab",
-                onTapMenu: () {},
+                onTapMenu: () {
+                  scafoldKey.currentState?.openDrawer();
+                },
                 onTapNotification: () {}),
 
             /// =================== Rest of the Body ===================
@@ -52,6 +59,8 @@ class WorkerHome extends StatelessWidget {
                     fillColor: AppColors.whiteColor,
                   ),
                   Gap(8.h),
+
+                  ///=============================== Tap Bar ===========================
 
                   Row(
                     children: List.generate(
@@ -93,6 +102,8 @@ class WorkerHome extends StatelessWidget {
               ),
             ),
 
+            ///============================= Request Status ===========================
+
             Obx(() {
               switch (workerHomeController.tappedIndex.value) {
                 case 0:
@@ -108,19 +119,25 @@ class WorkerHome extends StatelessWidget {
                   );
 
                 case 1:
-                  return ServiceCard(
-                    showButtons: false,
-                    showDescription: false,
-                    googleMap: true,
-                    date: "04-12-2024",
-                    time: "10 : 00 AM",
-                    location: "09 Arnulfo Crossing, Botsfordborough",
-                    number: "011 2562 1569 66",
-                    description:
-                        "It is a long established fact that a reader will be distracted by the readable",
-                    onTapCancle: () {},
-                    onTapStart: () {},
-                  );
+                  // return ServiceCard(
+                  //   showButtons: false,
+                  //   showDescription: false,
+                  //   googleMap: true,
+                  //   date: "04-12-2024",
+                  //   time: "10 : 00 AM",
+                  //   location: "09 Arnulfo Crossing, Botsfordborough",
+                  //   number: "011 2562 1569 66",
+                  //   description:
+                  //       "It is a long established fact that a reader will be distracted by the readable",
+                  //   onTapCancle: () {},
+                  //   onTapStart: () {},
+                  // );
+
+                  return WorkStartScreen(
+                      startTime: "10:00AM",
+                      endTime: "11:00AM",
+                      beforeCleaningImg: AppConstants.carDarty,
+                      afterCleaningImg: AppConstants.carClean);
 
                 case 2:
                   return ServiceCard(

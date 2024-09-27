@@ -46,36 +46,47 @@ class ServiceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                color: AppColors.greenColor.withOpacity(.2)),
-            padding: EdgeInsets.all(8.r),
-            child: const CustomText(text: AppStrings.carWashingService),
-          ),
-          Gap(16.h),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CustomText(text: AppStrings.date),
-
-              ///===================== Date ====================
-              Expanded(
-                  child: CustomText(
-                text: date,
-                textAlign: TextAlign.left,
-              )),
-
-              CustomText(left: 20.w, text: AppStrings.time),
-
-              ///===================== Time ====================
-              Expanded(
-                child: CustomText(
-                  textAlign: TextAlign.left,
-                  text: time,
-                ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.r),
+                    color: AppColors.greenColor.withOpacity(.2)),
+                padding: EdgeInsets.all(8.r),
+                child: const CustomText(text: AppStrings.carWashingService),
               ),
+
+              //============================ Date Field for History ===========================
+
+              if (showCarImage) CustomText(text: "${AppStrings.date} $date")
             ],
           ),
+          Gap(16.h),
+          showCarImage
+              ? const CustomText(text: "${AppStrings.workingTime} 2 h 50 min")
+              : Row(
+                  children: [
+                    const CustomText(text: AppStrings.date),
+
+                    ///===================== Date ====================
+                    Expanded(
+                        child: CustomText(
+                      text: date,
+                      textAlign: TextAlign.left,
+                    )),
+
+                    CustomText(left: 20.w, text: AppStrings.time),
+
+                    ///===================== Time ====================
+                    Expanded(
+                      child: CustomText(
+                        textAlign: TextAlign.left,
+                        text: time,
+                      ),
+                    ),
+                  ],
+                ),
           Gap(16.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
