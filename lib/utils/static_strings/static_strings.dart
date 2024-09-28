@@ -86,6 +86,8 @@ class AppStrings {
   static const String noDataFound = "No Data Found";
 
   static const String history = "History";
+  static const String readAll = "Read all";
+
   static const String carWashingService = "Car Washing Service";
   static const String cancel = "Cancel";
   static const String start = "Start";

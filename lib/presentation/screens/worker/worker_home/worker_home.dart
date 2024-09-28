@@ -52,7 +52,9 @@ class WorkerHome extends StatelessWidget {
                 onTapMenu: () {
                   scafoldKey.currentState?.openDrawer();
                 },
-                onTapNotification: () {}),
+                onTapNotification: () {
+                  context.pushNamed(RoutePath.workerNotification);
+                }),
 
             /// =================== Rest of the Body ===================
             Gap(20.h),
