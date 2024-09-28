@@ -52,7 +52,7 @@ class SideDrawer extends StatelessWidget {
               )),
           const Divider(),
 
-          //======================= Oder History ==========================
+          //========================== Oder History ==========================
           IconButton(
               onPressed: onTapOrderHistory,
               icon: Row(
@@ -60,6 +60,23 @@ class SideDrawer extends StatelessWidget {
                   Assets.icons.history.svg(),
                   CustomText(
                     text: AppStrings.orderHistory,
+                    left: 20.w,
+                    fontSize: Dimensions.getFontSizeLarge(context),
+                  )
+                ],
+              )),
+          const Divider(),
+
+          //========================== Oder History ==========================
+          IconButton(
+              onPressed: () {
+                context.pushNamed(RoutePath.language);
+              },
+              icon: Row(
+                children: [
+                  const Icon(Icons.language_sharp),
+                  CustomText(
+                    text: AppStrings.language,
                     left: 20.w,
                     fontSize: Dimensions.getFontSizeLarge(context),
                   )

@@ -5,6 +5,7 @@ import 'package:car_wash/presentation/screens/auth/login.dart';
 import 'package:car_wash/presentation/screens/auth/reset_pass.dart';
 import 'package:car_wash/presentation/screens/auth/sign_up.dart';
 import 'package:car_wash/presentation/screens/auth/varification.dart';
+import 'package:car_wash/presentation/screens/language/choose_language.dart';
 import 'package:car_wash/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:car_wash/presentation/screens/worker/worked_history/worked_history.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/worker_home.dart';
@@ -70,6 +71,13 @@ class AppRouter {
             path: RoutePath.signUp.addBasePath,
             builder: (context, state) => SignUpScreen()),
 
+        ///======================= Choose Language =======================
+
+        GoRoute(
+            name: RoutePath.language,
+            path: RoutePath.language.addBasePath,
+            builder: (context, state) => ChooseLanguage()),
+
         /// <<<<<<<<<<<<<<======================= Worker Route =======================>>>>>>>>>>>>>>>>>>
 
         /// ==================== Worker Home ====================
@@ -95,6 +103,8 @@ class AppRouter {
             name: RoutePath.workerNotification,
             path: RoutePath.workerNotification.addBasePath,
             builder: (context, state) => const WorkerNotification()),
+
+        /// ============================== Client Section ======================
       ]);
 
   static GoRouter get route => initRoute;

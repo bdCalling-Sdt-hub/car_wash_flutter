@@ -3,7 +3,9 @@ class RoutePath {
 
   //=================== General screens ===================
   static const String splashScreen = 'splashScreen';
+
   static const String errorScreen = 'errorScreen';
+  static const String language = 'language';
 
   //=================== Auth screens ===================
   static const String login = 'login';
@@ -18,4 +20,9 @@ class RoutePath {
   static const String workerProfile = 'workerProfile';
   static const String orderHistory = 'orderHistory';
   static const String workerNotification = 'workerNotification';
+
+  //==================================== Client screens =====================================
+  static const String clientHome = 'clientHome';
+  static const String clientNotification = 'workerHome';
+  static const String subscription = 'subscription';
 }

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       // splitScreenMode: true,
       builder: (context, child) => GetMaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'IHB',
+        //title: 'IHB',
         theme: lightTheme,
         // darkTheme:CustomTheme.darkTheme, // standard dark theme
         //themeMode: lightTheme,

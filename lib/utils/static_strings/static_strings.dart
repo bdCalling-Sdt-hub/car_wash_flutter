@@ -69,6 +69,9 @@ class AppStrings {
 
   ///====================== Home ========================
   static const String orderHistory = "Order History";
+  static const String language = "Language";
+  static const String chooseALanguage = "Choose a language";
+
   static const String searchhere = "Search here";
   static const String newOrder = "New Order";
   static const String spam = "Spam";
@@ -86,6 +89,9 @@ class AppStrings {
   static const String noDataFound = "No Data Found";
 
   static const String history = "History";
+  static const String english = "English";
+  static const String arabic = "Arabic";
+
   static const String readAll = "Read all";
 
   static const String carWashingService = "Car Washing Service";
