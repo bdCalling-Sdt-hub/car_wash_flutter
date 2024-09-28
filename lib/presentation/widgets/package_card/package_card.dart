@@ -1,3 +1,4 @@
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
@@ -5,6 +6,7 @@ import 'package:car_wash/utils/dimensions/dimensions.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class PackageCard extends StatelessWidget {
   const PackageCard(
@@ -14,7 +16,7 @@ class PackageCard extends StatelessWidget {
       required this.description,
       required this.serviceList,
       required this.color,
-       this.showBuyButton = true});
+      this.showBuyButton = true});
 
   final String price;
   final String title;
@@ -73,12 +75,17 @@ class PackageCard extends StatelessWidget {
             },
           ),
 
-         if(showBuyButton) CustomButton(
-            marginVerticel: 10.h,
-            fillColor: AppColors.whiteColor,
-            onTap: () {},
-            title: AppStrings.buyNow,
-          )
+          /// ===================== Buy Now ===================
+
+          if (showBuyButton)
+            CustomButton(
+              marginVerticel: 10.h,
+              fillColor: AppColors.whiteColor,
+              onTap: () {
+                context.pushNamed(RoutePath.coupon);
+              },
+              title: AppStrings.buyNow,
+            )
         ],
       ),
     );

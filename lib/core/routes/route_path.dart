@@ -26,6 +26,6 @@ class RoutePath {
   static const String clientNotification = 'workerHome';
   static const String mySubscription = 'mySubscription';
   static const String subscriptionPackages = 'subscriptionPackages';
-
   static const String reqService = 'reqService';
+  static const String coupon = 'coupon';
 }

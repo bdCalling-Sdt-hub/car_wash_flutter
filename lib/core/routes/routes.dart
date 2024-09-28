@@ -7,6 +7,7 @@ import 'package:car_wash/presentation/screens/auth/sign_up.dart';
 import 'package:car_wash/presentation/screens/auth/varification.dart';
 import 'package:car_wash/presentation/screens/client/client_home/client_home.dart';
 import 'package:car_wash/presentation/screens/client/req_service/req_service.dart';
+import 'package:car_wash/presentation/screens/client/subscription/coupon.dart';
 import 'package:car_wash/presentation/screens/client/subscription/my_subscription.dart';
 import 'package:car_wash/presentation/screens/client/subscription/subscriptionlist.dart';
 import 'package:car_wash/presentation/screens/language/choose_language.dart';
@@ -134,6 +135,13 @@ class AppRouter {
             name: RoutePath.reqService,
             path: RoutePath.reqService.addBasePath,
             builder: (context, state) => const RequestService()),
+
+        /// ==================== Client Service Request ===================
+
+        GoRoute(
+            name: RoutePath.coupon,
+            path: RoutePath.coupon.addBasePath,
+            builder: (context, state) => const CouponScreen()),
       ]);
 
   static GoRouter get route => initRoute;
