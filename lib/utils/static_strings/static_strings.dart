@@ -63,8 +63,8 @@ class AppStrings {
       "Don’t have coupon code? Go to the Payment";
   static const String apply = "Apply";
   static const String location = "Location: ";
-  static const String subsCriptionBuyingDate = "Subscription buying date";
-  static const String subsCriptionEndDate = "Subscription end date";
+  static const String subsCriptionBuying = "Subscription buying";
+  static const String subsCriptionEnding = "Subscription ending";
   static const String package = "Package";
 
   ///====================== Home ========================
@@ -78,9 +78,12 @@ class AppStrings {
   static const String total = "Total";
   static const String taken = "Taken";
   static const String remains = "Remains";
-  static const String upcomingDate = "Upcoming Date";
+  static const String upcomingDate = "Upcoming";
   static const String current = "Current";
   static const String completed = "Completed";
+  static const String reqService = "Request service";
+  static const String request = "Request";
+
   static const String logOut = "Log Out";
 
   static const String nextDate = "Next Date";

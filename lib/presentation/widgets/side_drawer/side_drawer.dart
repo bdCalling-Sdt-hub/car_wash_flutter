@@ -67,7 +67,26 @@ class SideDrawer extends StatelessWidget {
               )),
           const Divider(),
 
-          //========================== Oder History ==========================
+          //======================= Subscription ==========================
+          if (showSubscription) ...[
+            IconButton(
+                onPressed: () {
+                  context.pushNamed(RoutePath.mySubscription);
+                },
+                icon: Row(
+                  children: [
+                    Assets.icons.subscription.svg(),
+                    CustomText(
+                      text: AppStrings.subscription,
+                      left: 20.w,
+                      fontSize: Dimensions.getFontSizeLarge(context),
+                    )
+                  ],
+                )),
+            const Divider(),
+          ],
+
+          //========================== Language ==========================
           IconButton(
               onPressed: () {
                 context.pushNamed(RoutePath.language);

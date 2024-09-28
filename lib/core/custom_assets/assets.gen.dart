@@ -30,6 +30,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/image.svg
   SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
 
+  /// File path: assets/icons/language.svg
+  SvgGenImage get language => const SvgGenImage('assets/icons/language.svg');
+
   /// File path: assets/icons/location.svg
   SvgGenImage get location => const SvgGenImage('assets/icons/location.svg');
 
@@ -64,6 +67,7 @@ class $AssetsIconsGen {
         edit,
         history,
         image,
+        language,
         location,
         logout,
         menu,
@@ -84,6 +88,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/login.png
   AssetGenImage get login => const AssetGenImage('assets/images/login.png');
 
+  /// File path: assets/images/mapImage.png
+  AssetGenImage get mapImage =>
+      const AssetGenImage('assets/images/mapImage.png');
+
   /// File path: assets/images/onBoarding.png
   AssetGenImage get onBoarding =>
       const AssetGenImage('assets/images/onBoarding.png');
@@ -93,7 +101,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/splashLogo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [forget, login, onBoarding, splashLogo];
+  List<AssetGenImage> get values =>
+      [forget, login, mapImage, onBoarding, splashLogo];
 }
 
 class Assets {

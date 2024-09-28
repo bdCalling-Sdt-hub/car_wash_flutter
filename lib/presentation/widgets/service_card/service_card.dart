@@ -1,3 +1,4 @@
+import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -22,7 +23,8 @@ class ServiceCard extends StatelessWidget {
       this.showDescription = true,
       required this.time,
       this.googleMap = false,
-      this.showCarImage = false});
+      this.showCarImage = false,
+      this.showStartButton = true});
 
   final String date;
   final String time;
@@ -36,6 +38,7 @@ class ServiceCard extends StatelessWidget {
   final bool showDescription;
   final bool googleMap;
   final bool showCarImage;
+  final bool showStartButton;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class ServiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///===================== Location ====================
-              const CustomText(text: AppStrings.location),
+              const CustomText(text: AppStrings.location), Gap(10.w),
 
               Expanded(
                   child: CustomText(
@@ -217,15 +220,19 @@ class ServiceCard extends StatelessWidget {
                     child: Column(
                       children: [
                         /// TODO Implement Map
-                        Container(
-                          height: 300.h,
-                          color: AppColors.greenColor,
-                        ),
+                        // Container(
+                        //   height: 300.h,
+                        //   color: AppColors.greenColor,
+                        // ),
+
+                        Assets.images.mapImage
+                            .image(width: double.maxFinite, fit: BoxFit.cover),
                         Gap(20.h),
-                        CustomButton(
-                          onTap: () {},
-                          title: AppStrings.startWork,
-                        ),
+                        if (showStartButton)
+                          CustomButton(
+                            onTap: () {},
+                            title: AppStrings.startWork,
+                          ),
                         Gap(44.h)
                       ],
                     ),
@@ -240,6 +247,61 @@ class ServiceCard extends StatelessWidget {
                   },
                 ),
               ),
+      ),
+    );
+  }
+}
+
+class SingleServiceCard extends StatelessWidget {
+  const SingleServiceCard(
+      {super.key,
+      required this.date,
+      required this.time,
+      required this.onTapCancel});
+
+  final String date;
+  final String time;
+  final VoidCallback onTapCancel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.all(10.r),
+      color: AppColors.whiteColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ///========================= Date =====================
+          Column(
+            children: [
+              const CustomText(text: AppStrings.nextDate),
+              CustomText(text: date),
+            ],
+          ),
+
+          ///========================= Time =====================
+          Column(
+            children: [
+              const CustomText(text: AppStrings.time),
+              CustomText(text: time),
+            ],
+          ),
+
+          InkWell(
+            onTap: onTapCancel,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppColors.redColor,
+                  borderRadius: BorderRadius.circular(6.r)),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: const CustomText(
+                text: AppStrings.cancel,
+                color: AppColors.whiteColor,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

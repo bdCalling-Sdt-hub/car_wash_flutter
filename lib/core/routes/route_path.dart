@@ -24,5 +24,8 @@ class RoutePath {
   //==================================== Client screens =====================================
   static const String clientHome = 'clientHome';
   static const String clientNotification = 'workerHome';
-  static const String subscription = 'subscription';
+  static const String mySubscription = 'mySubscription';
+  static const String subscriptionPackages = 'subscriptionPackages';
+
+  static const String reqService = 'reqService';
 }
