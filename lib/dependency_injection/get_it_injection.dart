@@ -21,7 +21,7 @@ Future<void> initDependencies() async {
   );
 
   ///Api client
-  serviceLocator.registerFactory<ApiMethod>(
-    () => ApiMethod(),
+  serviceLocator.registerFactory<ApiClient>(
+    () => ApiClient(),
   );
 }

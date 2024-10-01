@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
-final log = logger(ApiMethod);
+final log = logger(ApiClient);
 
 Map<String, String> basicHeaderInfo() {
   return {
@@ -31,7 +31,7 @@ Future<Map<String, String>> bearerHeaderInfo() async {
   };
 }
 
-class ApiMethod {
+class ApiClient {
   //ApiMethod();
   // Get method
   Future get(
@@ -125,7 +125,7 @@ class ApiMethod {
 
   // Post Method
   Future<Map<String, dynamic>?> post(
-      {String? url,
+      {required String url,
       bool? isBasic,
       Map<String, dynamic>? body,
       int code = 201,
@@ -144,7 +144,7 @@ class ApiMethod {
 
       final response = await http
           .post(
-            Uri.parse(url!),
+            Uri.parse(url),
             body: jsonEncode(body),
             headers: isBasic! ? basicHeaderInfo() : await bearerHeaderInfo(),
           )

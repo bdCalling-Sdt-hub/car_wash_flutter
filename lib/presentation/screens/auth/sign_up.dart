@@ -1,3 +1,4 @@
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
@@ -40,7 +41,7 @@ class SignUpScreen extends StatelessWidget {
                 alignment: Alignment.center,
                 child: CustomText(
                   text: AppStrings.chooseARole,
-                  bottom: 8.h,
+                  bottom: 16.h,
                   fontWeight: FontWeight.w500,
                   fontSize: Dimensions.getFontSizeExtraLarge(context),
                 ),
@@ -215,7 +216,9 @@ class SignUpScreen extends StatelessWidget {
 
               ///======================== Submit Button =======================
               CustomButton(
-                onTap: () {},
+                onTap: () {
+                  context.pushNamed(RoutePath.varification);
+                },
                 title: AppStrings.signUp,
               ),
 
