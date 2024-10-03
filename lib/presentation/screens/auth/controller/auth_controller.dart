@@ -1,4 +1,6 @@
+import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/service/api_service.dart';
+import 'package:car_wash/service/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,10 @@ class AuthController extends GetxController {
   ApiClient apiClient = ApiClient();
 
   ///============================ Sign Up =========================
-  signUp() async {
-    //var response = await apiClient.post(url: );
+  signIn() async {
+    var response = await apiClient.post(
+        url: isClient.value
+            ? ApiUrl.signUpClient.addBaseUrl
+            : ApiUrl.signUpWorker);
   }
 }

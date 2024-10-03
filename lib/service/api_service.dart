@@ -3,15 +3,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/dependency_injection/path.dart';
+import 'package:car_wash/global/model/response_model.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
 import 'package:car_wash/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 final log = logger(ApiClient);
+
+typedef ServerResponse<T> = Future<Either<ErrorResponseModel, T>>;
 
 Map<String, String> basicHeaderInfo() {
   return {
@@ -124,11 +129,10 @@ class ApiClient {
   }
 
   // Post Method
-  Future<Map<String, dynamic>?> post(
+  Future<Response> post(
       {required String url,
       bool? isBasic,
       Map<String, dynamic>? body,
-      int code = 201,
       int duration = 30,
       bool showResult = false}) async {
     try {
@@ -162,26 +166,21 @@ class ApiClient {
       log.i(
           '|📒📒📒|-----------------[[ POST ]] method response end --------------------|📒📒📒|');
 
-      if (response.statusCode == code) {
-        return jsonDecode(response.body);
-      } else {
-        log.e('🐞🐞🐞 Error Alert On Status Code 🐞🐞🐞');
-
-        log.e(
-            'unknown error hitted in status code ${jsonDecode(response.body)}');
-
-        return jsonDecode(response.body);
-      }
+      return Response(body: response.body, statusCode: response.statusCode);
     } on SocketException {
       log.e('🐞🐞🐞 Error Alert on Socket Exception 🐞🐞🐞');
 
-      return null;
+      return const Response(
+          body: {},
+          statusCode: 400,
+          statusText: '🐞🐞🐞 Error Alert on Socket Exception 🐞🐞🐞');
     } on TimeoutException {
       log.e('🐞🐞🐞 Error Alert Timeout Exception🐞🐞🐞');
 
       log.e('Time out exception$url');
 
-      return null;
+      return Response(
+          body: {}, statusCode: 400, statusText: 'Time out exception $url');
     } on http.ClientException catch (err, stackrace) {
       log.e('🐞🐞🐞 Error Alert Client Exception🐞🐞🐞');
 
@@ -191,7 +190,10 @@ class ApiClient {
 
       log.e(stackrace.toString());
 
-      return null;
+      return Response(
+          body: {},
+          statusCode: 400,
+          statusText: 'client exception hitted $url');
     } catch (e) {
       log.e('🐞🐞🐞 Other Error Alert 🐞🐞🐞');
 
@@ -199,7 +201,10 @@ class ApiClient {
 
       log.e("❌❌❌ $e");
 
-      return null;
+      return const Response(
+          body: {},
+          statusCode: 400,
+          statusText: '🐞🐞🐞 Other Error Alert 🐞🐞🐞');
     }
   }
 
