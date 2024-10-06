@@ -21,7 +21,7 @@ import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter initRoute = GoRouter(
-      initialLocation: RoutePath.clientHome.addBasePath,
+      initialLocation: RoutePath.splashScreen.addBasePath,
       // navigatorKey: Get.key,
       debugLogDiagnostics: true,
       routes: [
@@ -67,7 +67,9 @@ class AppRouter {
         GoRoute(
             name: RoutePath.varification,
             path: RoutePath.varification.addBasePath,
-            builder: (context, state) => VarificationScreen()),
+            builder: (context, state) => VarificationScreen(
+                  screen: state.extra as Map<String, dynamic>,
+                )),
 
         ///======================= Sign Up Route =======================
 

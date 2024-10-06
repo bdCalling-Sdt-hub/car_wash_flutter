@@ -49,6 +49,7 @@ class DBHelper {
     String? email,
     String? mobile,
     String? deviceToken,
+    String? role,
   }) async {
     Box? users = Hive.box('users');
     users.put("token", token);
@@ -58,6 +59,8 @@ class DBHelper {
     users.put("image", image);
     users.put("mobile", mobile);
     users.put("deviceToken", deviceToken);
+    users.put("role", role);
+
     debugPrint(users.get('token'));
 
     return "done";

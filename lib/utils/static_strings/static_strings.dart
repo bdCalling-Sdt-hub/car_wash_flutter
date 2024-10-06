@@ -6,6 +6,8 @@ class AppStrings {
   ///====================== Auth ========================
   static const String signUp = "Sign Up";
   static const String email = "Email";
+  static const String screen = "screen";
+
   static const String chooseARole = "Choose a role";
 
   static const String enterValidEmail = "Enter a valid email";
@@ -25,6 +27,8 @@ class AppStrings {
   static const String and = "and";
   static const String privacyPolicy = "privacy policy";
   static const String login = "Login";
+  static const String phnNumber = "Phome Number";
+
   static const String forgot = "Forgot";
   static const String alreadyHaveaAccount = "Already have a account?";
   static const String verification = "Verification";
@@ -120,4 +124,8 @@ class AppStrings {
   static const String notification = "Notification";
   static String youHaveNewNotifications({required String count}) =>
       "You have $count new Notifications";
+
+  ///====================== Role ========================
+  static const String roleCLIENT = "CLIENT";
+  static const String roleWORKER = "WORKER";
 }

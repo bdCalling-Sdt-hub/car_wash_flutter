@@ -20,3 +20,5 @@ class AppConstants {
 }
 
 enum Status { loading, error, completed, internetError }
+
+enum Screen { signUp, forgot }

@@ -17,6 +17,8 @@ class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
 
   final AuthController authController = Get.find<AuthController>();
+
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,120 +26,137 @@ class LogInScreen extends StatelessWidget {
       body: Obx(() {
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ///================== TOP ===================
-              Gap(44.h),
-              Center(
-                child: Column(
-                  children: [
-                    SizedBox(height: Dimensions.getFontSizeOverLarge(context)),
-                    Assets.images.login.image(),
-                    CustomText(
-                      text: AppStrings.login,
-                      fontSize: Dimensions.getButtonFontSize(context),
-                    ),
-                  ],
-                ),
-              ),
-
-              CustomText(
-                text: AppStrings.email,
-                bottom: 16.h,
-                top: 24.h,
-              ),
-
-              ///===================== Email Login ==========================
-              CustomTextField(
-                textEditingController: authController.emailController.value,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppStrings.enterValidEmail;
-                  } else if (!AppStrings.emailRegexp
-                      .hasMatch(authController.emailController.value.text)) {
-                    return AppStrings.enterValidEmail;
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-
-              CustomText(
-                top: 16.h,
-                text: AppStrings.password,
-                bottom: 8.h,
-              ),
-
-              ///===================== Password Login ==========================
-              CustomTextField(
-                isDense: true,
-                textEditingController: authController.passController.value,
-                isPassword: true,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return AppStrings.passWordMustBeAtLeast;
-                  } else if (value.length < 8 ||
-                      !AppStrings.passRegexp.hasMatch(value)) {
-                    return AppStrings.passwordLengthAndContain;
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-              Gap(16.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///================== TOP ===================
+                Gap(44.h),
+                Center(
+                  child: Column(
                     children: [
-                      ///==================== Check Box ===================
-
-                      Checkbox(
-                        value: authController.rememberMe.value,
-                        onChanged: (value) {
-                          authController.rememberMe.value = value ?? false;
-                        },
-                      ),
+                      SizedBox(
+                          height: Dimensions.getFontSizeOverLarge(context)),
+                      Assets.images.login.image(),
                       CustomText(
-                        text: AppStrings.rememberMe,
-                        fontSize: Dimensions.getFontSizeSmall(context),
+                        text: AppStrings.login,
+                        fontSize: Dimensions.getButtonFontSize(context),
                       ),
                     ],
                   ),
+                ),
 
-                  ///==================== Forgot Password Button ===================
+                CustomText(
+                  text: AppStrings.email,
+                  bottom: 16.h,
+                  top: 24.h,
+                ),
 
-                  TextButton(
+                ///===================== Email Login ==========================
+                CustomTextField(
+                  textEditingController: authController.emailController.value,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppStrings.enterValidEmail;
+                    } else if (!AppStrings.emailRegexp
+                        .hasMatch(authController.emailController.value.text)) {
+                      return AppStrings.enterValidEmail;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+
+                CustomText(
+                  top: 16.h,
+                  text: AppStrings.password,
+                  bottom: 8.h,
+                ),
+
+                ///===================== Password Login ==========================
+                CustomTextField(
+                  isDense: true,
+                  textEditingController: authController.passController.value,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return AppStrings.passWordMustBeAtLeast;
+                    } else if (value.length < 8 ||
+                        !AppStrings.passRegexp.hasMatch(value)) {
+                      return AppStrings.passwordLengthAndContain;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                Gap(16.h),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        ///==================== Check Box ===================
+
+                        Checkbox(
+                          value: authController.rememberMe.value,
+                          onChanged: (value) {
+                            authController.rememberMe.value = value ?? false;
+                          },
+                        ),
+                        CustomText(
+                          text: AppStrings.rememberMe,
+                          fontSize: Dimensions.getFontSizeSmall(context),
+                        ),
+                      ],
+                    ),
+
+                    ///==================== Forgot Password Button ===================
+
+                    TextButton(
+                        onPressed: () {
+                          context.pushNamed(RoutePath.forgotPass);
+                        },
+                        child: CustomText(
+                          text: AppStrings.forgotPassword,
+                          fontSize: Dimensions.getFontSizeSmall(context),
+                        )),
+                  ],
+                ),
+
+                /// ==================== Log In Button ===================
+                Gap(44.h),
+                authController.signInLoading.value
+                    ? Align(
+                        alignment: Alignment.center,
+                        child: Assets.lottie.loading.lottie(
+                            width: context.width / 6, fit: BoxFit.cover),
+                      )
+                    : CustomButton(onTap: () {
+                        ///TODO Add Validation
+                        // if (formKey.currentState!.validate()) {
+                        //   authController.signIn(context: context);
+                        // }
+
+                        authController.signIn(context: context);
+                      }),
+
+                Gap(16.h),
+
+                /// ==================== Sign Up Button ===================
+
+                Align(
+                  alignment: Alignment.center,
+                  child: TextButton(
                       onPressed: () {
-                        context.pushNamed(RoutePath.forgotPass);
+                        context.pushNamed(RoutePath.signUp);
                       },
-                      child: CustomText(
-                        text: AppStrings.forgotPassword,
-                        fontSize: Dimensions.getFontSizeSmall(context),
-                      )),
-                ],
-              ),
-
-              /// ==================== Log In Button ===================
-              Gap(44.h),
-              CustomButton(onTap: () {
-                context.pushReplacementNamed(RoutePath.workerHome);
-              }),
-              Gap(16.h),
-
-              /// ==================== Log In Button ===================
-
-              Align(
-                alignment: Alignment.center,
-                child: TextButton(
-                    onPressed: () {
-                      context.pushNamed(RoutePath.signUp);
-                    },
-                    child: const CustomText(text: AppStrings.dontHaveAAccount)),
-              )
-            ],
+                      child:
+                          const CustomText(text: AppStrings.dontHaveAAccount)),
+                )
+              ],
+            ),
           ),
         );
       }),

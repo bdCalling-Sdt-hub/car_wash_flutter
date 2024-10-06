@@ -1,4 +1,6 @@
+import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/core/routes/route_path.dart';
+import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
@@ -35,17 +37,17 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Gap(24.h),
+              Gap(10.h),
 
-              Align(
-                alignment: Alignment.center,
-                child: CustomText(
-                  text: AppStrings.chooseARole,
-                  bottom: 16.h,
-                  fontWeight: FontWeight.w500,
-                  fontSize: Dimensions.getFontSizeExtraLarge(context),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: CustomText(
+              //     text: AppStrings.chooseARole,
+              //     bottom: 16.h,
+              //     fontWeight: FontWeight.w500,
+              //     fontSize: Dimensions.getFontSizeExtraLarge(context),
+              //   ),
+              // ),
 
               ///================= Choose Role ==================
               Row(
@@ -87,7 +89,29 @@ class SignUpScreen extends StatelessWidget {
                 ],
               ),
 
-              Gap(24.h),
+              // Gap(24.h),
+              14.heightWidth,
+
+              CustomText(
+                text: AppStrings.name,
+                bottom: 8.h,
+              ),
+
+              ///===================== Name  ======================
+              CustomTextField(
+                textEditingController: authController.nameController.value,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppStrings.enterValidEmail;
+                  } else if (!AppStrings.emailRegexp
+                      .hasMatch(authController.emailController.value.text)) {
+                    return AppStrings.enterValidEmail;
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              14.heightWidth,
 
               CustomText(
                 text: AppStrings.email,
@@ -108,6 +132,29 @@ class SignUpScreen extends StatelessWidget {
                   }
                 },
               ),
+
+              14.heightWidth,
+
+              CustomText(
+                text: AppStrings.phnNumber,
+                bottom: 8.h,
+              ),
+
+              ///===================== Phone Number  ======================
+              CustomTextField(
+                textEditingController: authController.phoneController.value,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppStrings.enterValidEmail;
+                  } else if (!AppStrings.emailRegexp
+                      .hasMatch(authController.emailController.value.text)) {
+                    return AppStrings.enterValidEmail;
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+
               CustomText(
                 top: 16.h,
                 text: AppStrings.password,
@@ -154,7 +201,7 @@ class SignUpScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              Gap(24.h),
+              14.heightWidth,
 
               Row(
                 children: [
@@ -214,13 +261,20 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gap(16.h),
 
-              ///======================== Submit Button =======================
-              CustomButton(
-                onTap: () {
-                  context.pushNamed(RoutePath.varification);
-                },
-                title: AppStrings.signUp,
-              ),
+              ///======================== Sign Up Submit Button =======================
+              authController.signUpLoading.value
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: Assets.lottie.loading
+                          .lottie(width: context.width / 6, fit: BoxFit.cover),
+                    )
+                  : CustomButton(
+                      onTap: () {
+                        // context.pushNamed(RoutePath.varification);
+                        authController.signup(context: context);
+                      },
+                      title: AppStrings.signUp,
+                    ),
 
               Align(
                 alignment: Alignment.center,
