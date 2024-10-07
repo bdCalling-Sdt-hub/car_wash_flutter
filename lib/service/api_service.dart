@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:car_wash/core/network/connection_checker.dart';
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/model/response_model.dart';
@@ -37,16 +38,17 @@ Future<Map<String, String>> bearerHeaderInfo() async {
   };
 }
 
+ConnectionChecker connectionChecker = serviceLocator();
+
 class ApiClient {
-  //ApiMethod();
-  // Get method
-  Future get(
-      {String? url,
+  //=========================== Get method ======================
+
+  Future<Response> get(
+      {required String url,
       bool? isBasic,
-      int code = 200,
-      int duration = 15,
-      bool showResult = false,
-      BuildContext? context}) async {
+      int duration = 30,
+      bool showResult = true,
+      required BuildContext context}) async {
     log.i(
         '|📍📍📍|----------------- [[ GET ]] method details start -----------------|📍📍📍|');
     log.i(url);
@@ -56,7 +58,7 @@ class ApiClient {
     try {
       final response = await http
           .get(
-            Uri.parse(url!),
+            Uri.parse(url),
             headers: isBasic! ? basicHeaderInfo() : await bearerHeaderInfo(),
           )
           .timeout(Duration(seconds: duration));
@@ -65,83 +67,92 @@ class ApiClient {
           '|📒📒📒|-----------------[[ GET ]] method response start -----------------|📒📒📒|');
 
       if (showResult) {
-        log.i(response.body.toString());
+        log.i("Body => ${response.body}");
       }
 
-      log.i(response.statusCode);
+      log.i("Status Code => ${response.statusCode}");
 
       log.i(
           '|📒📒📒|-----------------[[ GET ]] method response end -----------------|📒📒📒|');
 
-      if (response.statusCode == code) {
-        return jsonDecode(response.body);
-      } else {
-        log.e('🐞🐞🐞 Error Alert On Status Code 🐞🐞🐞');
-        log.e(
-            'unknown error hitted in status code${jsonDecode(response.body)}');
+      var body = jsonDecode(response.body);
 
-        return jsonDecode(response.body);
-      }
+      return Response(
+        body: body ?? response.body,
+        bodyString: response.body.toString(),
+        request: Request(
+            headers: response.request!.headers,
+            method: response.request!.method,
+            url: response.request!.url),
+        headers: response.headers,
+        statusCode: response.statusCode,
+        statusText: response.reasonPhrase,
+      );
     } on SocketException {
       log.e('🐞🐞🐞 Error Alert on Socket Exception 🐞🐞🐞');
 
       //showSnackBar(context!, 'Check your Internet Connection and try again!');
       //context.pushNamed(RoutePath.errorScreen);
 
-      if (context != null && context.mounted) {
+      if (context.mounted) {
         showSnackBar(
-            context: context,
-            content: 'Check your Internet Connection and try again!');
+            context: context, content: 'Error Alert on Socket Exception');
         context.pushNamed(RoutePath.errorScreen);
       }
-      return null;
+      return const Response(
+          body: {},
+          statusCode: 400,
+          statusText: 'Error Alert on Socket Exception');
     } on TimeoutException {
       log.e('🐞🐞🐞 Error Alert Timeout Exception🐞🐞🐞');
 
       log.e('Time out exception$url');
 
-      if (context != null && context.mounted) {
-        showSnackBar(
-          context: context,
-          content: 'Check your Internet Connection and try again!',
-        );
-        context.pushNamed(RoutePath.errorScreen);
-      }
-
-      return null;
+      return const Response(
+          body: {}, statusCode: 400, statusText: 'Time out exception');
     } on http.ClientException catch (err, stackrace) {
-      log.e('🐞🐞🐞 Error Alert Client Exception🐞🐞🐞');
+      log.e('🐞🐞🐞 Error Alert Client Exception 🐞🐞🐞');
 
       log.e('client exception hitted');
 
       log.e(err.toString());
 
       log.e(stackrace.toString());
-      if (context != null && context.mounted) {
+      if (context.mounted) {
         context.pushNamed(RoutePath.errorScreen);
       }
-      return null;
+      return const Response(
+          body: {},
+          statusCode: 400,
+          statusText: 'Error Alert Client Exception');
     } catch (e) {
       log.e('🐞🐞🐞 Other Error Alert 🐞🐞🐞');
 
       log.e('❌❌❌ unlisted error received');
 
       log.e("❌❌❌ $e");
-      if (context != null && context.mounted) {
-        context.pushNamed(RoutePath.errorScreen);
-      }
-      return null;
+
+      return const Response(
+          body: {}, statusCode: 400, statusText: "Something went wrong");
     }
   }
 
-  // Post Method
+  //========================== Post Method =======================
   Future<Response> post(
       {required String url,
       bool isBasic = false,
       Map<String, dynamic>? body,
+      required BuildContext context,
       int duration = 30,
       bool showResult = true}) async {
     try {
+      /// ======================- Check Internet ===================
+
+      if (!await (connectionChecker.isConnected)) {
+        return const Response(
+            statusCode: 503, statusText: "No internet connection.!");
+      }
+
       log.i(
           '|📍📍📍|-----------------[[ POST ]] method details start -----------------|📍📍📍|');
 
@@ -187,6 +198,12 @@ class ApiClient {
       );
     } on SocketException {
       log.e('🐞🐞🐞 Error Alert on Socket Exception 🐞🐞🐞');
+
+      if (context.mounted) {
+        showSnackBar(
+            context: context, content: 'Error Alert on Socket Exception');
+        // context.pushNamed(RoutePath.errorScreen);
+      }
 
       return const Response(
           body: {},

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/core/routes/routes.dart';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
+import 'package:car_wash/helper/tost_message/show_snackbar.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/service/check_api.dart';
@@ -20,7 +23,7 @@ class AuthController extends GetxController {
       TextEditingController(text: kDebugMode ? "123456789" : "").obs;
 
   Rx<TextEditingController> emailController =
-      TextEditingController(text: kDebugMode ? "client1@gmail.com" : "").obs;
+      TextEditingController(text: kDebugMode ? "mdh95831@gmail.com" : "").obs;
   Rx<TextEditingController> passController =
       TextEditingController(text: kDebugMode ? "1234567Rr" : "").obs;
   Rx<TextEditingController> confirmController =
@@ -32,9 +35,17 @@ class AuthController extends GetxController {
   Rx<bool> isAgree = false.obs;
   Rx<bool> isClient = true.obs;
 
-  ApiClient apiClient = ApiClient();
+  ApiClient apiClient = serviceLocator();
 
   DBHelper dbHelper = serviceLocator();
+
+  /// =================== Save Info ===================
+
+  saveInformation({required Response<dynamic> response}) {
+    dbHelper.storeTokenUserdata(
+        token: response.body["data"]["accessToken"],
+        role: response.body["data"]["role"]);
+  }
 
   ///============================ Sign In =========================
   RxBool signInLoading = false.obs;
@@ -47,6 +58,7 @@ class AuthController extends GetxController {
       "password": passController.value.text
     };
     var response = await apiClient.post(
+        context: context,
         body: body,
         isBasic: true,
         url: isClient.value
@@ -57,6 +69,7 @@ class AuthController extends GetxController {
     // if (!context.mounted) return;
 
     if (response.statusCode == 200) {
+      saveInformation(response: response);
       if (response.body["data"]["role"] == AppStrings.roleCLIENT) {
         AppRouter.route.replaceNamed(RoutePath.clientHome);
       } else {
@@ -85,6 +98,7 @@ class AuthController extends GetxController {
     };
 
     var response = await apiClient.post(
+        context: context,
         body: body,
         isBasic: true,
         url: isClient.value
@@ -92,6 +106,9 @@ class AuthController extends GetxController {
             : ApiUrl.signUpWorker.addBaseUrl);
 
     if (response.statusCode == 200) {
+      secondsRemaining.value = 60;
+      secondsRemaining.refresh();
+      startTimer();
       AppRouter.route.pushNamed(RoutePath.varification,
           extra: {AppStrings.screen: Screen.signUp});
     } else {
@@ -120,7 +137,14 @@ class AuthController extends GetxController {
             ? ApiUrl.activeClient.addBaseUrl
             : ApiUrl.activeWorker.addBaseUrl);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
+      timer.cancel();
+      showSnackBar(
+          // ignore: use_build_context_synchronously
+          context: context,
+          content: response.body["message"],
+          backgroundColor: Colors.green);
+
       AppRouter.route.pushReplacementNamed(
         RoutePath.login,
       );
@@ -130,5 +154,46 @@ class AuthController extends GetxController {
     }
 
     verifyLoading.value = false;
+  }
+
+  /// ======================== Timer ====================
+
+  RxInt secondsRemaining = 60.obs;
+  late Timer timer;
+
+  void startTimer() {
+    debugPrint("resend OTP Timer -------->>>>>>>>> $secondsRemaining");
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsRemaining.value > 0) {
+        secondsRemaining.value--;
+        secondsRemaining.refresh();
+        debugPrint("resend OTP Timer -------->>>>>>>>> $secondsRemaining");
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  /// ===================== Resent OTP ======================
+
+  Future<bool> resendOTP() async {
+    var body = {"email": emailController.value.text};
+
+    var response = await apiClient.patch(
+        isBasic: true,
+        body: body,
+        url: isClient.value
+            ? ApiUrl.resendOTpClient.addBaseUrl
+            : ApiUrl.resendOTpClient.addBaseUrl);
+
+    if (response.statusCode == 200) {
+      secondsRemaining.value = 60;
+      secondsRemaining.refresh();
+      startTimer();
+
+      return true;
+    } else {
+      return false;
+    }
   }
 }

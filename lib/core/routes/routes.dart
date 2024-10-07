@@ -15,7 +15,7 @@ import 'package:car_wash/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:car_wash/presentation/screens/worker/worked_history/worked_history.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/worker_home.dart';
 import 'package:car_wash/presentation/screens/worker/worker_notification/worker_notification.dart';
-import 'package:car_wash/presentation/screens/worker/worker_profile/worker_profile.dart';
+import 'package:car_wash/presentation/screens/profile/profile.dart';
 import 'package:car_wash/presentation/widgets/error_screen/error_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -97,7 +97,7 @@ class AppRouter {
         GoRoute(
             name: RoutePath.workerProfile,
             path: RoutePath.workerProfile.addBasePath,
-            builder: (context, state) => WorkerProfile()),
+            builder: (context, state) => ProfileScreen()),
 
         /// ==================== Order/Worked History ====================
         GoRoute(

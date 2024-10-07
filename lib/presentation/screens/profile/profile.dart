@@ -1,5 +1,5 @@
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
-import 'package:car_wash/global/profile_controller/profile_controller.dart';
+import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
@@ -11,10 +11,11 @@ import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WorkerProfile extends StatelessWidget {
-  WorkerProfile({super.key});
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
 
   final ProfileController profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     Widget customColum(

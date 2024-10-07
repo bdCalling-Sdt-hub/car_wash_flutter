@@ -15,6 +15,11 @@ void checkApi({
   if (response.statusCode == 401) {
     //await SharePrefsHelper.remove(AppConstants.bearerToken);
     AppRouter.route.replaceNamed(RoutePath.login);
+  } else if (response.statusCode == 503) {
+    showSnackBar(
+      context: context,
+      content: response.statusText ?? "No internet connection",
+    );
   } else {
     showSnackBar(
       context: context,

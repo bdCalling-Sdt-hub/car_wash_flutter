@@ -1,5 +1,4 @@
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
-import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -58,6 +57,9 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () {
                       authController.isClient.value =
                           !authController.isClient.value;
+
+                      debugPrint(
+                          "Role ======>>>>>>> ${authController.isClient}");
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -76,6 +78,9 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () {
                       authController.isClient.value =
                           !authController.isClient.value;
+
+                      debugPrint(
+                          "Role ======>>>>>>> ${authController.isClient}");
                     },
                     child: Container(
                       alignment: Alignment.center,

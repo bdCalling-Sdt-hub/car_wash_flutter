@@ -15,10 +15,11 @@ Future<void> initDependencies() async {
     ),
   );
 
-  ///db
+  /// ===================== DB =====================
   serviceLocator.registerFactory<DBHelper>(
     () => DBHelper(),
   );
+
 
   ///Api client
   serviceLocator.registerFactory<ApiClient>(

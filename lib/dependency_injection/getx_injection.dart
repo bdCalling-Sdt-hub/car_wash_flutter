@@ -2,7 +2,7 @@ import 'package:car_wash/global/general_controller/general_controller.dart';
 import 'package:car_wash/presentation/screens/auth/controller/auth_controller.dart';
 import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
-import 'package:car_wash/global/profile_controller/profile_controller.dart';
+import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 
 import 'package:get/get.dart';
 

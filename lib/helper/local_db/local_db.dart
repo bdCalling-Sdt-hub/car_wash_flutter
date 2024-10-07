@@ -3,6 +3,9 @@ import 'package:hive/hive.dart';
 
 class DBHelper {
   Future<bool> checkUserLogedIn() async {
+    /// =================== Open BOX ======================
+    await Hive.openBox('users');
+
     var users = Hive.box(
       'users',
     );
@@ -52,6 +55,7 @@ class DBHelper {
     String? role,
   }) async {
     Box? users = Hive.box('users');
+
     users.put("token", token);
     users.put("id", id);
     users.put("email", email);
