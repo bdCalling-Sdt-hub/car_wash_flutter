@@ -136,7 +136,7 @@ class AppRouter {
         GoRoute(
             name: RoutePath.reqService,
             path: RoutePath.reqService.addBasePath,
-            builder: (context, state) => const RequestService()),
+            builder: (context, state) => RequestService()),
 
         /// ==================== Client Service Request ===================
 

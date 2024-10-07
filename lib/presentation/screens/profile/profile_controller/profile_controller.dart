@@ -12,11 +12,18 @@ class ProfileController extends GetxController {
   Rx<TextEditingController> nameController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> phoneController = TextEditingController().obs;
+  Rx<TextEditingController> addressController = TextEditingController().obs;
+  Rx<TextEditingController> dOBController = TextEditingController().obs;
+
   // Rx<TextEditingController> locationController =
   //     TextEditingController(text: "Saudi Arab").obs;
+  RxBool updateProfile = true.obs;
   ApiClient apiClient = serviceLocator();
 
   /// ========================= Get Profile Information ==========================
+
+  /// TODO Get Profile Needs to be Dynamic
+
   final profileLoading = Status.loading.obs;
   void profileLoadingMethod(Status value) => profileLoading.value = value;
   Rx<ProfileDataModel> profileModel = ProfileDataModel().obs;
@@ -48,9 +55,14 @@ class ProfileController extends GetxController {
     emailController = TextEditingController(text: profileModel.email ?? "").obs;
     phoneController =
         TextEditingController(text: profileModel.phoneNumber ?? "").obs;
-    //locationController = TextEditingController(text: "Saudi Arab").obs;
+
+    addressController =
+        TextEditingController(text: profileModel.address ?? "").obs;
+    dOBController =
+        TextEditingController(text: profileModel.dateOfBirth ?? "").obs;
   }
 
+  /// TODO Update Profile Not Done
   @override
   void onInit() {
     getProfile();

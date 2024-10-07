@@ -5,6 +5,9 @@ class ProfileDataModel {
   String? phoneNumber;
   String? role;
   String? profileImage;
+  String? address;
+  String? dateOfBirth;
+
   int? activationCode;
   DateTime? expirationTime;
   bool? isBlock;
@@ -20,30 +23,32 @@ class ProfileDataModel {
   DateTime? updatedAt;
   int? v;
 
-  ProfileDataModel({
-    this.id,
-    this.name,
-    this.email,
-    this.phoneNumber,
-    this.role,
-    this.profileImage,
-    this.activationCode,
-    this.expirationTime,
-    this.isBlock,
-    this.isActive,
-    this.isSubscribed,
-    this.isFirstRequest,
-    this.totalService,
-    this.availableService,
-    this.currentServiceNumber,
-    this.currentPackageName,
-    this.currentSubscription,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-  });
+  ProfileDataModel(
+      {this.id,
+      this.name,
+      this.email,
+      this.phoneNumber,
+      this.role,
+      this.profileImage,
+      this.activationCode,
+      this.expirationTime,
+      this.isBlock,
+      this.isActive,
+      this.isSubscribed,
+      this.isFirstRequest,
+      this.totalService,
+      this.availableService,
+      this.currentServiceNumber,
+      this.currentPackageName,
+      this.currentSubscription,
+      this.createdAt,
+      this.updatedAt,
+      this.v,
+      this.address,
+      this.dateOfBirth});
 
-  factory ProfileDataModel.fromJson(Map<String, dynamic> json) => ProfileDataModel(
+  factory ProfileDataModel.fromJson(Map<String, dynamic> json) =>
+      ProfileDataModel(
         id: json["_id"],
         name: json["name"],
         email: json["email"],
@@ -70,28 +75,7 @@ class ProfileDataModel {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        address: json["address"],
+        dateOfBirth: json["date_of_birth"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "name": name,
-        "email": email,
-        "phone_number": phoneNumber,
-        "role": role,
-        "profile_image": profileImage,
-        "activationCode": activationCode,
-        "expirationTime": expirationTime?.toIso8601String(),
-        "is_block": isBlock,
-        "isActive": isActive,
-        "isSubscribed": isSubscribed,
-        "isFirstRequest": isFirstRequest,
-        "totalService": totalService,
-        "availableService": availableService,
-        "currentServiceNumber": currentServiceNumber,
-        "currentPackageName": currentPackageName,
-        "currentSubscription": currentSubscription,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
-        "__v": v,
-      };
 }

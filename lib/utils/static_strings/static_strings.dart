@@ -67,6 +67,8 @@ class AppStrings {
       "Don’t have coupon code? Go to the Payment";
   static const String apply = "Apply";
   static const String location = "Location: ";
+  static const String mapView = "Map View";
+
   static const String subsCriptionBuying = "Subscription buying";
   static const String subsCriptionEnding = "Subscription ending";
   static const String package = "Package";
@@ -107,6 +109,9 @@ class AppStrings {
   static const String date = "Date: ";
 
   static const String contactNumber = "Contact Number: ";
+  static const String address = "Address";
+  static const String dateOfBirth = "Date of Birth";
+
   static const String description = "Description:  ";
   static const String startWork = "Start Work";
   static const String startTime = "Start Time";
@@ -118,6 +123,8 @@ class AppStrings {
   ///====================== Profile ========================
   static const String profile = "Profile";
   static const String name = "Name";
+  static const String updateProfile = "Update Profile";
+
   static const String editProfile = "Edit Profile";
 
   ///====================== Notification ========================
