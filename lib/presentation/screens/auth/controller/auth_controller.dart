@@ -36,7 +36,6 @@ class AuthController extends GetxController {
   Rx<bool> isClient = true.obs;
 
   ApiClient apiClient = serviceLocator();
-
   DBHelper dbHelper = serviceLocator();
 
   /// =================== Save Info ===================

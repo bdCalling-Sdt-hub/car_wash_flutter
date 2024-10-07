@@ -1,10 +1,13 @@
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
+import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/helper/network_image/network_image.dart';
+import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar(
@@ -13,13 +16,15 @@ class CustomAppbar extends StatelessWidget {
       required this.name,
       required this.location,
       required this.onTapMenu,
-      required this.onTapNotification});
+      required this.onTapNotification,
+      required this.profileController});
 
   final String image;
   final String name;
   final String location;
   final VoidCallback onTapMenu;
   final VoidCallback onTapNotification;
+  final ProfileController profileController;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +37,17 @@ class CustomAppbar extends StatelessWidget {
           Row(
             children: [
               /// ================== Profile Image ===================
-              CustomNetworkImage(
-                  boxShape: BoxShape.circle,
-                  imageUrl: image,
-                  height: 50.r,
-                  width: 50.r),
+              GestureDetector(
+                onTap: () {
+                  // profileController.getProfile();
+                  context.pushNamed(RoutePath.profile);
+                },
+                child: CustomNetworkImage(
+                    boxShape: BoxShape.circle,
+                    imageUrl: image,
+                    height: 50.r,
+                    width: 50.r),
+              ),
 
               Gap(10.w),
 

@@ -3,37 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({
-    this.inputFormatters,
-    this.onFieldSubmitted,
-    this.textEditingController,
-    this.focusNode,
-    this.keyboardType = TextInputType.text,
-    this.textInputAction = TextInputAction.next,
-    this.cursorColor = AppColors.blackLightColor,
-    this.inputTextStyle,
-    this.textAlignVertical = TextAlignVertical.center,
-    this.textAlign = TextAlign.start,
-    this.onChanged,
-    this.maxLines = 1,
-    this.validator,
-    this.hintText,
-    this.hintStyle,
-    this.suffixIcon,
-    this.suffixIconColor,
-    this.isPassword = false,
-    this.readOnly = false,
-    this.maxLength,
-    super.key,
-    this.prefixIcon,
-    this.onTap,
-    this.isCollapsed,
-    this.isDense,
-    this.border,
-    this.focusedBorder,
-    this.enabledBorder,
-    this.fillColor,
-  });
+  const CustomTextField(
+      {this.inputFormatters,
+      this.onFieldSubmitted,
+      this.textEditingController,
+      this.focusNode,
+      this.keyboardType = TextInputType.text,
+      this.textInputAction = TextInputAction.next,
+      this.cursorColor = AppColors.blackLightColor,
+      this.inputTextStyle,
+      this.textAlignVertical = TextAlignVertical.center,
+      this.textAlign = TextAlign.start,
+      this.onChanged,
+      this.maxLines = 1,
+      this.validator,
+      this.hintText,
+      this.hintStyle,
+      this.suffixIcon,
+      this.suffixIconColor,
+      this.isPassword = false,
+      this.readOnly = false,
+      this.maxLength,
+      super.key,
+      this.prefixIcon,
+      this.onTap,
+      this.isCollapsed,
+      this.isDense,
+      this.border,
+      this.focusedBorder,
+      this.enabledBorder,
+      this.fillColor,
+      this.contentPadding = const EdgeInsets.only(left: 10)});
 
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -62,7 +62,7 @@ class CustomTextField extends StatefulWidget {
   final OutlineInputBorder? enabledBorder;
 
   final bool isPassword;
-
+  final EdgeInsetsGeometry contentPadding;
   final bool readOnly;
   final int? maxLength;
   final bool? isCollapsed;
@@ -97,7 +97,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 10),
+          contentPadding: widget.contentPadding,
           fillColor: widget.fillColor,
           isCollapsed: widget.isCollapsed,
           isDense: widget.isDense,

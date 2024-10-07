@@ -17,7 +17,7 @@ class RoutePath {
   //==================================== Worker screens =====================================
 
   static const String workerHome = 'workerHome';
-  static const String workerProfile = 'workerProfile';
+  static const String profile = 'workerProfile';
   static const String orderHistory = 'orderHistory';
   static const String workerNotification = 'workerNotification';
 

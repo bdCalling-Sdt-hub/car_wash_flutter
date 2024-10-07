@@ -1,6 +1,7 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
 import 'package:car_wash/presentation/screens/client/client_home/inner/package_status.dart';
+import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
@@ -21,6 +22,8 @@ class ClientHome extends StatelessWidget {
 
   final ClientHomeController clientHomeController =
       Get.find<ClientHomeController>();
+
+  final ProfileController profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,7 @@ class ClientHome extends StatelessWidget {
               context.pushNamed(RoutePath.orderHistory);
             },
             onTapProfile: () {
-              context.pushNamed(RoutePath.workerProfile);
+              context.pushNamed(RoutePath.profile);
             },
             onTapSubscription: () {
               // context.pushNamed(RoutePath.orderHistory);
@@ -77,6 +80,7 @@ class ClientHome extends StatelessWidget {
               ///==================== App Bar =====================
 
               CustomAppbar(
+                  profileController: profileController,
                   image: AppConstants.onlineImage,
                   name: "Fatma",
                   location: "Soudi Arab",

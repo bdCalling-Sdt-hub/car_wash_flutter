@@ -18,18 +18,20 @@ class DBHelper {
     return users.get('token') != null;
   }
 
+  /// ====================== Get Token ====================
+
   Future<String> getToken() async {
     var users = Hive.box(
       'users',
     );
     // Logger().e("dd");
     if (users.get('token') == null) {
-      debugPrint("hive ");
-    } else {
-      debugPrint("hive  ${users.get('token')}");
+      debugPrint("Token null");
     }
     return users.get('token');
   }
+
+  /// ====================== Save User ID ==================
 
   Future<String> getUserId() async {
     var users = Hive.box(
@@ -43,6 +45,8 @@ class DBHelper {
     }
     return users.get('id');
   }
+
+  /// ====================== Save User Information ==================
 
   Future storeTokenUserdata({
     String? token,

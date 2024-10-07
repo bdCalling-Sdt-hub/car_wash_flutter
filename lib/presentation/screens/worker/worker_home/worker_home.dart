@@ -1,4 +1,5 @@
 import 'package:car_wash/core/routes/route_path.dart';
+import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_start.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
@@ -21,6 +22,8 @@ class WorkerHome extends StatelessWidget {
   final WorkerHomeController workerHomeController =
       Get.find<WorkerHomeController>();
 
+  final ProfileController profileController = Get.find<ProfileController>();
+
   final scafoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class WorkerHome extends StatelessWidget {
           context.pushNamed(RoutePath.orderHistory);
         },
         onTapProfile: () {
-          context.pushNamed(RoutePath.workerProfile);
+          context.pushNamed(RoutePath.profile);
         },
         onTapSubscription: () {
           // context.pushNamed(RoutePath.orderHistory);
@@ -46,6 +49,7 @@ class WorkerHome extends StatelessWidget {
             ///==================== App Bar =====================
 
             CustomAppbar(
+                profileController: profileController,
                 image: AppConstants.onlineImage,
                 name: "Fatma",
                 location: "Soudi Arab",

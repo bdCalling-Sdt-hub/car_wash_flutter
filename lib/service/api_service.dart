@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 
 final log = logger(ApiClient);
 
@@ -30,7 +29,7 @@ Map<String, String> basicHeaderInfo() {
 Future<Map<String, String>> bearerHeaderInfo() async {
   DBHelper dbHelper = serviceLocator();
   final token = await dbHelper.getToken();
-  Logger().e("Bearer $token");
+  log.i("Bearer $token");
   return {
     HttpHeaders.acceptHeader: "application/json",
     HttpHeaders.contentTypeHeader: "application/json",
@@ -45,10 +44,16 @@ class ApiClient {
 
   Future<Response> get(
       {required String url,
-      bool? isBasic,
+      bool isBasic = false,
       int duration = 30,
       bool showResult = true,
-      required BuildContext context}) async {
+      BuildContext? context}) async {
+    /// ======================- Check Internet ===================
+
+    if (!await (connectionChecker.isConnected)) {
+      return const Response(
+          statusCode: 503, statusText: "No internet connection.!");
+    }
     log.i(
         '|📍📍📍|----------------- [[ GET ]] method details start -----------------|📍📍📍|');
     log.i(url);
@@ -59,7 +64,7 @@ class ApiClient {
       final response = await http
           .get(
             Uri.parse(url),
-            headers: isBasic! ? basicHeaderInfo() : await bearerHeaderInfo(),
+            headers: isBasic ? basicHeaderInfo() : await bearerHeaderInfo(),
           )
           .timeout(Duration(seconds: duration));
 
@@ -67,10 +72,10 @@ class ApiClient {
           '|📒📒📒|-----------------[[ GET ]] method response start -----------------|📒📒📒|');
 
       if (showResult) {
-        log.i("Body => ${response.body}");
+        log.d("Body => ${response.body}");
       }
 
-      log.i("Status Code => ${response.statusCode}");
+      log.d("Status Code => ${response.statusCode}");
 
       log.i(
           '|📒📒📒|-----------------[[ GET ]] method response end -----------------|📒📒📒|');
@@ -94,7 +99,7 @@ class ApiClient {
       //showSnackBar(context!, 'Check your Internet Connection and try again!');
       //context.pushNamed(RoutePath.errorScreen);
 
-      if (context.mounted) {
+      if (context != null && context.mounted) {
         showSnackBar(
             context: context, content: 'Error Alert on Socket Exception');
         context.pushNamed(RoutePath.errorScreen);
@@ -118,7 +123,7 @@ class ApiClient {
       log.e(err.toString());
 
       log.e(stackrace.toString());
-      if (context.mounted) {
+      if (context != null && context.mounted) {
         context.pushNamed(RoutePath.errorScreen);
       }
       return const Response(

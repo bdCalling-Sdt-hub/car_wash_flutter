@@ -95,8 +95,8 @@ class AppRouter {
 
         /// ==================== Worker Profile ====================
         GoRoute(
-            name: RoutePath.workerProfile,
-            path: RoutePath.workerProfile.addBasePath,
+            name: RoutePath.profile,
+            path: RoutePath.profile.addBasePath,
             builder: (context, state) => ProfileScreen()),
 
         /// ==================== Order/Worked History ====================
