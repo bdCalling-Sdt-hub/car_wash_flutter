@@ -55,8 +55,7 @@ class SignUpScreen extends StatelessWidget {
                   Expanded(
                       child: InkWell(
                     onTap: () {
-                      authController.isClient.value =
-                          !authController.isClient.value;
+                      authController.isClient.value = true;
 
                       debugPrint(
                           "Role ======>>>>>>> ${authController.isClient}");
@@ -76,8 +75,7 @@ class SignUpScreen extends StatelessWidget {
                   Expanded(
                       child: InkWell(
                     onTap: () {
-                      authController.isClient.value =
-                          !authController.isClient.value;
+                      authController.isClient.value = false;
 
                       debugPrint(
                           "Role ======>>>>>>> ${authController.isClient}");

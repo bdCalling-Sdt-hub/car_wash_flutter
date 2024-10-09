@@ -28,7 +28,7 @@ class GeneralController extends GetxController {
       // Format the date to "25 Aug 2024"
       String formattedDate = DateFormat('d MMM y').format(date);
 
-      debugPrint("Picked Date ----->>>>>> $pickedDate");
+      // debugPrint("Picked Date ----->>>>>> $pickedDate");
       return pickedDate.value = formattedDate;
     }
 
