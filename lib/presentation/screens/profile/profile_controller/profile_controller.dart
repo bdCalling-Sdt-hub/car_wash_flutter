@@ -44,7 +44,7 @@ class ProfileController extends GetxController {
         profileLoadingMethod(Status.error);
       }
       // ignore: use_build_context_synchronously
-      checkApi(response: response, context: context);
+      checkApi(response: response, context: context!);
     }
   }
 

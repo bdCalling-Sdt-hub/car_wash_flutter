@@ -26,4 +26,7 @@ class ApiUrl {
   /// ========================== Get Profile =========================
   static const clientProfile = "/client/profile";
   static const workerProfile = "/worker/profile";
+
+  /// ========================================= Client API's ===============================================
+  static const createJob = "/job/create-job";
 }

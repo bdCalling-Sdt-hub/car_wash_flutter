@@ -47,12 +47,18 @@ class GeneralController extends GetxController {
     );
 
     if (time != null) {
-      String formattedTime =
-          "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+      // Convert to 12-hour format
+      final hours = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+      final minutes = time.minute.toString().padLeft(2, '0');
+      final period = time.period == DayPeriod.am ? "AM" : "PM";
 
-      // Update the observable variable
+      String formattedTime = "$hours:$minutes $period";
+
+      // Update the observable variable with the formatted time
       return pickedTime.value = formattedTime;
     }
+
+    // Return an empty string if no time is selected
     return "";
   }
 }

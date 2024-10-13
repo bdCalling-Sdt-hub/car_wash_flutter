@@ -219,12 +219,6 @@ class ServiceCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Column(
                       children: [
-                        /// TODO Implement Map
-                        // Container(
-                        //   height: 300.h,
-                        //   color: AppColors.greenColor,
-                        // ),
-
                         Assets.images.mapImage
                             .image(width: double.maxFinite, fit: BoxFit.cover),
                         Gap(20.h),

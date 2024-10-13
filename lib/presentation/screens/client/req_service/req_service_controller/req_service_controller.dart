@@ -1,14 +1,22 @@
+import 'dart:async';
+
 import 'package:car_wash/dependency_injection/path.dart';
+import 'package:car_wash/helper/extension/base_extension.dart';
+import 'package:car_wash/helper/tost_message/show_snackbar.dart';
 import 'package:car_wash/presentation/screens/client/req_service/model/place_search_model.dart';
 import 'package:car_wash/scret_key.dart';
 import 'package:car_wash/service/api_service.dart';
+import 'package:car_wash/service/api_url.dart';
+import 'package:car_wash/service/check_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ReqServiceController extends GetxController {
   ApiClient apiClient = serviceLocator();
 
   RxList<PlaceDetailsModel> places = <PlaceDetailsModel>[].obs;
+
   Future<List<PlaceDetailsModel>> fetchPlaceDetails(
       {required String searchQuery}) async {
     // First API call: Place Autocomplete API
@@ -71,11 +79,74 @@ class ReqServiceController extends GetxController {
     }
   }
 
+  Rx<LatLng> sourceLocation = const LatLng(23.7599042, 90.410031).obs;
+  Rx<CameraPosition> cameraPosition =
+      const CameraPosition(target: LatLng(23.7599042, 90.410031), zoom: 13).obs;
+
+  final Rx<Completer<GoogleMapController>> mapController =
+      Completer<GoogleMapController>().obs;
+
+  Future<void> changeCameraPosition() async {
+    try {
+      debugPrint("Source Location -------------->>>>>> $sourceLocation");
+      // Ensure that the map controller has been initialized
+
+      final GoogleMapController controller = await mapController.value.future;
+
+      // Update the camera position with the new target (sourceLocation)
+      cameraPosition.value = CameraPosition(
+        target: sourceLocation.value,
+        zoom: 13,
+      );
+
+      // Animate the camera to the new position
+      await controller.animateCamera(
+        CameraUpdate.newCameraPosition(cameraPosition.value),
+      );
+
+      // Refresh the sourceLocation if needed
+      sourceLocation.refresh();
+    } catch (e) {
+      // Catch and log any errors that occur during the camera animation
+      debugPrint('Error changing camera position: $e');
+    }
+  }
+
   Rx<TextEditingController> dateController = TextEditingController().obs;
   Rx<TextEditingController> timeController = TextEditingController().obs;
   Rx<TextEditingController> descController = TextEditingController().obs;
   Rx<TextEditingController> locationController = TextEditingController().obs;
 
   RxBool isSearchFocused = false.obs;
-  RxBool isMapFocused = false.obs;
+
+  //// =================== Send Service Request =====================
+  sendServiceRequest({required BuildContext context}) async {
+    var body = {
+      "bookedDate": dateController.value.text,
+      "bookedTime": timeController.value.text,
+      "longitude": sourceLocation.value.longitude,
+      "latitude": sourceLocation.value.latitude,
+      "jobDescription": descController.value.text,
+      "address": locationController.value.text
+    };
+    var response = await apiClient.post(
+        body: body, url: ApiUrl.createJob.addBaseUrl, context: context);
+
+    if (response.statusCode == 200) {
+      showSnackBar(
+          // ignore: use_build_context_synchronously
+          context: context,
+          content: response.body["message"],
+          backgroundColor: Colors.green);
+    } else {
+      // ignore: use_build_context_synchronously
+      checkApi(response: response, context: context);
+    }
+  }
+
+  @override
+  void dispose() {
+    mapController.value = Completer();
+    super.dispose();
+  }
 }

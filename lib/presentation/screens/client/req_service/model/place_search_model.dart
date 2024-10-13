@@ -13,8 +13,8 @@
 // }
 
 class PlaceDetailsModel {
-  final String description;
-  final String placeId;
+  String? description;
+  String? placeId;
   final double lat;
   final double lng;
 
