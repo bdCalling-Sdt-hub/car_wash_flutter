@@ -70,9 +70,11 @@ flutter_gen:
   integrations:
     flutter_svg: true
     lottie: true
+
     #===========>>>>>>>>>> Flutter Gen Code ==============>>>>>>>>>>>
     # dart pub global activate flutter_gen
     # flutter pub run build_runner build --delete-conflicting-outputs
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

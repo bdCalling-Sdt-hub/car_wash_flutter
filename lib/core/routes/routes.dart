@@ -1,5 +1,6 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
+import 'package:car_wash/presentation/screens/auth/choose_role.dart';
 import 'package:car_wash/presentation/screens/auth/forgot_pass.dart';
 import 'package:car_wash/presentation/screens/auth/login.dart';
 import 'package:car_wash/presentation/screens/auth/reset_pass.dart';
@@ -33,10 +34,18 @@ class AppRouter {
           builder: (context, state) => const SplashScreen(),
           redirect: (context, state) {
             Future.delayed(const Duration(seconds: 1), () {
-              AppRouter.route.replaceNamed(RoutePath.login);
+              AppRouter.route.replaceNamed(RoutePath.chooseRole);
             });
             return null;
           },
+        ),
+
+        ///======================= Choose Role Route =======================
+
+        GoRoute(
+          name: RoutePath.chooseRole,
+          path: RoutePath.chooseRole.addBasePath,
+          builder: (context, state) => ChooseRole(),
         ),
 
         ///======================= Error Route =======================

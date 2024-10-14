@@ -3,7 +3,7 @@ class RoutePath {
 
   //=================== General screens ===================
   static const String splashScreen = 'splashScreen';
-
+  static const String chooseRole = 'chooseRole';
   static const String errorScreen = 'errorScreen';
   static const String language = 'language';
 

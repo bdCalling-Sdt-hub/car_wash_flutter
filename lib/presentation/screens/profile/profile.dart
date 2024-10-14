@@ -79,6 +79,11 @@ class ProfileScreen extends StatelessWidget {
             },
           );
 
+        case Status.noDataFound:
+          return const Center(
+            child: CustomText(text: AppStrings.noDataFound),
+          );
+
         case Status.completed:
           var profileData = profileController.profileModel.value;
           return SingleChildScrollView(

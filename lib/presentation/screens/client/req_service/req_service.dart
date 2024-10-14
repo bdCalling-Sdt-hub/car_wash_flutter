@@ -117,6 +117,8 @@ class RequestService extends StatelessWidget {
   //LatLng sourceLocation = const LatLng(23.7599042, 90.410031);
   //LatLng currentLocation = const LatLng(23.7699042, 90.400931);
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,120 +187,158 @@ class RequestService extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
-                    child: Column(
-                      children: [
-                        if (!reqServiceController.isSearchFocused.value)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              20.heightWidth,
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          if (!reqServiceController.isSearchFocused.value)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                20.heightWidth,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomText(
+                                            text: AppStrings.date,
+                                            bottom: 8.h,
+                                          ),
+
+                                          ///=========================== Date ===========================
+                                          CustomTextField(
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return AppStrings
+                                                    .fieldCantNotBeEmpty;
+                                              }
+
+                                              return null;
+                                            },
+                                            textEditingController:
+                                                reqServiceController
+                                                    .dateController.value,
+                                            readOnly: true,
+                                            onTap: () async {
+                                              reqServiceController
+                                                      .dateController
+                                                      .value
+                                                      .text =
+                                                  await generalController
+                                                      .pickDate(context);
+                                            },
+                                            fillColor: AppColors.whiteColor,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Expanded(
+                                        child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         CustomText(
-                                          text: AppStrings.date,
+                                          text: AppStrings.time,
                                           bottom: 8.h,
                                         ),
 
-                                        ///=========================== Date ===========================
+                                        ///=========================== Time ===========================
                                         CustomTextField(
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return AppStrings
+                                                  .fieldCantNotBeEmpty;
+                                            }
+
+                                            return null;
+                                          },
                                           textEditingController:
                                               reqServiceController
-                                                  .dateController.value,
+                                                  .timeController.value,
                                           readOnly: true,
                                           onTap: () async {
                                             reqServiceController
-                                                    .dateController.value.text =
+                                                    .timeController.value.text =
                                                 await generalController
-                                                    .pickDate(context);
+                                                    .pickTime(context);
                                           },
                                           fillColor: AppColors.whiteColor,
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Expanded(
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomText(
-                                        text: AppStrings.time,
-                                        bottom: 8.h,
-                                      ),
+                                    ))
+                                  ],
+                                ),
 
-                                      ///=========================== Time ===========================
-                                      CustomTextField(
-                                        textEditingController:
-                                            reqServiceController
-                                                .timeController.value,
-                                        readOnly: true,
-                                        onTap: () async {
-                                          reqServiceController
-                                                  .timeController.value.text =
-                                              await generalController
-                                                  .pickTime(context);
-                                        },
-                                        fillColor: AppColors.whiteColor,
-                                      ),
-                                    ],
-                                  ))
-                                ],
-                              ),
+                                CustomText(
+                                  top: 16.h,
+                                  text: AppStrings.description,
+                                  bottom: 8.h,
+                                ),
 
-                              CustomText(
-                                top: 16.h,
-                                text: AppStrings.description,
-                                bottom: 8.h,
-                              ),
+                                ///=========================== Description ===========================
+                                CustomTextField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return AppStrings.fieldCantNotBeEmpty;
+                                    }
 
-                              ///=========================== Description ===========================
-                              CustomTextField(
-                                textEditingController:
-                                    reqServiceController.descController.value,
-                                contentPadding: EdgeInsets.all(20.r),
-                                maxLines: 2,
-                                fillColor: AppColors.whiteColor,
-                              ),
+                                    return null;
+                                  },
+                                  textEditingController:
+                                      reqServiceController.descController.value,
+                                  contentPadding: EdgeInsets.all(20.r),
+                                  maxLines: 2,
+                                  fillColor: AppColors.whiteColor,
+                                ),
 
-                              CustomText(
-                                top: 16.h,
-                                text: AppStrings.location,
-                                bottom: 8.h,
-                              ),
-                            ],
+                                CustomText(
+                                  top: 16.h,
+                                  text: AppStrings.location,
+                                  bottom: 8.h,
+                                ),
+                              ],
+                            ),
+
+                          ///=========================== Location ===========================
+                          CustomTextField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return AppStrings.fieldCantNotBeEmpty;
+                              }
+
+                              return null;
+                            },
+                            onTap: () {
+                              reqServiceController.isSearchFocused.value = true;
+                            },
+                            textEditingController:
+                                reqServiceController.locationController.value,
+                            fillColor: AppColors.whiteColor,
                           ),
 
-                        ///=========================== Location ===========================
-                        CustomTextField(
-                          onTap: () {
-                            reqServiceController.isSearchFocused.value = true;
-                          },
-                          textEditingController:
-                              reqServiceController.locationController.value,
-                          fillColor: AppColors.whiteColor,
-                        ),
+                          /// ==================== Req Button =====================
 
-                        /// ==================== Req Button =====================
-
-                        if (reqServiceController
-                            .locationController.value.text.isNotEmpty)
-                          CustomButton(
-                            marginVerticel: 40.h,
-                            onTap: () {
-                              reqServiceController.sendServiceRequest(
-                                  context: context);
-                            },
-                            title: AppStrings.request,
-                          )
-                      ],
+                          if (reqServiceController
+                              .locationController.value.text.isNotEmpty)
+                            CustomButton(
+                              marginVerticel: 40.h,
+                              onTap: () {
+                                if (formKey.currentState!.validate()) {
+                                  reqServiceController.sendServiceRequest(
+                                      context: context);
+                                }
+                              },
+                              title: AppStrings.request,
+                            )
+                        ],
+                      ),
                     ),
                   );
           }),

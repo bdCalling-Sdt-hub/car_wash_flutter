@@ -23,7 +23,7 @@ class AuthController extends GetxController {
       TextEditingController(text: kDebugMode ? "123456789" : "").obs;
 
   Rx<TextEditingController> emailController =
-      TextEditingController(text: kDebugMode ? "mdh95831@gmail.com" : "").obs;
+      TextEditingController(text: kDebugMode ? "mdh95832@gmail.com" : "").obs;
   Rx<TextEditingController> passController =
       TextEditingController(text: kDebugMode ? "1234567Rr" : "").obs;
   Rx<TextEditingController> confirmController =
@@ -183,7 +183,7 @@ class AuthController extends GetxController {
         body: body,
         url: isClient.value
             ? ApiUrl.resendOTpClient.addBaseUrl
-            : ApiUrl.resendOTpClient.addBaseUrl);
+            : ApiUrl.resendOTpWorker.addBaseUrl);
 
     if (response.statusCode == 200) {
       secondsRemaining.value = 60;

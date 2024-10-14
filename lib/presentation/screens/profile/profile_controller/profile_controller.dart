@@ -1,5 +1,6 @@
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
+import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/presentation/screens/profile/model/profile_model.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
@@ -19,6 +20,7 @@ class ProfileController extends GetxController {
   //     TextEditingController(text: "Saudi Arab").obs;
   RxBool updateProfile = true.obs;
   ApiClient apiClient = serviceLocator();
+  DBHelper _dbHelper = serviceLocator();
 
   /// ========================= Get Profile Information ==========================
 

@@ -80,6 +80,8 @@ class AppStrings {
 
   static const String searchhere = "Search here";
   static const String newOrder = "New Order";
+  static const String reload = "reload";
+
   static const String spam = "Spam";
   static const String total = "Total";
   static const String taken = "Taken";

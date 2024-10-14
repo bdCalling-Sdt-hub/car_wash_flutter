@@ -29,4 +29,5 @@ class ApiUrl {
 
   /// ========================================= Client API's ===============================================
   static const createJob = "/job/create-job";
+  static const upcomingService = "/client/upcoming-date";
 }

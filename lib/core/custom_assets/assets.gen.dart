@@ -83,6 +83,10 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/chooseRole.png
+  AssetGenImage get chooseRole =>
+      const AssetGenImage('assets/images/chooseRole.png');
+
   /// File path: assets/images/forget.png
   AssetGenImage get forget => const AssetGenImage('assets/images/forget.png');
 
@@ -103,7 +107,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [forget, login, mapImage, onBoarding, splashLogo];
+      [chooseRole, forget, login, mapImage, onBoarding, splashLogo];
 }
 
 class $AssetsLottieGen {
@@ -113,8 +117,12 @@ class $AssetsLottieGen {
   LottieGenImage get loading =>
       const LottieGenImage('assets/lottie/loading.json');
 
+  /// File path: assets/lottie/screenLoadingAni.json
+  LottieGenImage get screenLoadingAni =>
+      const LottieGenImage('assets/lottie/screenLoadingAni.json');
+
   /// List of all assets
-  List<LottieGenImage> get values => [loading];
+  List<LottieGenImage> get values => [loading, screenLoadingAni];
 }
 
 class Assets {

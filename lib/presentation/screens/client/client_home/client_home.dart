@@ -1,6 +1,7 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
 import 'package:car_wash/presentation/screens/client/client_home/inner/package_status.dart';
+import 'package:car_wash/presentation/screens/client/client_home/inner/upcoming_service/upcoming_service.dart';
 import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -159,11 +160,7 @@ class ClientHome extends StatelessWidget {
               Obx(() {
                 switch (clientHomeController.tappedIndex.value) {
                   case 0:
-                    return SingleServiceCard(
-                      date: "05-02-205",
-                      time: "11:20PM",
-                      onTapCancel: () {},
-                    );
+                    return UpcomingServiceScreen();
 
                   case 1:
                     return ServiceCard(
