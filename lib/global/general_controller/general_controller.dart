@@ -1,3 +1,4 @@
+import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,5 +61,27 @@ class GeneralController extends GetxController {
 
     // Return an empty string if no time is selected
     return "";
+  }
+
+  /// =========================== Pop Up Loader ===========================
+  showPopUpLoader({required BuildContext context}) {
+    return showDialog(
+        barrierDismissible: true,
+        barrierColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 70,
+            child: AlertDialog(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              content: Assets.lottie.screenLoadingAni.lottie(
+                height: 100,
+                width: 100,
+                fit: BoxFit.contain,
+              ),
+            ),
+          );
+        });
   }
 }

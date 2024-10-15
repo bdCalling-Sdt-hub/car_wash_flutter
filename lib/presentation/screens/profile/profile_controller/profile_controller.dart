@@ -32,7 +32,9 @@ class ProfileController extends GetxController {
 
   getProfile({BuildContext? context}) async {
     var response = await apiClient.get(
-        url: ApiUrl.clientProfile.addBaseUrl, context: context);
+        showResult: false,
+        url: ApiUrl.clientProfile.addBaseUrl,
+        context: context);
 
     if (response.statusCode == 200) {
       profileModel.value = ProfileDataModel.fromJson(response.body["data"]);
@@ -40,13 +42,14 @@ class ProfileController extends GetxController {
 
       saveInfoOnTextField(profileModel: profileModel.value);
     } else {
+      checkApi(response: response, context: context);
       if (response.statusCode == 503) {
         profileLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        profileLoadingMethod(Status.noDataFound);
       } else {
         profileLoadingMethod(Status.error);
       }
-      // ignore: use_build_context_synchronously
-      checkApi(response: response, context: context!);
     }
   }
 

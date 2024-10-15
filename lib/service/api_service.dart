@@ -54,11 +54,12 @@ class ApiClient {
       return const Response(
           statusCode: 503, statusText: "No internet connection.!");
     }
-    log.i(
-        '|📍📍📍|----------------- [[ GET ]] method details start -----------------|📍📍📍|');
-    log.i(url);
-    log.i(
-        '|📍📍📍|----------------- [[ GET ]] method details ended -----------------|📍📍📍|');
+
+    if (showResult) {
+      log.i(
+          '|📍📍📍|----------------- [[ GET ]] method details start -----------------|📍📍📍|');
+      log.i(url);
+    }
 
     try {
       final response = await http
@@ -68,17 +69,13 @@ class ApiClient {
           )
           .timeout(Duration(seconds: duration));
 
-      log.i(
-          '|📒📒📒|-----------------[[ GET ]] method response start -----------------|📒📒📒|');
-
       if (showResult) {
         log.d("Body => ${response.body}");
+        log.d("Status Code => ${response.statusCode}");
+
+        log.i(
+            '|📒📒📒|-----------------[[ GET ]] method response end -----------------|📒📒📒|');
       }
-
-      log.d("Status Code => ${response.statusCode}");
-
-      log.i(
-          '|📒📒📒|-----------------[[ GET ]] method response end -----------------|📒📒📒|');
 
       var body = jsonDecode(response.body);
 
@@ -255,15 +252,14 @@ class ApiClient {
       int duration = 30,
       bool showResult = true}) async {
     try {
-      log.i(
-          '|📍📍📍|-----------------[[ PATCH ]] method details start -----------------|📍📍📍|');
+      if (showResult) {
+        log.i(
+            '|📍📍📍|-----------------[[ PATCH ]] method details start -----------------|📍📍📍|');
 
-      log.i("URL => $url");
+        log.i("URL => $url");
 
-      log.i("Body => $body");
-
-      log.i(
-          '|📍📍📍|-----------------[[ PATCH ]] method details end ------------|📍📍📍|');
+        log.i("Body => $body");
+      }
 
       final response = await http
           .patch(
@@ -273,17 +269,12 @@ class ApiClient {
           )
           .timeout(Duration(seconds: duration));
 
-      log.i(
-          '|📒📒📒|-----------------[[ PATCH ]] method response start ------------------|📒📒📒|');
-
       if (showResult) {
         log.i("response.body => ${response.body}");
+        log.i("response.statusCode => ${response.statusCode}");
+        log.i(
+            '|📒📒📒|-----------------[[ PATCH ]] method response end --------------------|📒📒📒|');
       }
-
-      log.i("response.statusCode => ${response.statusCode}");
-
-      log.i(
-          '|📒📒📒|-----------------[[ PATCH ]] method response end --------------------|📒📒📒|');
 
       body = jsonDecode(response.body);
 

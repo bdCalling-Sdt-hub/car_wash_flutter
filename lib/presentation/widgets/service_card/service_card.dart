@@ -151,7 +151,7 @@ class ServiceCard extends StatelessWidget {
                       child: CustomButton(
                     borderColor: AppColors.blackLightColor,
                     title: AppStrings.cancel,
-                    onTap: () {},
+                    onTap: onTapCancle,
                     fillColor: AppColors.whiteColor,
                   )),
                   SizedBox(
@@ -161,8 +161,8 @@ class ServiceCard extends StatelessWidget {
                   /// ====================== Start Button =======================
 
                   Expanded(
-                      child:
-                          CustomButton(title: AppStrings.start, onTap: () {})),
+                      child: CustomButton(
+                          title: AppStrings.start, onTap: onTapStart)),
                 ],
               ),
             ),
@@ -210,38 +210,30 @@ class ServiceCard extends StatelessWidget {
 
     return Expanded(
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: googleMap
-            ? Column(
-                children: [
-                  container,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Column(
-                      children: [
-                        Assets.images.mapImage
-                            .image(width: double.maxFinite, fit: BoxFit.cover),
-                        Gap(20.h),
-                        if (showStartButton)
-                          CustomButton(
-                            onTap: () {},
-                            title: AppStrings.startWork,
-                          ),
-                        Gap(44.h)
-                      ],
-                    ),
-                  )
-                ],
-              )
-            : Column(
-                children: List.generate(
-                  3,
-                  (index) {
-                    return container;
-                  },
-                ),
-              ),
-      ),
+          scrollDirection: Axis.vertical,
+          child: googleMap
+              ? Column(
+                  children: [
+                    container,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        children: [
+                          Assets.images.mapImage.image(
+                              width: double.maxFinite, fit: BoxFit.cover),
+                          Gap(20.h),
+                          if (showStartButton)
+                            CustomButton(
+                              onTap: () {},
+                              title: AppStrings.startWork,
+                            ),
+                          Gap(44.h)
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              : container),
     );
   }
 }

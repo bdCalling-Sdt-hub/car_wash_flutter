@@ -1,6 +1,7 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
+import 'package:car_wash/presentation/screens/worker/worker_home/inner/new_order/new_order.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_start.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -125,16 +126,7 @@ class WorkerHome extends StatelessWidget {
             Obx(() {
               switch (workerHomeController.tappedIndex.value) {
                 case 0:
-                  return ServiceCard(
-                    date: "04-12-2024",
-                    time: "10 : 00 AM",
-                    location: "09 Arnulfo Crossing, Botsfordborough",
-                    number: "011 2562 1569 66",
-                    description:
-                        "It is a long established fact that a reader will be distracted by the readable",
-                    onTapCancle: () {},
-                    onTapStart: () {},
-                  );
+                  return NewOrderScreen();
 
                 case 1:
                   // return ServiceCard(
