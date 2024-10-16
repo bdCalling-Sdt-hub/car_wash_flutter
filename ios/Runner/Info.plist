@@ -3,7 +3,20 @@
 <plist version="1.0">
 <dict>
 
-<!-- ----------- Google Map ------------ -->
+
+<!-- =================== Image Picker ======================= -->
+
+
+<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take photos for your profile.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone to record videos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need access to your photo library to save captured images.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select images for your profile.</string>
+
+<!-- =================== Google Map ======================= -->
 
 <key>io.flutter.embedded_views_preview</key>
 <true/>

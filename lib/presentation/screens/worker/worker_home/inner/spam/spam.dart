@@ -9,17 +9,18 @@ import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class NewOrderScreen extends StatelessWidget {
-  NewOrderScreen({super.key});
+class SpamScreen extends StatelessWidget {
+  SpamScreen({super.key});
 
   final WorkerHomeController workerHomeController =
       Get.find<WorkerHomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      switch (workerHomeController.newOrderLoading.value) {
+      switch (workerHomeController.spamLoading.value) {
         case Status.loading:
           return Assets.lottie.screenLoadingAni.lottie(
             height: 100,
@@ -49,35 +50,28 @@ class NewOrderScreen extends StatelessWidget {
           );
 
         case Status.completed:
-          return Expanded(
-            child: Column(
-              children: List.generate(
-                workerHomeController.newOrderList.length,
-                (index) {
-                  var data = workerHomeController.newOrderList[index];
-                  return ServiceCard(
-                    date: DateConverter.estimatedDate(
-                        data.bookedDateTime ?? DateTime.now()),
-                    time: DateConverter.hourMinit(
-                        data.bookedDateTime ?? DateTime.now()),
-                    location: data.address ?? "",
+          var data = workerHomeController.spamModel.value;
+          return ServiceCard(
+            userLocation: LatLng(data.jobLocation?.coordinates?[1] ?? 0.0,
+                data.jobLocation?.coordinates?[0] ?? 0.0),
+            showButtons: false,
+            showDescription: false,
+            googleMap: true,
+            date: DateConverter.estimatedDate(
+                data.bookedDateTime ?? DateTime.now()),
+            time:
+                DateConverter.hourMinit(data.bookedDateTime ?? DateTime.now()),
+            location: data.address ?? "",
+            number: data.clientPhoneNumber ?? "",
 
-                    /// TODO Change Number
-                    number: "011 2562 1569 66",
-
-                    /// TODO Change Description
-                    description:
-                        "It is a long established fact that a reader will be distracted by the readable",
-                    onTapCancle: () {},
-                    onTapStart: () {
-                      debugPrint("JobID --------------->>>>>>>> ${data.id}");
-                      workerHomeController.acceptWork(
-                          context: context, jobId: data.id ?? "");
-                    },
-                  );
-                },
-              ),
-            ),
+            /// TODO Need to Update Description
+            description:
+                "It is a long established fact that a reader will be distracted by the readable",
+            onTapCancle: () {},
+            onTapStart: () {
+              print(LatLng(data.jobLocation?.coordinates?[1] ?? 0.0,
+                  data.jobLocation?.coordinates?[0] ?? 0.0));
+            },
           );
       }
     });

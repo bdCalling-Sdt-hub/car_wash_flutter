@@ -33,5 +33,8 @@ class ApiUrl {
 
   /// ========================================= Worker API's ===============================================
   static const workerNewOrder = "/worker/new-order";
+  static const acceptWork = "/job/worker-accept-work";
   static const startWork = "/job/worker-start-work";
+  static const endWork = "/job/worker-end-work";
+  static const getSpamList = "/job/job-and-worker-location";
 }

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class GeneralController extends GetxController {
@@ -83,5 +86,23 @@ class GeneralController extends GetxController {
             ),
           );
         });
+  }
+
+  ///========================== Pick Image ========================
+  Rx<File> imageFile = File("").obs;
+  RxString imagePath = "".obs;
+  Future<String> selectImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? getImages =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+    refresh();
+    if (getImages != null) {
+      imageFile.value = File(getImages.path);
+      imagePath.value = getImages.path;
+
+      return imagePath.value;
+    }
+
+    return "";
   }
 }

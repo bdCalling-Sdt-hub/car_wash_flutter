@@ -57,6 +57,7 @@ class AuthController extends GetxController {
       "password": passController.value.text
     };
     var response = await apiClient.post(
+        showResult: false,
         context: context,
         body: body,
         isBasic: true,

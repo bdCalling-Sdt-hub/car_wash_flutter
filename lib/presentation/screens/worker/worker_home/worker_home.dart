@@ -2,7 +2,8 @@ import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/inner/new_order/new_order.dart';
-import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_start.dart';
+import 'package:car_wash/presentation/screens/worker/worker_home/inner/spam/spam.dart';
+import 'package:car_wash/presentation/screens/worker/worker_home/inner/work_end.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
@@ -129,25 +130,9 @@ class WorkerHome extends StatelessWidget {
                   return NewOrderScreen();
 
                 case 1:
-                  // return ServiceCard(
-                  //   showButtons: false,
-                  //   showDescription: false,
-                  //   googleMap: true,
-                  //   date: "04-12-2024",
-                  //   time: "10 : 00 AM",
-                  //   location: "09 Arnulfo Crossing, Botsfordborough",
-                  //   number: "011 2562 1569 66",
-                  //   description:
-                  //       "It is a long established fact that a reader will be distracted by the readable",
-                  //   onTapCancle: () {},
-                  //   onTapStart: () {},
-                  // );
+                  // return SpamScreen();
 
-                  return WorkStartScreen(
-                      startTime: "10:00AM",
-                      endTime: "11:00AM",
-                      beforeCleaningImg: AppConstants.carDarty,
-                      afterCleaningImg: AppConstants.carClean);
+                  return WorkEndScreen();
 
                 case 2:
                   return ServiceCard(

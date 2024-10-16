@@ -1,4 +1,3 @@
-import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -8,6 +7,7 @@ import 'package:car_wash/utils/static_strings/static_strings.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ServiceCard extends StatelessWidget {
   const ServiceCard(
@@ -23,6 +23,7 @@ class ServiceCard extends StatelessWidget {
       this.showDescription = true,
       required this.time,
       this.googleMap = false,
+      this.userLocation,
       this.showCarImage = false,
       this.showStartButton = true});
 
@@ -39,6 +40,8 @@ class ServiceCard extends StatelessWidget {
   final bool googleMap;
   final bool showCarImage;
   final bool showStartButton;
+
+  final LatLng? userLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -219,12 +222,32 @@ class ServiceCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(
                         children: [
-                          Assets.images.mapImage.image(
-                              width: double.maxFinite, fit: BoxFit.cover),
+                          // Assets.images.mapImage.image(
+                          //     width: double.maxFinite, fit: BoxFit.cover),
+
+                          /// ======================= User Location =====================
+
+                          SizedBox(
+                            height: 500,
+                            child: GoogleMap(
+                              zoomGesturesEnabled: true,
+                              zoomControlsEnabled: true,
+                              myLocationEnabled: true,
+                              markers: {
+                                Marker(
+                                  markerId: const MarkerId("_workLocation"),
+                                  icon: BitmapDescriptor.defaultMarker,
+                                  position: userLocation!,
+                                ),
+                              },
+                              initialCameraPosition: CameraPosition(
+                                  target: userLocation!, zoom: 13),
+                            ),
+                          ),
                           Gap(20.h),
                           if (showStartButton)
                             CustomButton(
-                              onTap: () {},
+                              onTap: onTapStart,
                               title: AppStrings.startWork,
                             ),
                           Gap(44.h)
