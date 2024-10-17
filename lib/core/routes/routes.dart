@@ -138,7 +138,7 @@ class AppRouter {
         GoRoute(
             name: RoutePath.subscriptionPackages,
             path: RoutePath.subscriptionPackages.addBasePath,
-            builder: (context, state) => const SubscriptionPackages()),
+            builder: (context, state) => SubscriptionPackages()),
 
         /// ==================== Client Service Request ===================
 
@@ -152,7 +152,9 @@ class AppRouter {
         GoRoute(
             name: RoutePath.coupon,
             path: RoutePath.coupon.addBasePath,
-            builder: (context, state) => const CouponScreen()),
+            builder: (context, state) => CouponScreen(
+                  price: state.extra as int,
+                )),
       ]);
 
   static GoRouter get route => initRoute;

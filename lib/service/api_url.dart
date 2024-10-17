@@ -30,6 +30,9 @@ class ApiUrl {
   /// ========================================= Client API's ===============================================
   static const createJob = "/job/create-job";
   static const upcomingService = "/client/upcoming-date";
+  static const subscriptionPackages = "/dashboard/get-all-package";
+  static String applyCoupon({required String couponCode}) =>
+      "/coupon/search-coupon?coupon=$couponCode";
 
   /// ========================================= Worker API's ===============================================
   static const workerNewOrder = "/worker/new-order";

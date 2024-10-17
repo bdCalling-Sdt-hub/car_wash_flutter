@@ -67,7 +67,8 @@ class SideDrawer extends StatelessWidget {
               )),
           const Divider(),
 
-          //======================= Subscription ==========================
+          //======================= My Subscription ==========================
+
           if (showSubscription) ...[
             IconButton(
                 onPressed: () {
@@ -77,7 +78,25 @@ class SideDrawer extends StatelessWidget {
                   children: [
                     Assets.icons.subscription.svg(),
                     CustomText(
-                      text: AppStrings.subscription,
+                      text: AppStrings.mySubscription,
+                      left: 20.w,
+                      fontSize: Dimensions.getFontSizeLarge(context),
+                    )
+                  ],
+                )),
+            const Divider(),
+
+            //======================= Subscription Packages ==========================
+
+            IconButton(
+                onPressed: () {
+                  context.pushNamed(RoutePath.subscriptionPackages);
+                },
+                icon: Row(
+                  children: [
+                    Assets.icons.subscription.svg(),
+                    CustomText(
+                      text: AppStrings.subscriptionPackages,
                       left: 20.w,
                       fontSize: Dimensions.getFontSizeLarge(context),
                     )

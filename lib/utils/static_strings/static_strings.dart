@@ -52,16 +52,24 @@ class AppStrings {
 
   ///====================== SubsCription ========================
   static const String subscription = "Subscription";
+  static const String mySubscription = "My Subscription";
+  static const String subscriptionPackages = "Subscription Packages";
   static const String buyNow = "Buy Now";
   static const String payment = "SubPaymentmit";
   static const String paymentOptions = "Payment Options";
   static const String applePay = "Apple pay";
   static const String pay = "Pay";
+  static const String confirmPayment = "Confirm Payment";
+
   static const String couponCode = "Coupon Code";
   static String ifYouUseOurCouponCode(
           {required String price, required String percentage}) =>
       "If you use our coupon code on your total price of $price, you will get $percentage discount.";
   static const String applyCouponCode = "Apply Coupon Code";
+  static const String enterYourCouponCode = "Enter your coupon code";
+
+  static const String applyCouponCodeAndPay = "Apply coupon code";
+
   static String totalPrice({required String price}) => "Total Price $price";
   static const String dontHaveACouponCode =
       "Don’t have coupon code? Go to the Payment";
@@ -80,7 +88,7 @@ class AppStrings {
 
   static const String searchhere = "Search here";
   static const String newOrder = "New Order";
-  static const String reload = "reload";
+  static const String reload = "Reload";
 
   static const String spam = "Spam";
   static const String total = "Total";

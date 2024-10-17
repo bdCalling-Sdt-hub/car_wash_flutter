@@ -50,7 +50,7 @@ class ApiClient {
       {required String url,
       bool isBasic = false,
       int duration = 30,
-      bool showResult = true,
+      bool showResult = false,
       BuildContext? context}) async {
     /// ======================- Check Internet ===================
 

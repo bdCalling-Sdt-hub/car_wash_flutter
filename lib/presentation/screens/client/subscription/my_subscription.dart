@@ -55,18 +55,13 @@ class ClientSubscription extends StatelessWidget {
               text: AppStrings.package,
               fontSize: Dimensions.getButtonFontSizeLarge(context),
             ),
-            const PackageCard(
+            PackageCard(
+                packageId: "",
                 showBuyButton: false,
-                price: "¥120",
+                serviceID: "¥120",
                 title: "Stander Wash ",
                 description: "(4 times per month, expiring after a month)",
-                serviceList: [
-                  "Exterior small car",
-                  "Exterior medium car",
-                  "Exterior big car",
-                  "Interior and exterior small car",
-                  "Interior and exterior medium car",
-                ],
+                serviceList: const [],
                 color: AppColors.greenColor)
           ],
         ),
