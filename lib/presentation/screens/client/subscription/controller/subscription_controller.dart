@@ -2,15 +2,14 @@ import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/general_controller/general_controller.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
+import 'package:car_wash/presentation/screens/client/subscription/model/my_package/my_package_model.dart';
 import 'package:car_wash/presentation/screens/client/subscription/model/subscription_packages_model.dart';
-import 'package:car_wash/scret_key.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/service/check_api.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay/pay.dart';
 
 class SubscriptionController extends GetxController {
   ApiClient apiClient = serviceLocator();
@@ -20,6 +19,10 @@ class SubscriptionController extends GetxController {
   final subscriptionLoading = Status.loading.obs;
   void subscriptionLoadingMethod(Status value) =>
       subscriptionLoading.value = value;
+
+  final mySubscriptionLoading = Status.loading.obs;
+  void mySubscriptionLoadingMethod(Status value) =>
+      mySubscriptionLoading.value = value;
 
   /// ===================== Get Subscription Package List =====================
 
@@ -57,6 +60,8 @@ class SubscriptionController extends GetxController {
 // Track the currently selected service and package
   Rx<Service?> selectedService = Rx<Service?>(null);
   RxString selectedPackageId = ''.obs;
+  RxString selectedServiceId = ''.obs;
+  RxString paymentIntentId = ''.obs;
 
   // This will clear the previous selection if the user selects a service from a different package
   void selectService(Service service, String packageId) {
@@ -66,6 +71,7 @@ class SubscriptionController extends GetxController {
     }
     selectedService.value = service;
     selectedPackageId.value = packageId;
+    selectedServiceId.value = service.id ?? "";
     selectedMoney.value = service.price ?? 0;
     selectedMoney.refresh();
     debugPrint("Selected Service Price ===>>> ${service.price}");
@@ -107,46 +113,62 @@ class SubscriptionController extends GetxController {
     Navigator.of(context).pop();
   }
 
-  /// ========================= Apple Pay ======================
+  /// ========================= Confirm Subscription ======================
 
-  applePay({required String finalPrice, required BuildContext context}) async {
-    var paymentItems = [
-      PaymentItem(
-        label: 'Total',
-        amount: finalPrice,
-        status: PaymentItemStatus.final_price,
-      )
-    ];
+  confirmSubscription(
+      {required BuildContext context,
+      required String packageId,
+      required int price,
+      required bool coupon,
+      required String paymentIntentId,
+      required String serviceId}) async {
+    generalController.showPopUpLoader(context: context);
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          child: ApplePayButton(
-            paymentConfiguration:
-                PaymentConfiguration.fromJsonString(defaultApplePay),
-            paymentItems: [
-              PaymentItem(
-                label: 'Total',
-                amount: finalPrice,
-                status: PaymentItemStatus.final_price,
-              )
-            ],
-            style: ApplePayButtonStyle.black,
-            type: ApplePayButtonType.buy,
-            margin: const EdgeInsets.only(top: 15.0),
-            onPaymentResult: (result) {},
-            loadingIndicator: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-      },
-    );
+    var body = {
+      "packageId": packageId,
+      "serviceId": serviceId,
+      "price": price,
+      "coupon": coupon,
+      "paymentIntentId": "paymentIntentId"
+    };
+    var response = await apiClient.patch(
+        url: ApiUrl.confirmSubscription.addBaseUrl, body: body);
+
+    if (response.statusCode == 200) {
+      showSnackBar(context: context, content: response.body["message"]);
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+      checkApi(response: response);
+    }
+  }
+
+  /// ============================ My Subscription ========================
+  Rx<MyPackageModel> myPackageModel = MyPackageModel().obs;
+  getMySubscription({BuildContext? context}) async {
+    mySubscriptionLoadingMethod(Status.loading);
+
+    var response =
+        await apiClient.get(url: ApiUrl.getMySubscription.addBaseUrl);
+
+    if (response.statusCode == 200) {
+      myPackageModel.value = MyPackageModel.fromJson(response.body);
+      subscriptionLoadingMethod(Status.completed);
+    } else {
+      checkApi(response: response, context: context);
+      if (response.statusCode == 503) {
+        subscriptionLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        subscriptionLoadingMethod(Status.noDataFound);
+      } else {
+        subscriptionLoadingMethod(Status.error);
+      }
+    }
   }
 
   @override
   void onInit() {
+    getMySubscription();
     getSubscriptionPackages();
     super.onInit();
   }

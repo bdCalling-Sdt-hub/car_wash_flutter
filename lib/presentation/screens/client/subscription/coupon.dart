@@ -1,6 +1,5 @@
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/presentation/screens/client/subscription/controller/subscription_controller.dart';
-import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/scret_key.dart';
@@ -106,6 +105,9 @@ class CouponScreen extends StatelessWidget {
                 // ),
 
                 ApplePayButton(
+                  height: 50.h,
+                  width: 300.w,
+                  buttonProvider: PayProvider.apple_pay,
                   paymentConfiguration:
                       PaymentConfiguration.fromJsonString(defaultApplePay),
                   paymentItems: [
@@ -123,14 +125,32 @@ class CouponScreen extends StatelessWidget {
                     )
                   ],
                   style: ApplePayButtonStyle.black,
-                  type: ApplePayButtonType.buy,
-                  margin: const EdgeInsets.only(top: 15.0),
-                  onPaymentResult: (result) {},
+                  type: ApplePayButtonType.plain,
+                  onPaymentResult: (result) {
+                    debugPrint("Payment Result ==========>>>>>>>>> $result");
+                    subscriptionController.confirmSubscription(
+                        context: context,
+                        packageId:
+                            subscriptionController.selectedPackageId.value,
+                        price: subscriptionController.discount.value == 0
+                            ? price
+                            : subscriptionController.calculateDiscountedPrice(
+                                amount: price,
+                                discountPercentage:
+                                    subscriptionController.discount.value),
+                        coupon: subscriptionController.discount.value == 0
+                            ? false
+                            : true,
+                        paymentIntentId:
+                            subscriptionController.paymentIntentId.value,
+                        serviceId:
+                            subscriptionController.selectedServiceId.value);
+                  },
                   loadingIndicator: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
-                24.heightWidth
+                44.heightWidth
               ]
             ],
           ),

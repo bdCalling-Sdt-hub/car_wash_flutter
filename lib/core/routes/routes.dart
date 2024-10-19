@@ -131,7 +131,7 @@ class AppRouter {
         GoRoute(
             name: RoutePath.mySubscription,
             path: RoutePath.mySubscription.addBasePath,
-            builder: (context, state) => const ClientSubscription()),
+            builder: (context, state) => ClientSubscription()),
 
         /// ==================== Subscription Packages ===================
 

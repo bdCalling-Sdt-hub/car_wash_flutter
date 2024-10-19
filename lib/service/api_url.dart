@@ -34,6 +34,10 @@ class ApiUrl {
   static String applyCoupon({required String couponCode}) =>
       "/coupon/search-coupon?coupon=$couponCode";
 
+  /// ================= Subscription ===================
+  static const confirmSubscription = "/client/subscribe";
+  static const getMySubscription = "/client/get-my-subscription";
+
   /// ========================================= Worker API's ===============================================
   static const workerNewOrder = "/worker/new-order";
   static const acceptWork = "/job/worker-accept-work";

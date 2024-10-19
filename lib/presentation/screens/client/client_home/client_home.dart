@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientHome extends StatelessWidget {
   ClientHome({super.key});
@@ -164,6 +165,7 @@ class ClientHome extends StatelessWidget {
 
                   case 1:
                     return ServiceCard(
+                      userLocation: LatLng(435345, 435346),
                       showButtons: false,
                       showDescription: false,
                       showStartButton: false,

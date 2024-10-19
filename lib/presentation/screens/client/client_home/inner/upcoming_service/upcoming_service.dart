@@ -74,8 +74,5 @@ class UpcomingServiceScreen extends StatelessWidget {
           );
       }
     });
- 
- 
- 
   }
 }

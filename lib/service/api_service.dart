@@ -31,7 +31,6 @@ Map<String, String> basicHeaderInfo() {
 Future<Map<String, String>> bearerHeaderInfo() async {
   DBHelper dbHelper = serviceLocator();
   final token = await dbHelper.getToken();
-  // log.i("Bearer $token");
   return {
     HttpHeaders.acceptHeader: "application/json",
     HttpHeaders.contentTypeHeader: "application/json",
