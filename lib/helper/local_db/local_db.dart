@@ -31,7 +31,7 @@ class DBHelper {
     return users.get('token');
   }
 
-  /// ====================== Save User ID ==================
+  /// ====================== Get User ID ==================
 
   Future<String> getUserId() async {
     var users = Hive.box(
@@ -44,6 +44,21 @@ class DBHelper {
       debugPrint("hive >>>>>>>>> ${users.get('id')}");
     }
     return users.get('id');
+  }
+
+  /// ====================== Get User Role ==================
+
+  Future<String> getUserRole() async {
+    var users = Hive.box(
+      'users',
+    );
+    // Logger().e("dd");
+    if (users.get('role') == null) {
+      debugPrint("User Role Error ==========>>>>>>> ${users.get('role')}");
+    } else {
+      debugPrint("User Role Success ==========>>>>>>>>> ${users.get('role')}");
+    }
+    return users.get('role');
   }
 
   /// ====================== Save User Information ==================

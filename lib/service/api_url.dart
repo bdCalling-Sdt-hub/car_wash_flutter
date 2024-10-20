@@ -23,7 +23,10 @@ class ApiUrl {
   static const signInClient = "/client/auth/login";
   static const signInWorker = "/worker/auth/login";
 
-  /// ========================== Get Profile =========================
+  /// ========================== Profile =========================
+  static const clientUpdateProfile = "/client/update-profile";
+  static const workerUpdateProfile = "/worker/update-profile";
+
   static const clientProfile = "/client/profile";
   static const workerProfile = "/worker/profile";
 

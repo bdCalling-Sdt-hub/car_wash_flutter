@@ -432,7 +432,7 @@ class ApiClient {
       }
       if (showResult) {
         log.i(
-            '|📍📍📍|-----------------[[ Multipart $reqType]] method details start -----------------|📍📍📍|');
+            '|📍📍📍|-----------------[[ MULTIPART $reqType]] method details start -----------------|📍📍📍|');
 
         log.i("===> URL => $url");
 
@@ -477,7 +477,7 @@ class ApiClient {
         log.i("===> Status Code =>${response.statusCode}");
 
         log.i(
-            '|📒📒📒|-----------------[[ Multipart $reqType ]] method response end --------------------|📒📒📒|');
+            '|📒📒📒|-----------------[[ MULTIPART $reqType ]] method response end --------------------|📒📒📒|');
       }
 
       var decodeBody = jsonDecode(jsonData.body);

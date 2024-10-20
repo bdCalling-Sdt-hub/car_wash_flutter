@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/global/error_screen/error_screen.dart';
 import 'package:car_wash/global/general_controller/general_controller.dart';
@@ -7,6 +9,7 @@ import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_loader/custom_loader.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
+import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(appBar: AppBar(
       title: Obx(() {
         return CustomText(
-          text: !profileController.updateProfile.value
+          text: !profileController.isUpdateProfile.value
               ? AppStrings.updateProfile
               : AppStrings.profile,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
@@ -88,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
           var profileData = profileController.profileModel.value;
           return SingleChildScrollView(
             child: Container(
-              height: !profileController.updateProfile.value
+              height: !profileController.isUpdateProfile.value
                   ? context.height
                   : context.height / 1.1,
               width: double.maxFinite,
@@ -102,8 +105,8 @@ class ProfileScreen extends StatelessWidget {
                       // ====================== Edit Button ======================
                       IconButton(
                           onPressed: () {
-                            profileController.updateProfile.value =
-                                !profileController.updateProfile.value;
+                            profileController.isUpdateProfile.value =
+                                !profileController.isUpdateProfile.value;
                           },
                           icon: Assets.icons.edit.svg()),
                     ],
@@ -111,12 +114,31 @@ class ProfileScreen extends StatelessWidget {
 
                   /// ========================= Profile Image =======================
 
-                  CustomNetworkImage(
-                      boxShape: BoxShape.circle,
-                      imageUrl:
-                          profileData.profileImage ?? AppConstants.onlineImage,
-                      height: 80.sp,
-                      width: 80.sp),
+                  GestureDetector(
+                    onTap: () async {
+                      String selectedImage =
+                          await generalController.selectImage();
+                      profileController.imagePath.value = selectedImage;
+                    },
+                    child: profileController.imagePath.value.isEmpty
+                        ? CustomNetworkImage(
+                            boxShape: BoxShape.circle,
+                            imageUrl:
+                                "${ApiUrl.baseUrl}${profileData.profileImage}",
+                            height: 80.sp,
+                            width: 80.sp)
+                        : Container(
+                            height: 80.sp,
+                            width: 80.sp,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: FileImage(
+                                      File(profileController.imagePath.value),
+                                    ))),
+                          ),
+                  ),
 
                   /// ========================= Profile Name =======================
 
@@ -139,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
 
                   /// ========================= Name Controller =======================
                   customColum(
-                      readOnly: profileController.updateProfile.value,
+                      readOnly: profileController.isUpdateProfile.value,
                       title: AppStrings.name,
                       controller: profileController.nameController.value),
 
@@ -151,14 +173,14 @@ class ProfileScreen extends StatelessWidget {
 
                   /// ========================= Contact Controller =======================
                   customColum(
-                      readOnly: profileController.updateProfile.value,
+                      readOnly: profileController.isUpdateProfile.value,
                       title: AppStrings.phnNumber,
                       controller: profileController.phoneController.value),
 
                   /// ========================= Date Of Birth Controller =======================
                   customColum(
                       onTap: () async {
-                        if (!profileController.updateProfile.value) {
+                        if (!profileController.isUpdateProfile.value) {
                           generalController.pickDate(context).then((date) {
                             if (date.isNotEmpty) {
                               profileController.dOBController.value =
@@ -173,18 +195,26 @@ class ProfileScreen extends StatelessWidget {
 
                   // /// ========================= Address Controller =======================
                   customColum(
-                      readOnly: profileController.updateProfile.value,
+                      readOnly: profileController.isUpdateProfile.value,
                       title: AppStrings.location,
                       controller: profileController.addressController.value),
 
-                  if (!profileController.updateProfile.value)
-                    CustomButton(
-                      onTap: () {},
-                      marginHorizontal: 20.w,
-                      marginVerticel: 20.h,
-                      title: AppStrings.updateProfile,
-                      textColor: AppColors.whiteColor,
-                    )
+                  if (!profileController.isUpdateProfile.value)
+                    profileController.updateProfileLoading.value
+                        ? Align(
+                            alignment: Alignment.center,
+                            child: Assets.lottie.loading.lottie(
+                                width: context.width / 6, fit: BoxFit.cover),
+                          )
+                        : CustomButton(
+                            onTap: () {
+                              profileController.updateProfile(context: context);
+                            },
+                            marginHorizontal: 20.w,
+                            marginVerticel: 20.h,
+                            title: AppStrings.updateProfile,
+                            textColor: AppColors.whiteColor,
+                          )
                 ],
               ),
             ),

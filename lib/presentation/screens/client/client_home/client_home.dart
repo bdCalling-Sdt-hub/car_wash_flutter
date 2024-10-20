@@ -8,8 +8,8 @@ import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/presentation/widgets/service_card/service_card.dart';
 import 'package:car_wash/presentation/widgets/side_drawer/side_drawer.dart';
+import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
-import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,7 +83,8 @@ class ClientHome extends StatelessWidget {
 
               CustomAppbar(
                   profileController: profileController,
-                  image: AppConstants.onlineImage,
+                  image:
+                      "${ApiUrl.baseUrl}${profileController.profileModel.value.profileImage}",
                   name: "Fatma",
                   location: "Soudi Arab",
                   onTapMenu: () {

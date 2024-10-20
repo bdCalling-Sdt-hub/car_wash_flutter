@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
+import 'package:car_wash/helper/local_db/local_db.dart';
+import 'package:car_wash/helper/tost_message/show_snackbar.dart';
 import 'package:car_wash/presentation/screens/profile/model/profile_model.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/service/check_api.dart';
+import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,25 +19,28 @@ class ProfileController extends GetxController {
   Rx<TextEditingController> phoneController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
   Rx<TextEditingController> dOBController = TextEditingController().obs;
+  RxString imagePath = "".obs;
 
   // Rx<TextEditingController> locationController =
   //     TextEditingController(text: "Saudi Arab").obs;
-  RxBool updateProfile = true.obs;
+  RxBool isUpdateProfile = true.obs;
+  RxBool updateProfileLoading = false.obs;
   ApiClient apiClient = serviceLocator();
-  //DBHelper _dbHelper = serviceLocator();
+  final DBHelper _dbHelper = serviceLocator();
 
   /// ========================= Get Profile Information ==========================
-
-  /// TODO Get Profile Needs to be Dynamic
 
   final profileLoading = Status.loading.obs;
   void profileLoadingMethod(Status value) => profileLoading.value = value;
   Rx<ProfileDataModel> profileModel = ProfileDataModel().obs;
 
   getProfile({BuildContext? context}) async {
+    String role = await _dbHelper.getUserRole();
     var response = await apiClient.get(
-        showResult: false,
-        url: ApiUrl.clientProfile.addBaseUrl,
+        showResult: true,
+        url: role == "CLIENT"
+            ? ApiUrl.clientProfile.addBaseUrl
+            : ApiUrl.workerProfile.addBaseUrl,
         context: context);
 
     if (response.statusCode == 200) {
@@ -66,7 +74,47 @@ class ProfileController extends GetxController {
         TextEditingController(text: profileModel.dateOfBirth ?? "").obs;
   }
 
-  /// TODO Update Profile Not Done
+  /// ============================ Update Profile ===============================
+
+  updateProfile({required BuildContext context}) async {
+    String role = await _dbHelper.getUserRole();
+    updateProfileLoading.value = true;
+
+    var body = {
+      "name": nameController.value.text,
+      "phone_number": phoneController.value.text,
+      "date_of_birth": dOBController.value.text,
+      "address": addressController.value.text,
+    };
+
+    var response = imagePath.isEmpty
+        ? await apiClient.patch(
+            body: body,
+            url: role == "CLIENT"
+                ? ApiUrl.clientUpdateProfile.addBaseUrl
+                : ApiUrl.workerUpdateProfile.addBaseUrl)
+        : await apiClient.multipartRequest(
+            multipartBody: [
+                MultipartBody("profile_image", File(imagePath.value))
+              ],
+            url: role == "CLIENT"
+                ? ApiUrl.clientUpdateProfile.addBaseUrl
+                : ApiUrl.workerUpdateProfile.addBaseUrl,
+            reqType: "PATCH");
+
+    if (response.statusCode == 200) {
+      getProfile();
+      showSnackBar(
+          context: context,
+          content: response.body["message"],
+          backgroundColor: AppColors.greenColor);
+    } else {
+      checkApi(response: response, context: context);
+    }
+
+    updateProfileLoading.value = false;
+  }
+
   @override
   void onInit() {
     getProfile();
