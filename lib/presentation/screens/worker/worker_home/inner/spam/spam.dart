@@ -69,8 +69,8 @@ class SpamScreen extends StatelessWidget {
                 "It is a long established fact that a reader will be distracted by the readable",
             onTapCancle: () {},
             onTapStart: () {
-              print(LatLng(data.jobLocation?.coordinates?[1] ?? 0.0,
-                  data.jobLocation?.coordinates?[0] ?? 0.0));
+              debugPrint(
+                  "${LatLng(data.jobLocation?.coordinates?[1] ?? 0.0, data.jobLocation?.coordinates?[0] ?? 0.0)}");
             },
           );
       }

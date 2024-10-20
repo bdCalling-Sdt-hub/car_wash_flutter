@@ -1,5 +1,6 @@
 import 'package:car_wash/global/error_screen/error_screen.dart';
 import 'package:car_wash/global/no_internet/no_internet.dart';
+import 'package:car_wash/helper/date_time_converter/date_time_converter.dart';
 import 'package:car_wash/presentation/screens/client/subscription/controller/subscription_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_loader/custom_loader.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
@@ -51,6 +52,7 @@ class ClientSubscription extends StatelessWidget {
               child: CustomText(text: AppStrings.noDataFound),
             );
           case Status.completed:
+            var data = subscriptionController.myPackageModel.value.data;
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
               child: Column(
@@ -59,23 +61,29 @@ class ClientSubscription extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      /// Subscription Buying Date
+                      /// ===================== Subscription Buying Date ====================
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(text: AppStrings.subsCriptionBuying),
+                          const CustomText(text: AppStrings.subsCriptionBuying),
                           CustomText(
-                              text: "05-02-2024"), // Replace with actual date
+                              text: DateConverter.estimatedDate(data
+                                      ?.subscription?.createdAt ??
+                                  DateTime.now())), // Replace with actual date
                         ],
                       ),
 
-                      /// Subscription Ending Date
+                      /// ==================== Subscription Ending Date ===================
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(text: AppStrings.subsCriptionEnding),
+                          const CustomText(text: AppStrings.subsCriptionEnding),
                           CustomText(
-                              text: "05-12-2024"), // Replace with actual date
+                              text: DateConverter.estimatedDate(data
+                                      ?.subscription?.expiryTime ??
+                                  DateTime.now())), // Replace with actual date
                         ],
                       ),
                     ],
@@ -90,14 +98,16 @@ class ClientSubscription extends StatelessWidget {
                     bottom: 24.h,
                   ),
 
-                  /// Package Card
+                  /// ======================== Package Card ======================
+
                   PackageCard(
-                    packageId: "", // Provide a valid packageId
+                    packageId: data?.package?.id ?? "",
+                    price: "¥${data?.subscription?.price}",
                     showBuyButton: false,
-                    serviceID: "¥120",
-                    title: "Standard Wash",
-                    description: "(4 times per month, expiring after a month)",
-                    serviceList: const [], // Provide actual service list
+                    serviceID: data?.subscription?.serviceId ?? "",
+                    title: data?.package?.packageTitle ?? "",
+                    description: data?.package?.packageDescription ?? "",
+                    serviceList: data?.package?.services ?? [],
                     color: AppColors.greenColor,
                   ),
                 ],

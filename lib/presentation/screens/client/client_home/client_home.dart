@@ -165,7 +165,7 @@ class ClientHome extends StatelessWidget {
 
                   case 1:
                     return ServiceCard(
-                      userLocation: LatLng(435345, 435346),
+                      userLocation: const LatLng(435345, 435346),
                       showButtons: false,
                       showDescription: false,
                       showStartButton: false,

@@ -5,7 +5,6 @@ import 'package:car_wash/global/error_screen/error_screen.dart';
 import 'package:car_wash/global/general_controller/general_controller.dart';
 import 'package:car_wash/global/no_internet/no_internet.dart';
 import 'package:car_wash/helper/date_time_converter/date_time_converter.dart';
-import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';

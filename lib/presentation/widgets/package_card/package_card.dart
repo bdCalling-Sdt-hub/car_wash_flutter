@@ -1,6 +1,5 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/client/subscription/controller/subscription_controller.dart';
-import 'package:car_wash/presentation/screens/client/subscription/model/subscription_packages_model.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
@@ -32,49 +31,103 @@ class PackageCard extends StatelessWidget {
   final String packageId; // The unique ID of the package
   final bool showBuyButton;
   final String description;
-  final List<Service> serviceList;
+  final List<dynamic> serviceList;
 
   final SubscriptionController subscriptionController =
       Get.find<SubscriptionController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Container(
-        padding: EdgeInsets.all(20.r),
-        margin: EdgeInsets.only(bottom: 20.h),
-        decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(8.r)),
-        child: Column(
-          children: [
-            // Package Price
-            CustomText(
-              fontSize: Dimensions.getButtonFontSizeLarge(context),
-              text: price.isNotEmpty
-                  ? price
-                  : subscriptionController.selectedPackageId.value == serviceID
-                      ? "¥${subscriptionController.selectedMoney}"
-                      : "¥00",
-              fontWeight: FontWeight.w600,
-            ),
+    return showBuyButton
+        ? Obx(() {
+            return MainDesign(
+                color: color,
+                price: price,
+                subscriptionController: subscriptionController,
+                serviceID: serviceID,
+                title: title,
+                description: description,
+                showBuyButton: showBuyButton,
+                serviceList: serviceList,
+                packageId: packageId);
+          })
+        : MainDesign(
+            color: color,
+            price: price,
+            subscriptionController: subscriptionController,
+            serviceID: serviceID,
+            title: title,
+            description: description,
+            showBuyButton: showBuyButton,
+            serviceList: serviceList,
+            packageId: packageId);
+  }
+}
 
-            // Package Title
-            CustomText(
-              fontSize: Dimensions.getFontSizeLarge(context),
-              text: title,
-              fontWeight: FontWeight.w600,
-              bottom: 10.h,
-            ),
+class MainDesign extends StatelessWidget {
+  const MainDesign({
+    super.key,
+    required this.color,
+    required this.price,
+    required this.subscriptionController,
+    required this.serviceID,
+    required this.title,
+    required this.description,
+    required this.showBuyButton,
+    required this.serviceList,
+    required this.packageId,
+  });
 
-            // Package Description
-            CustomText(
-              maxLines: 2,
-              text: description,
-              fontWeight: FontWeight.w500,
-              bottom: 10.h,
-            ),
+  final Color color;
+  final String price;
+  final SubscriptionController subscriptionController;
+  final String serviceID;
+  final String title;
+  final String description;
+  final bool showBuyButton;
+  final List serviceList;
+  final String packageId;
 
-            // Service List with Checkbox
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.all(20.r),
+      margin: EdgeInsets.only(bottom: 20.h),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.r)),
+      child: Column(
+        children: [
+          // Package Price
+          CustomText(
+            fontSize: Dimensions.getButtonFontSizeLarge(context),
+            text: price.isNotEmpty
+                ? price
+                : subscriptionController.selectedPackageId.value == serviceID
+                    ? "¥${subscriptionController.selectedMoney}"
+                    : "¥00",
+            fontWeight: FontWeight.w600,
+          ),
+
+          // Package Title
+          CustomText(
+            fontSize: Dimensions.getFontSizeLarge(context),
+            text: title,
+            fontWeight: FontWeight.w600,
+            bottom: 10.h,
+          ),
+
+          // Package Description
+          CustomText(
+            maxLines: 2,
+            text: description,
+            fontWeight: FontWeight.w500,
+            bottom: 10.h,
+          ),
+
+          // ======================= Service List with Checkbox ====================
+
+          if (showBuyButton)
             ...List.generate(
               serviceList.length,
               (index) {
@@ -105,21 +158,21 @@ class PackageCard extends StatelessWidget {
               },
             ),
 
-            // Buy Now Button
-            if (showBuyButton &&
-                subscriptionController.selectedPackageId.value == serviceID)
-              CustomButton(
-                marginVerticel: 10.h,
-                fillColor: AppColors.whiteColor,
-                onTap: () {
-                  context.pushNamed(RoutePath.coupon,
-                      extra: subscriptionController.selectedMoney.value);
-                },
-                title: AppStrings.buyNow,
-              )
-          ],
-        ),
-      );
-    });
+          // ====================== Buy Now Button =====================
+
+          if (showBuyButton &&
+              subscriptionController.selectedPackageId.value == serviceID)
+            CustomButton(
+              marginVerticel: 10.h,
+              fillColor: AppColors.whiteColor,
+              onTap: () {
+                context.pushNamed(RoutePath.coupon,
+                    extra: subscriptionController.selectedMoney.value);
+              },
+              title: AppStrings.buyNow,
+            )
+        ],
+      ),
+    );
   }
 }
