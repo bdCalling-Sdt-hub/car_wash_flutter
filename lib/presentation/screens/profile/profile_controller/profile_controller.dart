@@ -37,7 +37,6 @@ class ProfileController extends GetxController {
   getProfile({BuildContext? context}) async {
     String role = await _dbHelper.getUserRole();
     var response = await apiClient.get(
-        showResult: true,
         url: role == "CLIENT"
             ? ApiUrl.clientProfile.addBaseUrl
             : ApiUrl.workerProfile.addBaseUrl,

@@ -32,13 +32,6 @@ class ClientHome extends StatelessWidget {
     return Obx(() {
       return Scaffold(
           extendBody: true,
-          // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          // floatingActionButton: FloatingActionButton(
-          //   isExtended: true,
-
-          //   onPressed: () {},
-          //   child:
-          // ),
           bottomNavigationBar: clientHomeController.tappedIndex.value == 0
               ? GestureDetector(
                   onTap: () {
@@ -85,8 +78,9 @@ class ClientHome extends StatelessWidget {
                   profileController: profileController,
                   image:
                       "${ApiUrl.baseUrl}${profileController.profileModel.value.profileImage}",
-                  name: "Fatma",
-                  location: "Soudi Arab",
+                  name: profileController.profileModel.value.name ?? "",
+                  location: profileController.profileModel.value.address ??
+                      "No Location",
                   onTapMenu: () {
                     scafoldKey.currentState?.openDrawer();
                   },

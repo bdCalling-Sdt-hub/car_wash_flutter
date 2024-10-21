@@ -28,11 +28,13 @@ class ServiceCard extends StatelessWidget {
       this.showStartButton = true,
       this.isHistory = false,
       this.beforeCleaningImg = "",
-      this.afterCleaningImg = ""});
+      this.afterCleaningImg = "",
+      this.workingTime = ""});
 
   final String date;
   final String beforeCleaningImg;
   final String afterCleaningImg;
+  final String workingTime;
 
   final String time;
   final String location;
@@ -78,7 +80,7 @@ class ServiceCard extends StatelessWidget {
           ),
           Gap(16.h),
           showCarImage
-              ? const CustomText(text: "${AppStrings.workingTime} 2 h 50 min")
+              ? CustomText(text: "${AppStrings.workingTime} $workingTime")
               : Row(
                   children: [
                     const CustomText(text: AppStrings.date),

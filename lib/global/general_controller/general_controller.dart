@@ -124,7 +124,8 @@ class GeneralController extends GetxController {
     historyLoadingMethod(Status.loading);
 
     var response = await apiClient.get(
-        url: ApiUrl.jobHistory.addBaseUrl, showResult: true);
+      url: ApiUrl.jobHistory.addBaseUrl,
+    );
 
     if (response.statusCode == 200) {
       jobList.value = List<JobHistoryModel>.from(response.body["data"]

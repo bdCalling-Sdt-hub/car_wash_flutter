@@ -1,6 +1,6 @@
+import 'package:car_wash/presentation/screens/job_history/job_history.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
-import 'package:car_wash/presentation/widgets/service_card/service_card.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/dimensions/dimensions.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
@@ -35,18 +35,7 @@ class WorkedHistory extends StatelessWidget {
             ),
           ),
 
-          ServiceCard(
-            showButtons: false,
-            showCarImage: true,
-            date: "04-12-2024",
-            time: "10 : 00 AM",
-            location: "09 Arnulfo Crossing, Botsfordborough",
-            number: "011 2562 1569 66",
-            description:
-                "It is a long established fact that a reader will be distracted by the readable",
-            onTapCancle: () {},
-            onTapStart: () {},
-          )
+          JobHistoryScreen()
         ],
       ),
     );

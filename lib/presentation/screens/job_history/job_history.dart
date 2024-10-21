@@ -55,6 +55,7 @@ class JobHistoryScreen extends StatelessWidget {
                   (index) {
                     var data = generalController.jobList[index];
                     return ServiceCard(
+                      workingTime: "${data.jobDuration ?? ""} min",
                       afterCleaningImg: data.carImageAfter ?? "",
                       beforeCleaningImg: data.carImageBefore ?? "",
                       isHistory: true,

@@ -9,7 +9,7 @@ import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/presentation/widgets/side_drawer/side_drawer.dart';
-import 'package:car_wash/utils/app_const/app_const.dart';
+import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:car_wash/utils/app_colors/app_colors.dart';
@@ -52,9 +52,11 @@ class WorkerHome extends StatelessWidget {
 
             CustomAppbar(
                 profileController: profileController,
-                image: AppConstants.onlineImage,
-                name: "Fatma",
-                location: "Soudi Arab",
+                image:
+                    "${ApiUrl.baseUrl}${profileController.profileModel.value.profileImage}",
+                name: profileController.profileModel.value.name ?? "",
+                location: profileController.profileModel.value.address ??
+                    "No Location",
                 onTapMenu: () {
                   scafoldKey.currentState?.openDrawer();
                 },

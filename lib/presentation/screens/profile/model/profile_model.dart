@@ -75,7 +75,7 @@ class ProfileDataModel {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        address: json["address"],
+        address: json["address"].isEmpty ? null : json["address"].isEmpty,
         dateOfBirth: json["date_of_birth"],
       );
 }
