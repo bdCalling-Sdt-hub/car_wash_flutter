@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
+import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
 import 'package:car_wash/presentation/screens/client/req_service/model/place_search_model.dart';
 import 'package:car_wash/scret_key.dart';
 import 'package:car_wash/service/api_service.dart';
@@ -14,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ReqServiceController extends GetxController {
   ApiClient apiClient = serviceLocator();
+  ClientHomeController clientHomeController = Get.find<ClientHomeController>();
 
   RxList<PlaceDetailsModel> places = <PlaceDetailsModel>[].obs;
 
@@ -133,6 +135,7 @@ class ReqServiceController extends GetxController {
         body: body, url: ApiUrl.createJob.addBaseUrl, context: context);
 
     if (response.statusCode == 200) {
+      clientHomeController.getUpComingService(context: context);
       showSnackBar(
           // ignore: use_build_context_synchronously
           context: context,

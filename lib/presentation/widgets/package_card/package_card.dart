@@ -38,141 +38,96 @@ class PackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return showBuyButton
-        ? Obx(() {
-            return MainDesign(
-                color: color,
-                price: price,
-                subscriptionController: subscriptionController,
-                serviceID: serviceID,
-                title: title,
-                description: description,
-                showBuyButton: showBuyButton,
-                serviceList: serviceList,
-                packageId: packageId);
-          })
-        : MainDesign(
-            color: color,
-            price: price,
-            subscriptionController: subscriptionController,
-            serviceID: serviceID,
-            title: title,
-            description: description,
-            showBuyButton: showBuyButton,
-            serviceList: serviceList,
-            packageId: packageId);
-  }
-}
-
-class MainDesign extends StatelessWidget {
-  const MainDesign({
-    super.key,
-    required this.color,
-    required this.price,
-    required this.subscriptionController,
-    required this.serviceID,
-    required this.title,
-    required this.description,
-    required this.showBuyButton,
-    required this.serviceList,
-    required this.packageId,
-  });
-
-  final Color color;
-  final String price;
-  final SubscriptionController subscriptionController;
-  final String serviceID;
-  final String title;
-  final String description;
-  final bool showBuyButton;
-  final List serviceList;
-  final String packageId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.all(20.r),
-      margin: EdgeInsets.only(bottom: 20.h),
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.r)),
-      child: Column(
-        children: [
-          // Package Price
-          CustomText(
-            fontSize: Dimensions.getButtonFontSizeLarge(context),
-            text: price.isNotEmpty
-                ? price
-                : subscriptionController.selectedPackageId.value == serviceID
-                    ? "¥${subscriptionController.selectedMoney}"
-                    : "¥00",
-            fontWeight: FontWeight.w600,
-          ),
-
-          // Package Title
-          CustomText(
-            fontSize: Dimensions.getFontSizeLarge(context),
-            text: title,
-            fontWeight: FontWeight.w600,
-            bottom: 10.h,
-          ),
-
-          // Package Description
-          CustomText(
-            maxLines: 2,
-            text: description,
-            fontWeight: FontWeight.w500,
-            bottom: 10.h,
-          ),
-
-          // ======================= Service List with Checkbox ====================
-
-          if (showBuyButton)
-            ...List.generate(
-              serviceList.length,
-              (index) {
-                var service = serviceList[index];
-
-                bool isSelected =
-                    subscriptionController.selectedService.value == service &&
-                        subscriptionController.selectedPackageId.value ==
-                            packageId;
-                return Row(
-                  children: [
-                    Checkbox(
-                      activeColor: AppColors.primaryColor,
-                      value: isSelected,
-                      onChanged: (value) {
-                        // When a service is selected, update the controller
-                        if (value ?? false) {
-                          subscriptionController.selectService(
-                              service, packageId);
-
-                          subscriptionController.selectedMoney.refresh();
-                        }
-                      },
-                    ),
-                    CustomText(text: service.serviceName ?? "")
-                  ],
-                );
-              },
+    return Obx(() {
+      return Container(
+        width: double.maxFinite,
+        padding: EdgeInsets.all(20.r),
+        margin: EdgeInsets.only(bottom: 20.h),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(8.r)),
+        child: Column(
+          children: [
+            subscriptionController.selectedPackageId.value == serviceID
+                ? const SizedBox()
+                : const SizedBox(),
+            // Package Price
+            //if (price.isNotEmpty)
+            CustomText(
+              fontSize: Dimensions.getButtonFontSizeLarge(context),
+              text: price.isNotEmpty
+                  ? price
+                  : subscriptionController.selectedPackageId.value == serviceID
+                      ? "¥${subscriptionController.selectedMoney}"
+                      : "¥00",
+              fontWeight: FontWeight.w600,
             ),
 
-          // ====================== Buy Now Button =====================
+            // Package Title
+            CustomText(
+              fontSize: Dimensions.getFontSizeLarge(context),
+              text: title,
+              fontWeight: FontWeight.w600,
+              bottom: 10.h,
+            ),
 
-          if (showBuyButton &&
-              subscriptionController.selectedPackageId.value == serviceID)
-            CustomButton(
-              marginVerticel: 10.h,
-              fillColor: AppColors.whiteColor,
-              onTap: () {
-                context.pushNamed(RoutePath.coupon,
-                    extra: subscriptionController.selectedMoney.value);
-              },
-              title: AppStrings.buyNow,
-            )
-        ],
-      ),
-    );
+            // Package Description
+            if (description.isNotEmpty)
+              CustomText(
+                maxLines: 2,
+                text: description,
+                fontWeight: FontWeight.w500,
+                bottom: 10.h,
+              ),
+
+            // ======================= Service List with Checkbox ====================
+
+            if (showBuyButton)
+              ...List.generate(
+                serviceList.length,
+                (index) {
+                  var service = serviceList[index];
+
+                  bool isSelected =
+                      subscriptionController.selectedService.value == service &&
+                          subscriptionController.selectedPackageId.value ==
+                              packageId;
+                  return Row(
+                    children: [
+                      Checkbox(
+                        activeColor: AppColors.primaryColor,
+                        value: isSelected,
+                        onChanged: (value) {
+                          // When a service is selected, update the controller
+                          if (value ?? false) {
+                            subscriptionController.selectService(
+                                service, packageId);
+
+                            subscriptionController.selectedMoney.refresh();
+                          }
+                        },
+                      ),
+                      CustomText(text: service.serviceName ?? "")
+                    ],
+                  );
+                },
+              ),
+
+            // ====================== Buy Now Button =====================
+
+            if (showBuyButton &&
+                subscriptionController.selectedPackageId.value == serviceID)
+              CustomButton(
+                marginVerticel: 10.h,
+                fillColor: AppColors.whiteColor,
+                onTap: () {
+                  context.pushNamed(RoutePath.coupon,
+                      extra: subscriptionController.selectedMoney.value);
+                },
+                title: AppStrings.buyNow,
+              )
+          ],
+        ),
+      );
+    });
   }
 }

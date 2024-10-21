@@ -80,6 +80,8 @@ class AppStrings {
   static const String subsCriptionBuying = "Subscription buying";
   static const String subsCriptionEnding = "Subscription ending";
   static const String package = "Package";
+  static const String service = "Service";
+
 
   ///====================== Home ========================
   static const String orderHistory = "Order History";

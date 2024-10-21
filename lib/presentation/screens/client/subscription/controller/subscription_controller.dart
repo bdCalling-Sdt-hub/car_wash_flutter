@@ -7,6 +7,7 @@ import 'package:car_wash/presentation/screens/client/subscription/model/subscrip
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/service/check_api.dart';
+import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -135,7 +136,10 @@ class SubscriptionController extends GetxController {
         url: ApiUrl.confirmSubscription.addBaseUrl, body: body);
 
     if (response.statusCode == 200) {
-      showSnackBar(context: context, content: response.body["message"]);
+      showSnackBar(
+          context: context,
+          content: response.body["message"],
+          backgroundColor: AppColors.grayColor);
       Navigator.of(context).pop();
     } else {
       Navigator.of(context).pop();

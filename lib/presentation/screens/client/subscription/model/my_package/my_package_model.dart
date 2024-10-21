@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final myPackage = myPackageFromJson(jsonString);
+//     final myPackageModel = myPackageModelFromJson(jsonString);
 
 import 'dart:convert';
 
-MyPackageModel myPackageFromJson(String str) =>
+MyPackageModel myPackageModelFromJson(String str) =>
     MyPackageModel.fromJson(json.decode(str));
 
-String myPackageToJson(MyPackageModel data) => json.encode(data.toJson());
+String myPackageModelToJson(MyPackageModel data) => json.encode(data.toJson());
 
 class MyPackageModel {
   int? statusCode;
@@ -38,15 +38,20 @@ class MyPackageModel {
 }
 
 class Data {
+  MyServices? service;
   Subscription? subscription;
   Package? package;
 
   Data({
+    this.service,
     this.subscription,
     this.package,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        service: json["service"] == null
+            ? null
+            : MyServices.fromJson(json["service"]),
         subscription: json["subscription"] == null
             ? null
             : Subscription.fromJson(json["subscription"]),
@@ -55,6 +60,7 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
+        "service": service?.toJson(),
         "subscription": subscription?.toJson(),
         "package": package?.toJson(),
       };
@@ -65,7 +71,7 @@ class Package {
   String? packageTitle;
   String? packageDescription;
   int? numberOfService;
-  List<Services>? services;
+  List<MyServices>? services;
   int? v;
 
   Package({
@@ -84,8 +90,8 @@ class Package {
         numberOfService: json["numberOfService"],
         services: json["services"] == null
             ? []
-            : List<Services>.from(
-                json["services"]!.map((x) => Services.fromJson(x))),
+            : List<MyServices>.from(
+                json["services"]!.map((x) => MyServices.fromJson(x))),
         v: json["__v"],
       );
 
@@ -101,14 +107,14 @@ class Package {
       };
 }
 
-class Services {
+class MyServices {
   String? serviceName;
   int? price;
   bool? isCouponApplied;
   dynamic percentage;
   String? id;
 
-  Services({
+  MyServices({
     this.serviceName,
     this.price,
     this.isCouponApplied,
@@ -116,7 +122,7 @@ class Services {
     this.id,
   });
 
-  factory Services.fromJson(Map<String, dynamic> json) => Services(
+  factory MyServices.fromJson(Map<String, dynamic> json) => MyServices(
         serviceName: json["serviceName"],
         price: json["price"],
         isCouponApplied: json["isCouponApplied"],

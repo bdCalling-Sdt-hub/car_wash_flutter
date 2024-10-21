@@ -102,11 +102,31 @@ class ClientSubscription extends StatelessWidget {
 
                   PackageCard(
                     packageId: data?.package?.id ?? "",
-                    price: "¥${data?.subscription?.price}",
+                    price: "",
                     showBuyButton: false,
                     serviceID: data?.subscription?.serviceId ?? "",
                     title: data?.package?.packageTitle ?? "",
                     description: data?.package?.packageDescription ?? "",
+                    serviceList: data?.package?.services ?? [],
+                    color: AppColors.greenColor,
+                  ),
+
+                  /// ============= Service Text =============
+
+                  CustomText(
+                    text: AppStrings.service,
+                    fontSize: Dimensions.getButtonFontSizeLarge(context),
+                    bottom: 24.h,
+                  ),
+
+                  /// ======================== Service Card ======================
+                  PackageCard(
+                    packageId: data?.service?.id ?? "",
+                    price: "¥${data?.service?.price}",
+                    showBuyButton: false,
+                    serviceID: data?.subscription?.serviceId ?? "",
+                    title: data?.service?.serviceName ?? "",
+                    description: "",
                     serviceList: data?.package?.services ?? [],
                     color: AppColors.greenColor,
                   ),
