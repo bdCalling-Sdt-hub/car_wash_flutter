@@ -2,7 +2,7 @@ import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/global/error_screen/error_screen.dart';
 import 'package:car_wash/global/no_internet/no_internet.dart';
 import 'package:car_wash/helper/date_time_converter/date_time_converter.dart';
-import 'package:car_wash/presentation/screens/worker/worker_home/controller/worker_home.dart';
+import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/service_card/service_card.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
@@ -11,16 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class SpamScreen extends StatelessWidget {
-  SpamScreen({super.key});
+class CurrentService extends StatelessWidget {
+  CurrentService({super.key});
 
-  final WorkerHomeController workerHomeController =
-      Get.find<WorkerHomeController>();
-
+  final ClientHomeController clientHomeController =
+      Get.find<ClientHomeController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      switch (workerHomeController.spamLoading.value) {
+      switch (clientHomeController.currentServiceLoading.value) {
         case Status.loading:
           return Assets.lottie.screenLoadingAni.lottie(
             height: 100,
@@ -31,13 +30,13 @@ class SpamScreen extends StatelessWidget {
         case Status.internetError:
           return NoInternetScreen(
             onTap: () {
-              workerHomeController.getSpamList(context: context);
+              clientHomeController.getCurrentServiceList();
             },
           );
         case Status.error:
           return GeneralErrorScreen(
             onTap: () {
-              workerHomeController.getSpamList(context: context);
+              clientHomeController.getCurrentServiceList();
             },
           );
 
@@ -50,28 +49,27 @@ class SpamScreen extends StatelessWidget {
           );
 
         case Status.completed:
-          var data = workerHomeController.spamModel.value;
+          var data = clientHomeController.currentServiceModel.value;
           return ServiceCard(
-            userLocation: LatLng(data.jobLocation?.coordinates?[1] ?? 0.0,
-                data.jobLocation?.coordinates?[0] ?? 0.0),
+            showStartButton: false,
             showButtons: false,
-            showDescription: false,
+            showCarImage: false,
             googleMap: true,
+            userLocation: LatLng(
+                data.assignedWorker?.location?.coordinates?[1] ?? 63.6847545,
+                data.assignedWorker?.location?.coordinates?[0] ?? 63.6847545),
             date: DateConverter.estimatedDate(
                 data.bookedDateTime ?? DateTime.now()),
             time:
                 DateConverter.hourMinit(data.bookedDateTime ?? DateTime.now()),
             location: data.address ?? "",
-            number: data.clientPhoneNumber ?? "",
+            number: data.assignedWorker?.phoneNumber ?? "",
 
-            /// TODO Need to Update Description
+            /// TODO Description is missing
             description:
                 "It is a long established fact that a reader will be distracted by the readable",
             onTapCancle: () {},
-            onTapStart: () {
-              workerHomeController.startWork(
-                  context: context, jobId: data.id ?? "");
-            },
+            onTapStart: () {},
           );
       }
     });

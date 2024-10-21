@@ -1,17 +1,16 @@
-
-
 class NewOrderModel {
   JobLocation? jobLocation;
   String? id;
   DateTime? bookedDateTime;
   String? address;
+  String? clientPhoneNumber;
 
-  NewOrderModel({
-    this.jobLocation,
-    this.id,
-    this.bookedDateTime,
-    this.address,
-  });
+  NewOrderModel(
+      {this.jobLocation,
+      this.id,
+      this.bookedDateTime,
+      this.address,
+      this.clientPhoneNumber});
 
   factory NewOrderModel.fromJson(Map<String, dynamic> json) => NewOrderModel(
         jobLocation: json["jobLocation"] == null
@@ -22,14 +21,8 @@ class NewOrderModel {
             ? null
             : DateTime.parse(json["bookedDateTime"]),
         address: json["address"],
+        clientPhoneNumber: json["clientPhoneNumber"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "jobLocation": jobLocation?.toJson(),
-        "_id": id,
-        "bookedDateTime": bookedDateTime?.toIso8601String(),
-        "address": address,
-      };
 }
 
 class JobLocation {

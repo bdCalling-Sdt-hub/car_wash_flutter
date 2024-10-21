@@ -1,8 +1,8 @@
 import 'package:car_wash/helper/network_image/network_image.dart';
 import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
+import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
-import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:flutter/material.dart';
@@ -25,9 +25,15 @@ class ServiceCard extends StatelessWidget {
       this.googleMap = false,
       this.userLocation,
       this.showCarImage = false,
-      this.showStartButton = true});
+      this.showStartButton = true,
+      this.isHistory = false,
+      this.beforeCleaningImg = "",
+      this.afterCleaningImg = ""});
 
   final String date;
+  final String beforeCleaningImg;
+  final String afterCleaningImg;
+
   final String time;
   final String location;
   final String number;
@@ -36,6 +42,8 @@ class ServiceCard extends StatelessWidget {
   final VoidCallback onTapCancle;
   final VoidCallback onTapStart;
   final bool showStatus;
+  final bool isHistory;
+
   final bool showDescription;
   final bool googleMap;
   final bool showCarImage;
@@ -108,20 +116,22 @@ class ServiceCard extends StatelessWidget {
               )),
             ],
           ),
-          Gap(16.h),
-          Row(
-            children: [
-              ///===================== Contact Number ====================
-              const CustomText(text: AppStrings.contactNumber),
+          if (number.isNotEmpty) Gap(16.h),
+          if (number.isNotEmpty)
+            Row(
+              children: [
+                ///===================== Contact Number ====================
 
-              Expanded(
-                  child: CustomText(
-                textAlign: TextAlign.left,
-                text: number,
-                maxLines: 2,
-              )),
-            ],
-          ),
+                const CustomText(text: AppStrings.contactNumber),
+
+                Expanded(
+                    child: CustomText(
+                  textAlign: TextAlign.left,
+                  text: number,
+                  maxLines: 2,
+                )),
+              ],
+            ),
 
           if (showDescription == true) ...[
             Gap(16.h),
@@ -129,6 +139,7 @@ class ServiceCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ///===================== Description ====================
+
                 const CustomText(text: AppStrings.description),
 
                 Expanded(
@@ -177,6 +188,7 @@ class ServiceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomText(
                       text: AppStrings.beforeCleaning,
@@ -185,21 +197,22 @@ class ServiceCard extends StatelessWidget {
                     //================ Before Cleaning Image=================
 
                     CustomNetworkImage(
-                        imageUrl: AppConstants.carDarty,
+                        imageUrl: "${ApiUrl.baseUrl}$beforeCleaningImg",
                         height: 80.h,
                         width: 130.w)
                   ],
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomText(
                       text: AppStrings.afterCleaning,
                       bottom: 10,
                     ),
-                    //================ Before Cleaning Image=================
+                    //================ After Cleaning Image=================
 
                     CustomNetworkImage(
-                        imageUrl: AppConstants.carClean,
+                        imageUrl: "${ApiUrl.baseUrl}$afterCleaningImg",
                         height: 80.h,
                         width: 130.w)
                   ],
@@ -211,53 +224,62 @@ class ServiceCard extends StatelessWidget {
       ),
     );
 
-    return Expanded(
-      child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: googleMap
-              ? Column(
-                  children: [
-                    container,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
+    return isHistory
+        ? container
+        : Expanded(
+            child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: googleMap
+                    ? Column(
                         children: [
-                          // Assets.images.mapImage.image(
-                          //     width: double.maxFinite, fit: BoxFit.cover),
+                          container,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Assets.images.mapImage.image(
+                                //     width: double.maxFinite, fit: BoxFit.cover),
 
-                          /// ======================= User Location =====================
-
-                          SizedBox(
-                            height: 500,
-                            child: GoogleMap(
-                              zoomGesturesEnabled: true,
-                              zoomControlsEnabled: true,
-                              myLocationEnabled: true,
-                              markers: {
-                                Marker(
-                                  markerId: const MarkerId("_workLocation"),
-                                  icon: BitmapDescriptor.defaultMarker,
-                                  position: userLocation!,
+                                CustomText(
+                                  text: "User Location",
+                                  bottom: 8.h,
                                 ),
-                              },
-                              initialCameraPosition: CameraPosition(
-                                  target: userLocation!, zoom: 13),
+
+                                /// ======================= User Location =====================
+
+                                SizedBox(
+                                  height: 500,
+                                  child: GoogleMap(
+                                    zoomGesturesEnabled: true,
+                                    zoomControlsEnabled: true,
+                                    myLocationEnabled: true,
+                                    markers: {
+                                      Marker(
+                                        markerId:
+                                            const MarkerId("_workLocation"),
+                                        icon: BitmapDescriptor.defaultMarker,
+                                        position: userLocation!,
+                                      ),
+                                    },
+                                    initialCameraPosition: CameraPosition(
+                                        target: userLocation!, zoom: 13),
+                                  ),
+                                ),
+                                Gap(20.h),
+                                if (showStartButton)
+                                  CustomButton(
+                                    onTap: onTapStart,
+                                    title: AppStrings.startWork,
+                                  ),
+                                Gap(44.h)
+                              ],
                             ),
-                          ),
-                          Gap(20.h),
-                          if (showStartButton)
-                            CustomButton(
-                              onTap: onTapStart,
-                              title: AppStrings.startWork,
-                            ),
-                          Gap(44.h)
+                          )
                         ],
-                      ),
-                    )
-                  ],
-                )
-              : container),
-    );
+                      )
+                    : container),
+          );
   }
 }
 

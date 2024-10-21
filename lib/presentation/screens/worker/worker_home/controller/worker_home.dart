@@ -104,7 +104,7 @@ class WorkerHomeController extends GetxController {
 
     if (response.statusCode == 200) {
       Navigator.of(context).pop();
-      getNewOrder(context: context);
+      getSpamList();
       showSnackBar(
           context: context,
           content: response.body["message"],
@@ -127,7 +127,8 @@ class WorkerHomeController extends GetxController {
 
     if (response.statusCode == 200) {
       Navigator.of(context).pop();
-      getNewOrder(context: context);
+      getNewOrder();
+      getSpamList();
       showSnackBar(
           context: context,
           content: response.body["message"],
@@ -167,7 +168,8 @@ class WorkerHomeController extends GetxController {
         ]);
 
     if (response.statusCode == 200) {
-      getSpamList(context: context);
+      generalController.jobHistory();
+      getSpamList();
       showSnackBar(
           context: context,
           content: response.body["message"],

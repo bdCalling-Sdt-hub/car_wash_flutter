@@ -1,6 +1,13 @@
 import 'dart:io';
 
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
+import 'package:car_wash/dependency_injection/path.dart';
+import 'package:car_wash/global/model/job_history_model.dart';
+import 'package:car_wash/helper/extension/base_extension.dart';
+import 'package:car_wash/service/api_service.dart';
+import 'package:car_wash/service/api_url.dart';
+import 'package:car_wash/service/check_api.dart';
+import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -88,7 +95,8 @@ class GeneralController extends GetxController {
         });
   }
 
-  ///========================== Pick Image ========================
+  ///============================= Pick Image ===============================
+
   Rx<File> imageFile = File("").obs;
   RxString imagePath = "".obs;
   Future<String> selectImage() async {
@@ -104,5 +112,40 @@ class GeneralController extends GetxController {
     }
 
     return "";
+  }
+
+  /// ============================= Job History =====================================
+  var historyLoading = Status.loading.obs;
+  historyLoadingMethod(Status status) => historyLoading.value = status;
+  ApiClient apiClient = serviceLocator();
+
+  RxList<JobHistoryModel> jobList = <JobHistoryModel>[].obs;
+  jobHistory({BuildContext? context}) async {
+    historyLoadingMethod(Status.loading);
+
+    var response = await apiClient.get(
+        url: ApiUrl.jobHistory.addBaseUrl, showResult: true);
+
+    if (response.statusCode == 200) {
+      jobList.value = List<JobHistoryModel>.from(response.body["data"]
+              ["history"]
+          .map((x) => JobHistoryModel.fromJson(x)));
+      historyLoadingMethod(Status.completed);
+    } else {
+      checkApi(response: response, context: context);
+      if (response.statusCode == 503) {
+        historyLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        historyLoadingMethod(Status.noDataFound);
+      } else {
+        historyLoadingMethod(Status.error);
+      }
+    }
+  }
+
+  @override
+  void onInit() {
+    jobHistory();
+    super.onInit();
   }
 }

@@ -47,4 +47,7 @@ class ApiUrl {
   static const startWork = "/job/worker-start-work";
   static const endWork = "/job/worker-end-work";
   static const getSpamList = "/job/job-and-worker-location";
+
+  /// ========================================= Global API's ===============================================
+  static const jobHistory = "/job/history";
 }

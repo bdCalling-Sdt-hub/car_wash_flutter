@@ -1,12 +1,13 @@
 import 'package:car_wash/core/routes/route_path.dart';
 import 'package:car_wash/presentation/screens/client/client_home/controller/client_home_controller.dart';
+import 'package:car_wash/presentation/screens/client/client_home/inner/current_service/current_service.dart';
 import 'package:car_wash/presentation/screens/client/client_home/inner/package_status.dart';
 import 'package:car_wash/presentation/screens/client/client_home/inner/upcoming_service/upcoming_service.dart';
+import 'package:car_wash/presentation/screens/job_history/job_history.dart';
 import 'package:car_wash/presentation/screens/profile/profile_controller/profile_controller.dart';
 import 'package:car_wash/presentation/widgets/custom_appbar/custom_appbar.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
-import 'package:car_wash/presentation/widgets/service_card/service_card.dart';
 import 'package:car_wash/presentation/widgets/side_drawer/side_drawer.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientHome extends StatelessWidget {
   ClientHome({super.key});
@@ -165,36 +165,10 @@ class ClientHome extends StatelessWidget {
                     return UpcomingServiceScreen();
 
                   case 1:
-                    return ServiceCard(
-                      userLocation: const LatLng(435345, 435346),
-                      showButtons: false,
-                      showDescription: false,
-                      showStartButton: false,
-                      showCarImage: false,
-                      googleMap: true,
-                      date: "04-12-2024",
-                      time: "10 : 00 AM",
-                      location: "09 Arnulfo Crossing, Botsfordborough",
-                      number: "011 2562 1569 66",
-                      description:
-                          "It is a long established fact that a reader will be distracted by the readable",
-                      onTapCancle: () {},
-                      onTapStart: () {},
-                    );
+                    return CurrentService();
 
                   case 2:
-                    return ServiceCard(
-                      showButtons: false,
-                      showCarImage: false,
-                      date: "04-12-2024",
-                      time: "10 : 00 AM",
-                      location: "09 Arnulfo Crossing, Botsfordborough",
-                      number: "011 2562 1569 66",
-                      description:
-                          "It is a long established fact that a reader will be distracted by the readable",
-                      onTapCancle: () {},
-                      onTapStart: () {},
-                    );
+                    return JobHistoryScreen();
 
                   default:
                     return const SizedBox();

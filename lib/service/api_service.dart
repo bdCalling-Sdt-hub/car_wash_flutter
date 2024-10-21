@@ -422,7 +422,7 @@ class ApiClient {
       required String reqType,
       bool isBasic = false,
       Map<String, String>? body,
-      List<MultipartBody>? multipartBody,
+      required List<MultipartBody> multipartBody,
       bool showResult = true}) async {
     try {
       /// ======================- Check Internet ===================
@@ -448,9 +448,12 @@ class ApiClient {
           isBasic ? basicHeaderInfo() : await bearerHeaderInfo(),
         );
 
-      if (multipartBody!.isNotEmpty) {
+      if (multipartBody.isNotEmpty) {
         // ignore: avoid_function_literals_in_foreach_calls
         multipartBody.forEach((element) async {
+          if (element.file.path.isEmpty) {
+            return;
+          }
           debugPrint("path : ${element.file.path}");
 
           var mimeType = lookupMimeType(element.file.path);

@@ -61,8 +61,7 @@ class NewOrderScreen extends StatelessWidget {
                         data.bookedDateTime ?? DateTime.now()),
                     location: data.address ?? "",
 
-                    /// TODO Change Number
-                    number: "011 2562 1569 66",
+                    number: data.clientPhoneNumber ?? "",
 
                     /// TODO Change Description
                     description:

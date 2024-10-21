@@ -132,7 +132,7 @@ class SideDrawer extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: () {
-                      context.pushReplacementNamed(RoutePath.login);
+                      context.pushReplacementNamed(RoutePath.chooseRole);
                     },
                     icon: Row(
                       children: [
