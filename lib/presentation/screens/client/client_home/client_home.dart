@@ -107,7 +107,7 @@ class ClientHome extends StatelessWidget {
 
                       /// ====================== Package Status =====================
 
-                      const PackageStatus(),
+                      PackageStatus(),
 
                       ///=============================== Tap Bar ===========================
 

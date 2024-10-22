@@ -52,4 +52,7 @@ class ApiUrl {
   static const jobHistory = "/job/history";
   static const notification = "/notification/my-notifications";
   static const readNotification = "/notification/mark-as-read";
+
+  static const getTerms = "/dashboard/get-terms-conditions";
+  static const getPrivacy = "/dashboard/get-privacy-policy";
 }

@@ -131,6 +131,8 @@ class AppStrings {
   static const String beforeCleaning = "Before Cleaning";
   static const String afterCleaning = "After Cleaning";
   static const String endWork = "End Work";
+  static const String subscribeToGetStarted = "Subscribe to get started";
+
 
   ///====================== Profile ========================
   static const String profile = "Profile";

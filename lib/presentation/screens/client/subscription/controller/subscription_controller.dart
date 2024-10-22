@@ -157,15 +157,15 @@ class SubscriptionController extends GetxController {
 
     if (response.statusCode == 200) {
       myPackageModel.value = MyPackageModel.fromJson(response.body);
-      subscriptionLoadingMethod(Status.completed);
+      mySubscriptionLoadingMethod(Status.completed);
     } else {
       checkApi(response: response, context: context);
       if (response.statusCode == 503) {
-        subscriptionLoadingMethod(Status.internetError);
+        mySubscriptionLoadingMethod(Status.internetError);
       } else if (response.statusCode == 404) {
-        subscriptionLoadingMethod(Status.noDataFound);
+        mySubscriptionLoadingMethod(Status.noDataFound);
       } else {
-        subscriptionLoadingMethod(Status.error);
+        mySubscriptionLoadingMethod(Status.error);
       }
     }
   }

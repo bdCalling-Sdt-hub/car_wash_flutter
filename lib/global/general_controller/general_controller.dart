@@ -156,7 +156,8 @@ class GeneralController extends GetxController {
     notificationLoadingMethod(Status.loading);
 
     var response = await apiClient.get(
-        url: ApiUrl.notification.addBaseUrl, showResult: true);
+      url: ApiUrl.notification.addBaseUrl,
+    );
 
     if (response.statusCode == 200) {
       notificationList.value = List<NotificationModel>.from(response
@@ -191,8 +192,65 @@ class GeneralController extends GetxController {
     }
   }
 
+  /// ======================== Privacy Policy =====================
+  var privacyLoading = Status.loading.obs;
+  privacyLoadingMethod(Status status) => privacyLoading.value = status;
+
+  RxString privacy = "".obs;
+  getPrivacy({BuildContext? context}) async {
+    privacyLoadingMethod(Status.loading);
+
+    var response = await apiClient.get(
+      url: ApiUrl.getPrivacy.addBaseUrl,
+    );
+
+    if (response.statusCode == 200) {
+      privacy.value = response.body["data"]["description"];
+      privacyLoadingMethod(Status.completed);
+    } else {
+      checkApi(response: response, context: context);
+      if (response.statusCode == 503) {
+        privacyLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        privacyLoadingMethod(Status.noDataFound);
+      } else {
+        privacyLoadingMethod(Status.error);
+      }
+    }
+  }
+
+  /// ================================= Terms of Use ================================
+
+  var termsLoading = Status.loading.obs;
+  termsLoadingMethod(Status status) => termsLoading.value = status;
+
+  RxString terms = "".obs;
+  getTerms({BuildContext? context}) async {
+    termsLoadingMethod(Status.loading);
+
+    var response = await apiClient.get(
+      url: ApiUrl.getPrivacy.addBaseUrl,
+    );
+
+    if (response.statusCode == 200) {
+      terms.value = response.body["data"]["description"];
+      termsLoadingMethod(Status.completed);
+    } else {
+      checkApi(response: response, context: context);
+      if (response.statusCode == 503) {
+        termsLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        termsLoadingMethod(Status.noDataFound);
+      } else {
+        termsLoadingMethod(Status.error);
+      }
+    }
+  }
+
   @override
   void onInit() {
+    getTerms();
+    getPrivacy();
     getNotification();
     jobHistory();
     super.onInit();
