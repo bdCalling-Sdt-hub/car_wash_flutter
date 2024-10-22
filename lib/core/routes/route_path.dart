@@ -6,6 +6,8 @@ class RoutePath {
   static const String chooseRole = 'chooseRole';
   static const String errorScreen = 'errorScreen';
   static const String language = 'language';
+  static const String notification = 'notification';
+
 
   //=================== Auth screens ===================
   static const String login = 'login';
@@ -19,11 +21,10 @@ class RoutePath {
   static const String workerHome = 'workerHome';
   static const String profile = 'workerProfile';
   static const String orderHistory = 'orderHistory';
-  static const String workerNotification = 'workerNotification';
+
 
   //==================================== Client screens =====================================
   static const String clientHome = 'clientHome';
-  static const String clientNotification = 'workerHome';
   static const String mySubscription = 'mySubscription';
   static const String subscriptionPackages = 'subscriptionPackages';
   static const String reqService = 'reqService';

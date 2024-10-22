@@ -1,5 +1,6 @@
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
+import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -9,20 +10,24 @@ class NotificationCard extends StatelessWidget {
       {super.key,
       required this.title,
       required this.subTitle,
-      required this.createdAt});
-
+      required this.createdAt,
+      required this.isRead});
   final String title;
   final String subTitle;
   final String createdAt;
+  final bool isRead;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
+    return Container(
+      color: isRead ? null : AppColors.whiteColor,
+      margin: EdgeInsets.only(bottom: 20.r),
+      padding: EdgeInsets.all(20.r),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///===================== Icon =====================
+
           Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -38,6 +43,7 @@ class NotificationCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// ===================== Title =====================
+
                 CustomText(
                   text: title,
                   fontWeight: FontWeight.w500,
@@ -45,7 +51,7 @@ class NotificationCard extends StatelessWidget {
                 CustomText(
                   textAlign: TextAlign.left,
                   text: subTitle,
-                  maxLines: 2,
+                  maxLines: 4,
                 ),
               ],
             ),

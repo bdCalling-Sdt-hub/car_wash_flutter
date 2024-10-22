@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:car_wash/core/custom_assets/assets.gen.dart';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/model/job_history_model.dart';
+import 'package:car_wash/global/model/notification_model.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
@@ -144,8 +145,55 @@ class GeneralController extends GetxController {
     }
   }
 
+  /// ============================ Notification ===========================
+  var notificationLoading = Status.loading.obs;
+  notificationLoadingMethod(Status status) =>
+      notificationLoading.value = status;
+
+  RxList<NotificationModel> notificationList = <NotificationModel>[].obs;
+
+  getNotification({BuildContext? context}) async {
+    notificationLoadingMethod(Status.loading);
+
+    var response = await apiClient.get(
+        url: ApiUrl.notification.addBaseUrl, showResult: true);
+
+    if (response.statusCode == 200) {
+      notificationList.value = List<NotificationModel>.from(response
+          .body["data"]["result"]
+          .map((x) => NotificationModel.fromJson(x)));
+      notificationLoadingMethod(Status.completed);
+    } else {
+      checkApi(response: response, context: context);
+      if (response.statusCode == 503) {
+        notificationLoadingMethod(Status.internetError);
+      } else if (response.statusCode == 404) {
+        notificationLoadingMethod(Status.noDataFound);
+      } else {
+        notificationLoadingMethod(Status.error);
+      }
+    }
+  }
+
+  /// ============================ Real all Notification ===========================
+  readAllNotification({required BuildContext context}) async {
+    showPopUpLoader(context: context);
+
+    var response = await apiClient.patch(
+        body: {}, url: ApiUrl.readNotification.addBaseUrl, showResult: true);
+
+    if (response.statusCode == 200) {
+      Navigator.of(context).pop();
+      getNotification();
+    } else {
+      Navigator.of(context).pop();
+      checkApi(response: response);
+    }
+  }
+
   @override
   void onInit() {
+    getNotification();
     jobHistory();
     super.onInit();
   }

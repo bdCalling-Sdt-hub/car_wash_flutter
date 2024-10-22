@@ -85,7 +85,7 @@ class ClientHome extends StatelessWidget {
                     scafoldKey.currentState?.openDrawer();
                   },
                   onTapNotification: () {
-                    context.pushNamed(RoutePath.workerNotification);
+                    context.pushNamed(RoutePath.notification);
                   }),
 
               /// =================== Rest of the Body ===================

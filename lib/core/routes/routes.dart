@@ -12,10 +12,10 @@ import 'package:car_wash/presentation/screens/client/subscription/coupon.dart';
 import 'package:car_wash/presentation/screens/client/subscription/my_subscription.dart';
 import 'package:car_wash/presentation/screens/client/subscription/subscriptionlist.dart';
 import 'package:car_wash/presentation/screens/language/choose_language.dart';
+import 'package:car_wash/presentation/screens/notification/notification.dart';
 import 'package:car_wash/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:car_wash/presentation/screens/worker/worked_history/worked_history.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/worker_home.dart';
-import 'package:car_wash/presentation/screens/worker/worker_notification/worker_notification.dart';
 import 'package:car_wash/presentation/screens/profile/profile.dart';
 import 'package:car_wash/presentation/widgets/error_screen/error_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -116,9 +116,9 @@ class AppRouter {
 
         /// ==================== Worker Notification ====================
         GoRoute(
-            name: RoutePath.workerNotification,
-            path: RoutePath.workerNotification.addBasePath,
-            builder: (context, state) => const WorkerNotification()),
+            name: RoutePath.notification,
+            path: RoutePath.notification.addBasePath,
+            builder: (context, state) => NotificationScreen()),
 
         /// ========================================== Client Section =====================================
         GoRoute(

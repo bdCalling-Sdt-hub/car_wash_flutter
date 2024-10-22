@@ -50,4 +50,6 @@ class ApiUrl {
 
   /// ========================================= Global API's ===============================================
   static const jobHistory = "/job/history";
+  static const notification = "/notification/my-notifications";
+  static const readNotification = "/notification/mark-as-read";
 }
