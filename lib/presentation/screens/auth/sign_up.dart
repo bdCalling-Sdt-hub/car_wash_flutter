@@ -196,7 +196,7 @@ class SignUpScreen extends StatelessWidget {
                 isPassword: true,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return AppStrings.fieldCantNotBeEmpty;
+                    return AppStrings.fieldCantNotBeEmpty.tr;
                   } else if (value !=
                       authController.passController.value.text) {
                     return "Password should match";
@@ -221,15 +221,15 @@ class SignUpScreen extends StatelessWidget {
                       maxLines: 2,
                       text: TextSpan(
                         children: <TextSpan>[
-                          const TextSpan(
-                            text: AppStrings.byRegistering,
-                            style: TextStyle(
+                          TextSpan(
+                            text: AppStrings.byRegistering.tr,
+                            style: const TextStyle(
                               color: AppColors.blackLightColor,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           TextSpan(
-                            text: " ${AppStrings.termsOfUse}",
+                            text: " ${AppStrings.termsOfUse}".tr,
                             style: const TextStyle(
                                 color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w500),
@@ -247,7 +247,7 @@ class SignUpScreen extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: "${AppStrings.privacyPolicy}.",
+                            text: "${AppStrings.privacyPolicy}.".tr,
                             style: const TextStyle(
                                 color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w500),
@@ -276,7 +276,7 @@ class SignUpScreen extends StatelessWidget {
                         // context.pushNamed(RoutePath.varification);
                         authController.signup(context: context);
                       },
-                      title: AppStrings.signUp,
+                      title: AppStrings.signUp.tr,
                     ),
 
               Align(
@@ -285,9 +285,10 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () {
                       context.pop();
                     },
-                    child: const CustomText(
+                    child: CustomText(
                         text:
-                            "${AppStrings.alreadyHaveaAccount} ${AppStrings.login}")),
+                            "${AppStrings.alreadyHaveaAccount} ${AppStrings.login}"
+                                .tr)),
               ),
             ],
           ),

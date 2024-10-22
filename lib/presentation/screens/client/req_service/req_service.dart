@@ -124,7 +124,7 @@ class RequestService extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.reqService,
+          text: AppStrings.reqService.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         ),

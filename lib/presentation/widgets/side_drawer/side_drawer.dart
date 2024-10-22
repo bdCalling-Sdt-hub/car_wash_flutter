@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -44,7 +45,7 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   Assets.icons.profile.svg(),
                   CustomText(
-                    text: AppStrings.profile,
+                    text: AppStrings.profile.tr,
                     left: 20.w,
                     fontSize: Dimensions.getFontSizeLarge(context),
                   )
@@ -59,7 +60,7 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   Assets.icons.history.svg(),
                   CustomText(
-                    text: AppStrings.orderHistory,
+                    text: AppStrings.orderHistory.tr,
                     left: 20.w,
                     fontSize: Dimensions.getFontSizeLarge(context),
                   )
@@ -78,7 +79,7 @@ class SideDrawer extends StatelessWidget {
                   children: [
                     Assets.icons.subscription.svg(),
                     CustomText(
-                      text: AppStrings.mySubscription,
+                      text: AppStrings.mySubscription.tr,
                       left: 20.w,
                       fontSize: Dimensions.getFontSizeLarge(context),
                     )
@@ -96,7 +97,7 @@ class SideDrawer extends StatelessWidget {
                   children: [
                     Assets.icons.subscription.svg(),
                     CustomText(
-                      text: AppStrings.subscriptionPackages,
+                      text: AppStrings.subscriptionPackages.tr,
                       left: 20.w,
                       fontSize: Dimensions.getFontSizeLarge(context),
                     )
@@ -114,7 +115,7 @@ class SideDrawer extends StatelessWidget {
                 children: [
                   const Icon(Icons.language_sharp),
                   CustomText(
-                    text: AppStrings.language,
+                    text: AppStrings.language.tr,
                     left: 20.w,
                     fontSize: Dimensions.getFontSizeLarge(context),
                   )
@@ -138,7 +139,7 @@ class SideDrawer extends StatelessWidget {
                       children: [
                         Assets.icons.logout.svg(),
                         CustomText(
-                          text: AppStrings.logOut,
+                          text: AppStrings.logOut.tr,
                           left: 20.w,
                           fontSize: Dimensions.getFontSizeLarge(context),
                         )

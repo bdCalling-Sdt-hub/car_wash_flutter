@@ -22,7 +22,7 @@ class ResetPass extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.password,
+          text: AppStrings.password.tr,
           fontWeight: FontWeight.w500,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
         ),
@@ -34,7 +34,7 @@ class ResetPass extends StatelessWidget {
           children: [
             Gap(44.h),
             CustomText(
-              text: AppStrings.password,
+              text: AppStrings.password.tr,
               bottom: 8.h,
             ),
 
@@ -45,10 +45,10 @@ class ResetPass extends StatelessWidget {
               isPassword: true,
               validator: (value) {
                 if (value.isEmpty) {
-                  return AppStrings.passWordMustBeAtLeast;
+                  return AppStrings.passWordMustBeAtLeast.tr;
                 } else if (value.length < 8 ||
                     !AppStrings.passRegexp.hasMatch(value)) {
-                  return AppStrings.passwordLengthAndContain;
+                  return AppStrings.passwordLengthAndContain.tr;
                 } else {
                   return null;
                 }
@@ -57,7 +57,7 @@ class ResetPass extends StatelessWidget {
             Gap(16.h),
 
             CustomText(
-              text: AppStrings.confirmPassword,
+              text: AppStrings.confirmPassword.tr,
               bottom: 8.h,
             ),
 
@@ -68,7 +68,7 @@ class ResetPass extends StatelessWidget {
               isPassword: true,
               validator: (value) {
                 if (value.isEmpty) {
-                  return AppStrings.fieldCantNotBeEmpty;
+                  return AppStrings.fieldCantNotBeEmpty.tr;
                 } else if (value != authController.passController.value.text) {
                   return "Password should match";
                 }
@@ -82,7 +82,7 @@ class ResetPass extends StatelessWidget {
               onTap: () {
                 context.pushReplacementNamed(RoutePath.login);
               },
-              title: AppStrings.submit,
+              title: AppStrings.submit.tr,
             )
           ],
         ),

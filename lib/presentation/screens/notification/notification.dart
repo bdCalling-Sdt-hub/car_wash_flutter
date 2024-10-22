@@ -48,9 +48,9 @@ class NotificationScreen extends StatelessWidget {
               );
 
             case Status.noDataFound:
-              return const Center(
+              return  Center(
                 child: CustomText(
-                  text: AppStrings.noDataFound,
+                  text: AppStrings.noDataFound.tr,
                   top: 40,
                 ),
               );
@@ -65,7 +65,7 @@ class NotificationScreen extends StatelessWidget {
                       onPressed: () {
                         generalController.readAllNotification(context: context);
                       },
-                      icon: const CustomText(text: AppStrings.readAll)),
+                      icon:  CustomText(text: AppStrings.readAll.tr)),
                   Expanded(
                       child: SingleChildScrollView(
                     child: Column(

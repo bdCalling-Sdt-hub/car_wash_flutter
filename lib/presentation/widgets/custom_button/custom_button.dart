@@ -3,6 +3,7 @@ import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
@@ -51,7 +52,7 @@ class CustomButton extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: textColor,
             textAlign: TextAlign.center,
-            text: title),
+            text: title.tr),
       ),
     );
   }

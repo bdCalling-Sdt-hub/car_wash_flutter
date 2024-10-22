@@ -22,7 +22,7 @@ class SubscriptionPackages extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: CustomText(
-            text: AppStrings.subscription,
+            text: AppStrings.subscription.tr,
             fontSize: Dimensions.getFontSizeExtraLarge(context),
             fontWeight: FontWeight.w500,
           ),
@@ -47,8 +47,8 @@ class SubscriptionPackages extends StatelessWidget {
               );
 
             case Status.noDataFound:
-              return const Center(
-                child: CustomText(text: AppStrings.noDataFound),
+              return  Center(
+                child: CustomText(text: AppStrings.noDataFound.tr),
               );
 
             case Status.completed:

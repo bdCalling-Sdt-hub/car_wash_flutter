@@ -82,7 +82,6 @@ class AppStrings {
   static const String package = "Package";
   static const String service = "Service";
 
-
   ///====================== Home ========================
   static const String orderHistory = "Order History";
   static const String language = "Language";
@@ -132,7 +131,6 @@ class AppStrings {
   static const String afterCleaning = "After Cleaning";
   static const String endWork = "End Work";
   static const String subscribeToGetStarted = "Subscribe to get started";
-
 
   ///====================== Profile ========================
   static const String profile = "Profile";

@@ -33,7 +33,7 @@ class ChooseRole extends StatelessWidget {
                   authController.isClient.value = true;
                   context.pushNamed(RoutePath.login);
                 },
-                title: AppStrings.signInAsClient,
+                title: AppStrings.signInAsClient.tr,
               ),
 
               /// =================== Worker Sign In Button ======================
@@ -44,7 +44,7 @@ class ChooseRole extends StatelessWidget {
                   authController.isClient.value = false;
                   context.pushNamed(RoutePath.login);
                 },
-                title: AppStrings.signInAsWorker,
+                title: AppStrings.signInAsWorker.tr,
               ),
             ],
           ),

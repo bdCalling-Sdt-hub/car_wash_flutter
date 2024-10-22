@@ -22,7 +22,7 @@ class CouponScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.couponCode,
+          text: AppStrings.couponCode.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         ),
@@ -38,7 +38,7 @@ class CouponScreen extends StatelessWidget {
                 textEditingController:
                     subscriptionController.couponCodeTextfield.value,
                 textInputAction: TextInputAction.done,
-                hintText: AppStrings.enterYourCouponCode,
+                hintText: AppStrings.enterYourCouponCode.tr,
                 fillColor: AppColors.primaryColor.withOpacity(0.3),
               ),
               20.heightWidth,
@@ -49,7 +49,7 @@ class CouponScreen extends StatelessWidget {
                 onPressed: () {
                   subscriptionController.applyCouponCode(context: context);
                 },
-                icon: const CustomText(text: AppStrings.applyCouponCodeAndPay),
+                icon:  CustomText(text: AppStrings.applyCouponCodeAndPay.tr),
               ),
 
               if (subscriptionController.discount.value != 0) ...[

@@ -74,7 +74,7 @@ class WorkerHome extends StatelessWidget {
                   /// ======================== Search Bar ========================
 
                   CustomTextField(
-                    hintText: AppStrings.searchhere,
+                    hintText: AppStrings.searchhere.tr,
                     textEditingController:
                         workerHomeController.searchController.value,
                     prefixIcon: const Icon(Icons.search),

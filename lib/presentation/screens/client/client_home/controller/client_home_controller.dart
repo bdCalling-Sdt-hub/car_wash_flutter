@@ -20,9 +20,9 @@ class ClientHomeController extends GetxController {
       currentServiceLoading.value = status;
 
   List<String> tapbarItems = [
-    AppStrings.upcomingDate,
-    AppStrings.current,
-    AppStrings.completed,
+    AppStrings.upcomingDate.tr,
+    AppStrings.current.tr,
+    AppStrings.completed.tr,
   ];
 
   RxInt tappedIndex = 0.obs;

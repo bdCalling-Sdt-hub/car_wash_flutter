@@ -40,7 +40,7 @@ class LogInScreen extends StatelessWidget {
                           height: Dimensions.getFontSizeOverLarge(context)),
                       Assets.images.login.image(),
                       CustomText(
-                        text: AppStrings.login,
+                        text: AppStrings.login.tr,
                         fontSize: Dimensions.getButtonFontSize(context),
                       ),
                     ],
@@ -48,7 +48,7 @@ class LogInScreen extends StatelessWidget {
                 ),
 
                 CustomText(
-                  text: AppStrings.email,
+                  text: AppStrings.email.tr,
                   bottom: 16.h,
                   top: 24.h,
                 ),
@@ -58,10 +58,10 @@ class LogInScreen extends StatelessWidget {
                   textEditingController: authController.emailController.value,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return AppStrings.enterValidEmail;
+                      return AppStrings.enterValidEmail.tr;
                     } else if (!AppStrings.emailRegexp
                         .hasMatch(authController.emailController.value.text)) {
-                      return AppStrings.enterValidEmail;
+                      return AppStrings.enterValidEmail.tr;
                     } else {
                       return null;
                     }
@@ -81,10 +81,10 @@ class LogInScreen extends StatelessWidget {
                   isPassword: true,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return AppStrings.passWordMustBeAtLeast;
+                      return AppStrings.passWordMustBeAtLeast.tr;
                     } else if (value.length < 8 ||
                         !AppStrings.passRegexp.hasMatch(value)) {
-                      return AppStrings.passwordLengthAndContain;
+                      return AppStrings.passwordLengthAndContain.tr;
                     } else {
                       return null;
                     }
@@ -106,7 +106,7 @@ class LogInScreen extends StatelessWidget {
                           },
                         ),
                         CustomText(
-                          text: AppStrings.rememberMe,
+                          text: AppStrings.rememberMe.tr,
                           fontSize: Dimensions.getFontSizeSmall(context),
                         ),
                       ],
@@ -119,7 +119,7 @@ class LogInScreen extends StatelessWidget {
                           context.pushNamed(RoutePath.forgotPass);
                         },
                         child: CustomText(
-                          text: AppStrings.forgotPassword,
+                          text: AppStrings.forgotPassword.tr,
                           fontSize: Dimensions.getFontSizeSmall(context),
                         )),
                   ],
@@ -151,8 +151,7 @@ class LogInScreen extends StatelessWidget {
                       onPressed: () {
                         context.pushNamed(RoutePath.signUp);
                       },
-                      child:
-                          const CustomText(text: AppStrings.dontHaveAAccount)),
+                      child: CustomText(text: AppStrings.dontHaveAAccount.tr)),
                 )
               ],
             ),

@@ -26,7 +26,7 @@ class VarificationScreen extends StatelessWidget {
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           title: CustomText(
-            text: AppStrings.verification,
+            text: AppStrings.verification.tr,
             fontWeight: FontWeight.w500,
             fontSize: Dimensions.getFontSizeExtraLarge(context),
           ),
@@ -45,7 +45,7 @@ class VarificationScreen extends StatelessWidget {
                     Gap(44.h),
                     CustomText(
                       bottom: 16.h,
-                      text: AppStrings.enterVerificationCode,
+                      text: AppStrings.enterVerificationCode.tr,
                       fontWeight: FontWeight.w500,
                       fontSize: Dimensions.getFontSizeExtraLarge(context),
                     ),
@@ -89,7 +89,7 @@ class VarificationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomText(
-                          text: AppStrings.didntRecieveAnyCode,
+                          text: AppStrings.didntRecieveAnyCode.tr,
                           fontSize: Dimensions.getFontSizeSmall(context),
                         ),
                         TextButton(
@@ -128,12 +128,12 @@ class VarificationScreen extends StatelessWidget {
                             onTap: () {
                               //context.pushNamed(RoutePath.resetPass);
 
-                              if (screen[AppStrings.screen] == Screen.signUp) {
+                              if (screen[AppStrings.screen.tr] == Screen.signUp) {
                                 authController.signUpOtpVerify(
                                     context: context);
                               }
                             },
-                            title: AppStrings.verify,
+                            title: AppStrings.verify.tr,
                           )
                   ],
                 ),

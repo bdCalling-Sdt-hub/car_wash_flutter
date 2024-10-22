@@ -123,7 +123,7 @@ class PackageCard extends StatelessWidget {
                   context.pushNamed(RoutePath.coupon,
                       extra: subscriptionController.selectedMoney.value);
                 },
-                title: AppStrings.buyNow,
+                title: AppStrings.buyNow.tr,
               )
           ],
         ),

@@ -29,9 +29,9 @@ class WorkerHomeController extends GetxController {
   GeneralController generalController = Get.find<GeneralController>();
 
   List<String> tapbarItems = [
-    AppStrings.newOrder,
-    AppStrings.spam,
-    AppStrings.history,
+    AppStrings.newOrder.tr,
+    AppStrings.spam.tr,
+    AppStrings.history.tr,
   ];
 
   RxInt tappedIndex = 0.obs;

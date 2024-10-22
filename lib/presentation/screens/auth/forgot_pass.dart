@@ -64,10 +64,10 @@ class ForgotPass extends StatelessWidget {
                 textEditingController: authController.emailController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return AppStrings.enterValidEmail;
+                    return AppStrings.enterValidEmail.tr;
                   } else if (!AppStrings.emailRegexp
                       .hasMatch(authController.emailController.value.text)) {
-                    return AppStrings.enterValidEmail;
+                    return AppStrings.enterValidEmail.tr;
                   } else {
                     return null;
                   }

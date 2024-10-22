@@ -7,6 +7,7 @@ import 'package:car_wash/utils/static_strings/static_strings.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ServiceCard extends StatelessWidget {
@@ -70,20 +71,20 @@ class ServiceCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16.r),
                     color: AppColors.greenColor.withOpacity(.2)),
                 padding: EdgeInsets.all(8.r),
-                child: const CustomText(text: AppStrings.carWashingService),
+                child: CustomText(text: AppStrings.carWashingService.tr),
               ),
 
               //============================ Date Field for History ===========================
 
-              if (showCarImage) CustomText(text: "${AppStrings.date} $date")
+              if (showCarImage) CustomText(text: "${AppStrings.date.tr} $date")
             ],
           ),
           Gap(16.h),
           showCarImage
-              ? CustomText(text: "${AppStrings.workingTime} $workingTime")
+              ? CustomText(text: "${AppStrings.workingTime.tr} $workingTime")
               : Row(
                   children: [
-                    const CustomText(text: AppStrings.date),
+                    CustomText(text: AppStrings.date.tr),
 
                     ///===================== Date ====================
                     Expanded(
@@ -92,7 +93,7 @@ class ServiceCard extends StatelessWidget {
                       textAlign: TextAlign.left,
                     )),
 
-                    CustomText(left: 20.w, text: AppStrings.time),
+                    CustomText(left: 20.w, text: AppStrings.time.tr),
 
                     ///===================== Time ====================
                     Expanded(
@@ -108,7 +109,7 @@ class ServiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///===================== Location ====================
-              const CustomText(text: AppStrings.location), Gap(10.w),
+              CustomText(text: AppStrings.location.tr), Gap(10.w),
 
               Expanded(
                   child: CustomText(
@@ -124,7 +125,7 @@ class ServiceCard extends StatelessWidget {
               children: [
                 ///===================== Contact Number ====================
 
-                const CustomText(text: AppStrings.contactNumber),
+                CustomText(text: AppStrings.contactNumber.tr),
 
                 Expanded(
                     child: CustomText(
@@ -142,7 +143,7 @@ class ServiceCard extends StatelessWidget {
               children: [
                 ///===================== Description ====================
 
-                const CustomText(text: AppStrings.description),
+                CustomText(text: AppStrings.description.tr),
 
                 Expanded(
                     child: CustomText(
@@ -166,7 +167,7 @@ class ServiceCard extends StatelessWidget {
                   Expanded(
                       child: CustomButton(
                     borderColor: AppColors.blackLightColor,
-                    title: AppStrings.cancel,
+                    title: AppStrings.cancel.tr,
                     onTap: onTapCancle,
                     fillColor: AppColors.whiteColor,
                   )),
@@ -178,7 +179,7 @@ class ServiceCard extends StatelessWidget {
 
                   Expanded(
                       child: CustomButton(
-                          title: AppStrings.start, onTap: onTapStart)),
+                          title: AppStrings.start.tr, onTap: onTapStart)),
                 ],
               ),
             ),
@@ -192,8 +193,8 @@ class ServiceCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomText(
-                      text: AppStrings.beforeCleaning,
+                    CustomText(
+                      text: AppStrings.beforeCleaning.tr,
                       bottom: 10,
                     ),
                     //================ Before Cleaning Image=================
@@ -207,8 +208,8 @@ class ServiceCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomText(
-                      text: AppStrings.afterCleaning,
+                    CustomText(
+                      text: AppStrings.afterCleaning.tr,
                       bottom: 10,
                     ),
                     //================ After Cleaning Image=================
@@ -308,7 +309,7 @@ class SingleServiceCard extends StatelessWidget {
           ///========================= Date =====================
           Column(
             children: [
-              const CustomText(text: AppStrings.nextDate),
+              CustomText(text: AppStrings.nextDate.tr),
               CustomText(text: date),
             ],
           ),
@@ -316,7 +317,7 @@ class SingleServiceCard extends StatelessWidget {
           ///========================= Time =====================
           Column(
             children: [
-              const CustomText(text: AppStrings.time),
+              CustomText(text: AppStrings.time.tr),
               CustomText(text: time),
             ],
           ),
@@ -328,8 +329,8 @@ class SingleServiceCard extends StatelessWidget {
                   color: AppColors.redColor,
                   borderRadius: BorderRadius.circular(6.r)),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: const CustomText(
-                text: AppStrings.cancel,
+              child: CustomText(
+                text: AppStrings.cancel.tr,
                 color: AppColors.whiteColor,
               ),
             ),

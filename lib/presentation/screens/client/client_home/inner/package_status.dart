@@ -39,7 +39,7 @@ class PackageStatus extends StatelessWidget {
                   padding: EdgeInsets.all(20.sp),
                   color: AppColors.primaryColor.withOpacity(.1),
                   child:
-                      const CustomText(text: AppStrings.subscribeToGetStarted),
+                       CustomText(text: AppStrings.subscribeToGetStarted.tr),
                 ),
               ),
       );
@@ -71,7 +71,7 @@ class SubscriptionInfo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomText(text: AppStrings.package),
+               CustomText(text: AppStrings.package.tr),
               CustomText(
                 text: packageName,
                 color: AppColors.greenColor,
@@ -83,7 +83,7 @@ class SubscriptionInfo extends StatelessWidget {
           /// ==================== Total Package ================
           Column(
             children: [
-              const CustomText(text: AppStrings.total),
+               CustomText(text: AppStrings.total.tr),
               CustomText(
                 text: totalService.toString(),
                 color: AppColors.greenColor,
@@ -95,7 +95,7 @@ class SubscriptionInfo extends StatelessWidget {
           /// ==================== Taken Service ================
           Column(
             children: [
-              const CustomText(text: AppStrings.taken),
+               CustomText(text: AppStrings.taken.tr),
               CustomText(
                 text: (totalService - availableService).toString(),
                 color: AppColors.greenColor,
@@ -107,7 +107,7 @@ class SubscriptionInfo extends StatelessWidget {
           /// ==================== Remain Service ================
           Column(
             children: [
-              const CustomText(text: AppStrings.remains),
+               CustomText(text: AppStrings.remains.tr),
               CustomText(
                 text: availableService.toString(),
                 color: AppColors.greenColor,

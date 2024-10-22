@@ -15,7 +15,7 @@ class ChooseLanguage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.chooseALanguage,
+          text: AppStrings.chooseALanguage.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         ),

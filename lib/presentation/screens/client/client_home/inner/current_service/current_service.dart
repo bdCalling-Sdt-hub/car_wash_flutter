@@ -41,9 +41,9 @@ class CurrentService extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return const Center(
+          return  Center(
             child: CustomText(
-              text: AppStrings.noDataFound,
+              text: AppStrings.noDataFound.tr,
               top: 40,
             ),
           );

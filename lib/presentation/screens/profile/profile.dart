@@ -59,8 +59,8 @@ class ProfileScreen extends StatelessWidget {
       title: Obx(() {
         return CustomText(
           text: !profileController.isUpdateProfile.value
-              ? AppStrings.updateProfile
-              : AppStrings.profile,
+              ? AppStrings.updateProfile.tr
+              : AppStrings.profile.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         );
@@ -83,8 +83,8 @@ class ProfileScreen extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return const Center(
-            child: CustomText(text: AppStrings.noDataFound),
+          return  Center(
+            child: CustomText(text: AppStrings.noDataFound.tr),
           );
 
         case Status.completed:
@@ -162,19 +162,19 @@ class ProfileScreen extends StatelessWidget {
                   /// ========================= Name Controller =======================
                   customColum(
                       readOnly: profileController.isUpdateProfile.value,
-                      title: AppStrings.name,
+                      title: AppStrings.name.tr,
                       controller: profileController.nameController.value),
 
                   /// ========================= Email Controller =======================
                   customColum(
                       readOnly: true,
-                      title: AppStrings.email,
+                      title: AppStrings.email.tr,
                       controller: profileController.emailController.value),
 
                   /// ========================= Contact Controller =======================
                   customColum(
                       readOnly: profileController.isUpdateProfile.value,
-                      title: AppStrings.phnNumber,
+                      title: AppStrings.phnNumber.tr,
                       controller: profileController.phoneController.value),
 
                   /// ========================= Date Of Birth Controller =======================
@@ -190,13 +190,13 @@ class ProfileScreen extends StatelessWidget {
                         }
                       },
                       readOnly: true,
-                      title: AppStrings.dateOfBirth,
+                      title: AppStrings.dateOfBirth.tr,
                       controller: profileController.dOBController.value),
 
                   // /// ========================= Address Controller =======================
                   customColum(
                       readOnly: profileController.isUpdateProfile.value,
-                      title: AppStrings.location,
+                      title: AppStrings.location.tr,
                       controller: profileController.addressController.value),
 
                   if (!profileController.isUpdateProfile.value)
@@ -212,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
                             },
                             marginHorizontal: 20.w,
                             marginVerticel: 20.h,
-                            title: AppStrings.updateProfile,
+                            title: AppStrings.updateProfile.tr,
                             textColor: AppColors.whiteColor,
                           )
                 ],

@@ -97,7 +97,7 @@ class ClientHome extends StatelessWidget {
                     children: [
                       /// ======================== Search Bar ========================
                       CustomTextField(
-                        hintText: AppStrings.searchhere,
+                        hintText: AppStrings.searchhere.tr,
                         textEditingController:
                             clientHomeController.searchController.value,
                         prefixIcon: const Icon(Icons.search),

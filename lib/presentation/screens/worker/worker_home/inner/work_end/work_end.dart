@@ -51,9 +51,9 @@ class WorkEndScreen extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return const Center(
+          return  Center(
             child: CustomText(
-              text: AppStrings.noDataFound,
+              text: AppStrings.noDataFound.tr,
               top: 40,
             ),
           );
@@ -74,8 +74,8 @@ class WorkEndScreen extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            const CustomText(
-                              text: AppStrings.startTime,
+                             CustomText(
+                              text: AppStrings.startTime.tr,
                               fontWeight: FontWeight.w500,
                             ),
 
@@ -88,8 +88,8 @@ class WorkEndScreen extends StatelessWidget {
                         Assets.icons.clock.svg(),
                         Column(
                           children: [
-                            const CustomText(
-                              text: AppStrings.endTime,
+                             CustomText(
+                              text: AppStrings.endTime.tr,
                               fontWeight: FontWeight.w500,
                             ),
 
@@ -106,8 +106,8 @@ class WorkEndScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomText(
-                        text: AppStrings.beforeCleaning,
+                       CustomText(
+                        text: AppStrings.beforeCleaning.tr,
                         bottom: 10,
                       ),
                       //================ Before Cleaning Image=================
@@ -147,8 +147,8 @@ class WorkEndScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomText(
-                        text: AppStrings.afterCleaning,
+                       CustomText(
+                        text: AppStrings.afterCleaning.tr,
                         bottom: 10,
                       ),
 
@@ -203,7 +203,7 @@ class WorkEndScreen extends StatelessWidget {
                             workerHomeController.endWork(
                                 jobId: data.id ?? "", context: context);
                           },
-                          title: AppStrings.endWork,
+                          title: AppStrings.endWork.tr,
                         )
                 ],
               ),

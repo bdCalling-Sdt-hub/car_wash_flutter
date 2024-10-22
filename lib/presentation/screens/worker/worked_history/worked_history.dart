@@ -6,6 +6,7 @@ import 'package:car_wash/utils/dimensions/dimensions.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class WorkedHistory extends StatelessWidget {
   const WorkedHistory({super.key});
@@ -15,7 +16,7 @@ class WorkedHistory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.history,
+          text: AppStrings.history.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         ),
@@ -27,7 +28,7 @@ class WorkedHistory extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
             child: CustomTextField(
-              hintText: AppStrings.searchhere,
+              hintText: AppStrings.searchhere.tr,
               prefixIcon: const Icon(Icons.search),
               fillColor: AppColors.whiteColor,
               textEditingController: TextEditingController(),
