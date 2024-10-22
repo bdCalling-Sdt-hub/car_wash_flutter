@@ -20,8 +20,13 @@ void main() async {
   // ================ Open the 'users' box before using it ===============
 
   await Hive.openBox('users');
+  await Hive.openBox('others');
+
   initGetx();
   initDependencies();
+
+  LanguageController languageController = Get.put(LanguageController());
+  languageController.getLanguageType();
 
   runApp(const MyApp());
 }
@@ -35,20 +40,20 @@ class MyApp extends StatelessWidget {
       designSize: const Size(393, 852),
       minTextAdapt: true,
       useInheritedMediaQuery: true,
-      // splitScreenMode: true,
-      builder: (context, child) => GetMaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        //title: 'IHB',
-        theme: lightTheme,
-        // darkTheme:CustomTheme.darkTheme, // standard dark theme
-        //themeMode: lightTheme,
-        routeInformationParser: AppRouter.route.routeInformationParser,
-        routerDelegate: AppRouter.route.routerDelegate,
-        routeInformationProvider: AppRouter.route.routeInformationProvider,
-        locale: const Locale("en", "US"),
-        fallbackLocale: const Locale("en", "US"),
-        translations: Language(),
-      ),
+      key: Get.key,
+      builder: (context, child) =>
+          GetBuilder<LanguageController>(builder: (controller) {
+        return GetMaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          routeInformationParser: AppRouter.route.routeInformationParser,
+          routerDelegate: AppRouter.route.routerDelegate,
+          routeInformationProvider: AppRouter.route.routeInformationProvider,
+          //locale: const Locale("ar", "SA"),
+          fallbackLocale: const Locale("en", "US"),
+          translations: Language(),
+        );
+      }),
     );
   }
 }

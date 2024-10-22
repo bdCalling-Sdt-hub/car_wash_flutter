@@ -107,4 +107,22 @@ class DBHelper {
     Box? users = Hive.box('users');
     return users.get("onBording") != null;
   }
+
+  /// ============================ Save a Value =========================
+
+  saveValue({required String key, required dynamic value}) {
+    Box? users = Hive.box('others');
+
+    users.put(key, value);
+  }
+
+  /// ============================ Get a Value =========================
+
+  Future<dynamic>? getValue({required String key}) async {
+    Box? users = Hive.box('others');
+
+    return users.get(key);
+  }
 }
+
+String languageName = "";
