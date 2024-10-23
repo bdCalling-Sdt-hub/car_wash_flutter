@@ -1,5 +1,7 @@
 import 'dart:io';
-
+import 'package:car_wash/service/socket_service.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/general_controller/general_controller.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
@@ -18,6 +20,7 @@ import 'package:intl/intl.dart';
 class WorkerHomeController extends GetxController {
   Rx<TextEditingController> searchController = TextEditingController().obs;
   Rx<PageController> pagecontroller = PageController().obs;
+Location locationController = Location();
 
   var newOrderLoading = Status.loading.obs;
   newOrderLoadingMethod(Status status) => newOrderLoading.value = status;
@@ -29,9 +32,9 @@ class WorkerHomeController extends GetxController {
   GeneralController generalController = Get.find<GeneralController>();
 
   List<String> tapbarItems = [
-    AppStrings.newOrder.tr,
-    AppStrings.spam.tr,
-    AppStrings.history.tr,
+    AppStrings.newOrder,
+    AppStrings.spam,
+    AppStrings.history,
   ];
 
   RxInt tappedIndex = 0.obs;
@@ -182,8 +185,71 @@ class WorkerHomeController extends GetxController {
     isworkEnd.value = false;
   }
 
+//// =================================== Get Location Permission =================================
+
+  Future<void> getLocationUpdates() async {
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    serviceEnabled = await locationController.serviceEnabled();
+
+
+      serviceEnabled = await locationController.requestService();
+
+
+    permissionGranted = await locationController.hasPermission();
+
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await locationController.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+   locationController.onLocationChanged.listen((currentLocation) {
+      if (currentLocation.latitude != null &&
+          currentLocation.longitude != null) {
+
+          // currentPosition =
+          //     LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          // cameraPosition(currentPosition!);
+        driverLatlon.value = LatLng(currentLocation.latitude??0.0, currentLocation.longitude??0.0);
+        emitDriverLocation();
+
+        debugPrint("Current Location =======>>>>>>>> $currentLocation");
+
+      }
+    });
+  }
+
+
+  /// ======================= Update Worker Location Socket ===========================
+
+  Rx<LatLng> driverLatlon = const  LatLng(0.0, 0.0).obs;
+  emitDriverLocation({String? jobId,}) {
+    // Create the payload to be sent
+    var locationData = {
+      "jobId": jobId,
+      "longitude": driverLatlon.value.longitude,
+      "latitude": driverLatlon.value.latitude,
+    };
+
+    // Emit the event and handle the acknowledgment (ack)
+    SocketApi.socket.emitWithAck("update-worker-location", locationData, ack: (data) {
+      // Handle the acknowledgment (ack) response here
+      print("Ack received from server: $data");
+
+      if (data != null) {
+        // You can process the ack data (for example, check if the location was successfully updated)
+      } else {
+        print("No acknowledgment received.");
+      }
+    });
+  }
+
+
   @override
   void onInit() {
+    getLocationUpdates();
     getNewOrder();
     getSpamList();
     super.onInit();

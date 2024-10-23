@@ -32,7 +32,8 @@ class WorkerHome extends StatelessWidget {
     return Scaffold(
       drawer: SideDrawer(
         onTapOrderHistory: () {
-          context.pushNamed(RoutePath.orderHistory);
+          workerHomeController.getLocationUpdates();
+          //context.pushNamed(RoutePath.orderHistory);
         },
         onTapProfile: () {
           context.pushNamed(RoutePath.profile);
@@ -104,7 +105,7 @@ class WorkerHome extends StatelessWidget {
                                         ? FontWeight.w600
                                         : FontWeight.w400,
                                     text: workerHomeController
-                                        .tapbarItems[index]),
+                                        .tapbarItems[index].tr),
                               ),
                               Container(
                                 height: 4.h,

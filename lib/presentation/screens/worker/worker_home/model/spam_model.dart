@@ -1,5 +1,5 @@
 class SpamModel {
-  Location? jobLocation;
+  JobLocation? jobLocation;
   bool? isPaid;
   String? id;
   String? clientName;
@@ -40,7 +40,7 @@ class SpamModel {
   factory SpamModel.fromJson(Map<String, dynamic> json) => SpamModel(
         jobLocation: json["jobLocation"] == null
             ? null
-            : Location.fromJson(json["jobLocation"]),
+            : JobLocation.fromJson(json["jobLocation"]),
         isPaid: json["isPaid"],
         id: json["_id"],
         clientName: json["clientName"],
@@ -91,7 +91,7 @@ class SpamModel {
 }
 
 class AssignedWorker {
-  Location? location;
+  JobLocation? location;
   String? id;
   String? name;
   String? email;
@@ -136,7 +136,7 @@ class AssignedWorker {
   factory AssignedWorker.fromJson(Map<String, dynamic> json) => AssignedWorker(
         location: json["location"] == null
             ? null
-            : Location.fromJson(json["location"]),
+            : JobLocation.fromJson(json["location"]),
         id: json["_id"],
         name: json["name"],
         email: json["email"],
@@ -190,16 +190,16 @@ class AssignedWorker {
       };
 }
 
-class Location {
+class JobLocation {
   String? type;
   List<double>? coordinates;
 
-  Location({
+  JobLocation({
     this.type,
     this.coordinates,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
+  factory JobLocation.fromJson(Map<String, dynamic> json) => JobLocation(
         type: json["type"],
         coordinates: json["coordinates"] == null
             ? []

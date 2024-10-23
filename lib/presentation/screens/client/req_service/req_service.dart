@@ -57,6 +57,8 @@ class RequestService extends StatelessWidget {
             if (searchQuery.isNotEmpty) {
               reqServiceController.fetchPlaceDetails(searchQuery: searchQuery);
             }
+
+            print(searchQuery);
           },
 
           transition: CircularFloatingSearchBarTransition(),

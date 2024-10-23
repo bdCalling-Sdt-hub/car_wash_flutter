@@ -4,6 +4,15 @@
 <dict>
 
 
+<!-- =================== Location Permission ======================= -->
+
+
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need your location to show it to the client for better service delivery.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>We need your location even when the app is in the background.</string>
+
+
 <!-- =================== Image Picker ======================= -->
 
 

@@ -8,10 +8,13 @@ import 'package:car_wash/presentation/screens/profile/model/profile_model.dart';
 import 'package:car_wash/service/api_service.dart';
 import 'package:car_wash/service/api_url.dart';
 import 'package:car_wash/service/check_api.dart';
+import 'package:car_wash/service/socket_service.dart';
 import 'package:car_wash/utils/app_colors/app_colors.dart';
 import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+DBHelper dbHelper = serviceLocator();
 
 class ProfileController extends GetxController {
   Rx<TextEditingController> nameController = TextEditingController().obs;
@@ -44,6 +47,10 @@ class ProfileController extends GetxController {
 
     if (response.statusCode == 200) {
       profileModel.value = ProfileDataModel.fromJson(response.body["data"]);
+
+      dbHelper.storeTokenUserdata(id: profileModel.value.id??"");
+      SocketApi.init();
+
       profileLoadingMethod(Status.completed);
 
       saveInfoOnTextField(profileModel: profileModel.value);

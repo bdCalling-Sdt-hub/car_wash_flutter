@@ -1,7 +1,7 @@
 class ApiUrl {
   static const baseUrl = "http://192.168.10.32:8052";
   static const imageBaseUrl = '$baseUrl/';
-  static socketUrl({String userID = ""}) => '$baseUrl?userId=$userID';
+  static socketUrl({String userID = ""}) => '$baseUrl?id=$userID';
 
   /// ============================ Auth ==============================
 

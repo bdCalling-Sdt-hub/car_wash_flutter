@@ -3,6 +3,7 @@ import 'package:car_wash/core/theme/light_theme.dart';
 import 'package:car_wash/dependency_injection/getx_injection.dart';
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/language/controller/language_controller.dart';
+import 'package:car_wash/service/socket_service.dart';
 import 'package:car_wash/utils/system_utils/system_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +25,8 @@ void main() async {
 
   initGetx();
   initDependencies();
+
+  SocketApi.init();
 
   LanguageController languageController = Get.put(LanguageController());
   languageController.getLanguageType();

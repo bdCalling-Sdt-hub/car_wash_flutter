@@ -43,7 +43,7 @@ class DBHelper {
     } else {
       debugPrint("hive >>>>>>>>> ${users.get('id')}");
     }
-    return users.get('id');
+    return users.get('id')??"";
   }
 
   /// ====================== Get User Role ==================
