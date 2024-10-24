@@ -1,7 +1,7 @@
-import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/language/controller/language_controller.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
+import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/dimensions/dimensions.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ class ChooseLanguage extends StatelessWidget {
 
   final LanguageController languageController = Get.find<LanguageController>();
 
-  final DBHelper dbHelper = serviceLocator();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +42,13 @@ class ChooseLanguage extends StatelessWidget {
                         Get.updateLocale(const Locale("en", "US"));
                         // SharePrefsHelper.setBool(AppConstants.isEnglish, true);
 
-                        dbHelper.saveValue(key: languageName, value: true);
+                        // dbHelper.saveValue(key: languageName, value: true);
+                        SharePrefsHelper.setBool(AppConstants.language, true);
                       } else {
                         languageController.isEnglish.value = false;
 
                         Get.updateLocale(const Locale("ar", "SA"));
-                        dbHelper.saveValue(key: languageName, value: false);
+                        SharePrefsHelper.setBool(AppConstants.language, false);
                       }
                     },
                   ),

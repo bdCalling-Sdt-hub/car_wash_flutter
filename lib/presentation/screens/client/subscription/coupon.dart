@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/presentation/screens/client/subscription/controller/subscription_controller.dart';
+import 'package:car_wash/presentation/widgets/custom_button/custom_button.dart';
 import 'package:car_wash/presentation/widgets/custom_text/custom_text.dart';
 import 'package:car_wash/presentation/widgets/custom_text_field/custom_text_field.dart';
 import 'package:car_wash/scret_key.dart';
@@ -49,7 +52,7 @@ class CouponScreen extends StatelessWidget {
                 onPressed: () {
                   subscriptionController.applyCouponCode(context: context);
                 },
-                icon:  CustomText(text: AppStrings.applyCouponCodeAndPay.tr),
+                icon: CustomText(text: AppStrings.applyCouponCodeAndPay.tr),
               ),
 
               if (subscriptionController.discount.value != 0) ...[
@@ -86,48 +89,8 @@ class CouponScreen extends StatelessWidget {
                   fontSize: Dimensions.getFontSizeDefault(context),
                 ),
 
-                // CustomButton(
-                //   onTap: () {
-                //     subscriptionController.applePay(
-                //         context: context,
-                //         finalPrice: subscriptionController.discount.value == 0
-                //             ? price.toString()
-                //             : subscriptionController
-                //                 .calculateDiscountedPrice(
-                //                     amount: price,
-                //                     discountPercentage:
-                //                         subscriptionController.discount.value)
-                //                 .toString());
-                //   },
-                //   title: subscriptionController.discount.value == 0
-                //       ? "${AppStrings.confirmPayment} \$$price"
-                //       : "${AppStrings.confirmPayment} \$${subscriptionController.calculateDiscountedPrice(amount: price, discountPercentage: subscriptionController.discount.value)}",
-                // ),
-
-                ApplePayButton(
-                  height: 50.h,
-                  width: 300.w,
-                  buttonProvider: PayProvider.apple_pay,
-                  paymentConfiguration:
-                      PaymentConfiguration.fromJsonString(defaultApplePay),
-                  paymentItems: [
-                    PaymentItem(
-                      label: 'Total',
-                      amount: subscriptionController.discount.value == 0
-                          ? price.toString()
-                          : subscriptionController
-                              .calculateDiscountedPrice(
-                                  amount: price,
-                                  discountPercentage:
-                                      subscriptionController.discount.value)
-                              .toString(),
-                      status: PaymentItemStatus.final_price,
-                    )
-                  ],
-                  style: ApplePayButtonStyle.black,
-                  type: ApplePayButtonType.plain,
-                  onPaymentResult: (result) {
-                    debugPrint("Payment Result ==========>>>>>>>>> $result");
+                CustomButton(
+                  onTap: () async {
                     subscriptionController.confirmSubscription(
                         context: context,
                         packageId:
@@ -146,10 +109,91 @@ class CouponScreen extends StatelessWidget {
                         serviceId:
                             subscriptionController.selectedServiceId.value);
                   },
-                  loadingIndicator: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  title: subscriptionController.discount.value == 0
+                      ? "${AppStrings.confirmPayment} \$$price"
+                      : "${AppStrings.confirmPayment} \$${subscriptionController.calculateDiscountedPrice(amount: price, discountPercentage: subscriptionController.discount.value)}",
                 ),
+
+                // Platform.isIOS
+                //     ? ApplePayButton(
+                //         height: 50.h,
+                //         width: 300.w,
+                //         buttonProvider: PayProvider.apple_pay,
+                //         paymentConfiguration:
+                //             PaymentConfiguration.fromJsonString(
+                //                 defaultApplePay),
+                //         paymentItems: [
+                //           PaymentItem(
+                //             label: 'Total',
+                //             amount: subscriptionController.discount.value == 0
+                //                 ? price.toString()
+                //                 : subscriptionController
+                //                     .calculateDiscountedPrice(
+                //                         amount: price,
+                //                         discountPercentage:
+                //                             subscriptionController
+                //                                 .discount.value)
+                //                     .toString(),
+                //             status: PaymentItemStatus.final_price,
+                //           )
+                //         ],
+                //         style: ApplePayButtonStyle.black,
+                //         type: ApplePayButtonType.plain,
+                //         onPaymentResult: (result) {
+                //           debugPrint(
+                //               "Payment Result ==========>>>>>>>>> $result");
+                //           subscriptionController.confirmSubscription(
+                //               context: context,
+                //               packageId: subscriptionController
+                //                   .selectedPackageId.value,
+                //               price: subscriptionController.discount.value == 0
+                //                   ? price
+                //                   : subscriptionController
+                //                       .calculateDiscountedPrice(
+                //                           amount: price,
+                //                           discountPercentage:
+                //                               subscriptionController
+                //                                   .discount.value),
+                //               coupon: subscriptionController.discount.value == 0
+                //                   ? false
+                //                   : true,
+                //               paymentIntentId:
+                //                   subscriptionController.paymentIntentId.value,
+                //               serviceId: subscriptionController
+                //                   .selectedServiceId.value);
+                //         },
+                //         loadingIndicator: const Center(
+                //           child: CircularProgressIndicator(),
+                //         ),
+                //       )
+                //     : GooglePayButton(
+                //         paymentConfiguration:
+                //             PaymentConfiguration.fromJsonString(
+                //                 defaultGooglePay),
+                //         paymentItems: [
+                //           PaymentItem(
+                //             label: 'Total',
+                //             amount: subscriptionController.discount.value == 0
+                //                 ? price.toString()
+                //                 : subscriptionController
+                //                     .calculateDiscountedPrice(
+                //                         amount: price,
+                //                         discountPercentage:
+                //                             subscriptionController
+                //                                 .discount.value)
+                //                     .toString(),
+                //             status: PaymentItemStatus.final_price,
+                //           )
+                //         ],
+                //         theme: GooglePayButtonTheme.dark,
+                //         type: GooglePayButtonType.buy,
+                //         margin: const EdgeInsets.only(top: 15.0),
+                //         onPaymentResult: (result) {},
+                //         loadingIndicator: const Center(
+                //           child: CircularProgressIndicator(),
+                //         ),
+                //       ),
+
                 44.heightWidth
               ]
             ],

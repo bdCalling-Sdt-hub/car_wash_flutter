@@ -36,14 +36,18 @@ class AuthController extends GetxController {
   Rx<bool> isClient = true.obs;
 
   ApiClient apiClient = serviceLocator();
-  DBHelper dbHelper = serviceLocator();
 
   /// =================== Save Info ===================
 
   saveInformation({required Response<dynamic> response}) {
-    dbHelper.storeTokenUserdata(
-        token: response.body["data"]["accessToken"],
-        role: response.body["data"]["role"]);
+    // dbHelper.storeTokenUserdata(
+    //     token: response.body["data"]["accessToken"],
+    //     role: response.body["data"]["role"]);
+
+    SharePrefsHelper.setString(
+        AppConstants.token, response.body["data"]["accessToken"]);
+    SharePrefsHelper.setString(
+        AppConstants.userRole, response.body["data"]["role"]);
   }
 
   ///============================ Sign In =========================
@@ -133,6 +137,7 @@ class AuthController extends GetxController {
     var response = await apiClient.patch(
         body: body,
         isBasic: true,
+        showResult: true,
         url: isClient.value
             ? ApiUrl.activeClient.addBaseUrl
             : ApiUrl.activeWorker.addBaseUrl);

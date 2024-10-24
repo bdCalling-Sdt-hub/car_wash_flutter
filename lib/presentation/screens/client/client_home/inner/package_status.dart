@@ -38,8 +38,7 @@ class PackageStatus extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(20.sp),
                   color: AppColors.primaryColor.withOpacity(.1),
-                  child:
-                       CustomText(text: AppStrings.subscribeToGetStarted.tr),
+                  child: CustomText(text: AppStrings.subscribeToGetStarted.tr),
                 ),
               ),
       );
@@ -68,22 +67,27 @@ class SubscriptionInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           /// ==================== Package Name ================
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               CustomText(text: AppStrings.package.tr),
-              CustomText(
-                text: packageName,
-                color: AppColors.greenColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ],
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(text: AppStrings.package.tr),
+                CustomText(
+                  textAlign: TextAlign.left,
+                  maxLines: 2,
+                  text: packageName,
+                  color: AppColors.greenColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ],
+            ),
           ),
 
           /// ==================== Total Package ================
           Column(
             children: [
-               CustomText(text: AppStrings.total.tr),
+              CustomText(text: AppStrings.total.tr),
               CustomText(
                 text: totalService.toString(),
                 color: AppColors.greenColor,
@@ -95,7 +99,7 @@ class SubscriptionInfo extends StatelessWidget {
           /// ==================== Taken Service ================
           Column(
             children: [
-               CustomText(text: AppStrings.taken.tr),
+              CustomText(text: AppStrings.taken.tr),
               CustomText(
                 text: (totalService - availableService).toString(),
                 color: AppColors.greenColor,
@@ -107,7 +111,7 @@ class SubscriptionInfo extends StatelessWidget {
           /// ==================== Remain Service ================
           Column(
             children: [
-               CustomText(text: AppStrings.remains.tr),
+              CustomText(text: AppStrings.remains.tr),
               CustomText(
                 text: availableService.toString(),
                 color: AppColors.greenColor,

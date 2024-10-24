@@ -249,8 +249,8 @@ class GeneralController extends GetxController {
 
   @override
   void onInit() {
-    getTerms();
-    getPrivacy();
+    // getTerms();
+    // getPrivacy();
     getNotification();
     jobHistory();
     super.onInit();

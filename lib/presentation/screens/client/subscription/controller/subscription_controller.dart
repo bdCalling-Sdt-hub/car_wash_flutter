@@ -136,6 +136,7 @@ class SubscriptionController extends GetxController {
         url: ApiUrl.confirmSubscription.addBaseUrl, body: body);
 
     if (response.statusCode == 200) {
+      getMySubscription();
       showSnackBar(
           context: context,
           content: response.body["message"],
@@ -152,8 +153,8 @@ class SubscriptionController extends GetxController {
   getMySubscription({BuildContext? context}) async {
     mySubscriptionLoadingMethod(Status.loading);
 
-    var response =
-        await apiClient.get(url: ApiUrl.getMySubscription.addBaseUrl);
+    var response = await apiClient.get(
+        url: ApiUrl.getMySubscription.addBaseUrl, showResult: true);
 
     if (response.statusCode == 200) {
       myPackageModel.value = MyPackageModel.fromJson(response.body);

@@ -15,10 +15,6 @@ Future<void> initDependencies() async {
     ),
   );
 
-  /// ===================== DB =====================
-  serviceLocator.registerFactory<DBHelper>(
-    () => DBHelper(),
-  );
 
   /// ================= Api client ================
   serviceLocator.registerFactory<ApiClient>(

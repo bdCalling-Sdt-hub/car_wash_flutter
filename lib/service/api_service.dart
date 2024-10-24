@@ -7,6 +7,7 @@ import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/model/response_model.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
+import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -29,8 +30,8 @@ Map<String, String> basicHeaderInfo() {
 }
 
 Future<Map<String, String>> bearerHeaderInfo() async {
-  DBHelper dbHelper = serviceLocator();
-  final token = await dbHelper.getToken();
+  final token = await SharePrefsHelper.getString(AppConstants.token);
+  debugPrint("Token _________ $token");
   return {
     HttpHeaders.acceptHeader: "application/json",
     HttpHeaders.contentTypeHeader: "application/json",
@@ -152,9 +153,9 @@ class ApiClient {
     try {
       /// ======================- Check Internet ===================
 
-      if (!await (connectionChecker.isConnected)) {
-        return Response(statusCode: 503, statusText: noInternetConnection);
-      }
+      // if (!await (connectionChecker.isConnected)) {
+      //   return Response(statusCode: 503, statusText: noInternetConnection);
+      // }
 
       if (showResult) {
         log.i(

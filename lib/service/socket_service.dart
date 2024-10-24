@@ -1,12 +1,8 @@
-
-import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
 import 'package:car_wash/service/api_url.dart';
-import 'package:car_wash/service/check_api.dart';
+import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
-DBHelper dbhelper = serviceLocator();
 
 class SocketApi {
   // Singleton instance of the class
@@ -22,10 +18,11 @@ class SocketApi {
   ///<------------------------- Socket Initialization with dynamic User ID ---------------->
 
   static void init() async {
-    String userId =await dbhelper.getUserId()??"";
+    String userId = await SharePrefsHelper.getString(
+      AppConstants.userID,
+    );
     if (userId.isEmpty || userId == "null") {
-      debugPrint(
-          'Socket Connected >>>>>>>>>>>> FALSE <<<<<<<<<<<<');
+      debugPrint('Socket Connected >>>>>>>>>>>> FALSE <<<<<<<<<<<<');
       return;
     }
     socket = io.io(

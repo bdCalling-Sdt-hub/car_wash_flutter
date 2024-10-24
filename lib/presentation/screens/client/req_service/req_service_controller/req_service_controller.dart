@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/helper/extension/base_extension.dart';
 import 'package:car_wash/helper/tost_message/show_snackbar.dart';
@@ -22,36 +23,37 @@ class ReqServiceController extends GetxController {
   Future<List<PlaceDetailsModel>> fetchPlaceDetails(
       {required String searchQuery}) async {
     // First API call: Place Autocomplete API
-    var autocompleteResponse =
-        await apiClient.get(url: GOOGLE_MAP_SEARCH(searchQuery: searchQuery));
+    var autocompleteResponse = await http.get(
+      Uri.parse(GOOGLE_MAP_SEARCH(searchQuery: searchQuery)),
+      // headers: isBasic ? basicHeaderInfo() : await bearerHeaderInfo(),
+    );
+    var response = jsonDecode(autocompleteResponse.body);
+    // await apiClient.get(url: GOOGLE_MAP_SEARCH(searchQuery: searchQuery));
 
-    if (autocompleteResponse.statusCode == 200) {
-      if (autocompleteResponse.body['status'] == 'OK') {
-        // Loop through the predictions and get place_id for each
-        for (var result in autocompleteResponse.body['predictions']) {
-          String placeId = result['place_id'];
-          String description = result['description'];
+    if (response['status'] == 'OK') {
+      // Loop through the predictions and get place_id for each
 
-          // Second API call: Place Details API using place_id to get lat/lng
-          var placeDetails = await getPlaceDetails(placeId);
+      for (var result in response['predictions']) {
+        String placeId = result['place_id'];
+        String description = result['description'];
 
-          if (placeDetails != null) {
-            // Create and add the combined model
-            places.add(
-              PlaceDetailsModel(
-                description: description,
-                placeId: placeId,
-                lat: placeDetails['lat'] ?? 0.0,
-                lng: placeDetails['lng'] ?? 0.0,
-              ),
-            );
-          }
+        // Second API call: Place Details API using place_id to get lat/lng
+        var placeDetails = await getPlaceDetails(placeId);
+
+        if (placeDetails != null) {
+          // Create and add the combined model
+          places.add(
+            PlaceDetailsModel(
+              description: description,
+              placeId: placeId,
+              lat: placeDetails['lat'] ?? 0.0,
+              lng: placeDetails['lng'] ?? 0.0,
+            ),
+          );
         }
-      } else {
-        throw Exception('Failed to load places');
       }
     } else {
-      throw Exception('Failed to load autocomplete results');
+      throw Exception('Failed to load places');
     }
 
     return places;
@@ -61,21 +63,21 @@ class ReqServiceController extends GetxController {
     var url =
         "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$GOOGLE_MAP_KEY";
 
-    var detailsResponse = await apiClient.get(url: url);
+    var autocompleteResponse = await http.get(
+      Uri.parse(url),
+    );
 
-    if (detailsResponse.statusCode == 200) {
-      if (detailsResponse.body['status'] == 'OK') {
-        var location = detailsResponse.body['result']['geometry']['location'];
-        double lat = location['lat'];
-        double lng = location['lng'];
+    var detailsResponse = jsonDecode(autocompleteResponse.body);
 
-        return {
-          'lat': lat,
-          'lng': lng,
-        };
-      } else {
-        throw Exception('Failed to load place details');
-      }
+    if (detailsResponse['status'] == 'OK') {
+      var location = detailsResponse['result']['geometry']['location'];
+      double lat = location['lat'];
+      double lng = location['lng'];
+
+      return {
+        'lat': lat,
+        'lng': lng,
+      };
     } else {
       throw Exception('Failed to load place details');
     }
@@ -135,6 +137,11 @@ class ReqServiceController extends GetxController {
         body: body, url: ApiUrl.createJob.addBaseUrl, context: context);
 
     if (response.statusCode == 200) {
+      dateController.value.clear();
+      timeController.value.clear();
+      descController.value.clear();
+      locationController.value.clear();
+
       clientHomeController.getUpComingService(context: context);
       showSnackBar(
           // ignore: use_build_context_synchronously

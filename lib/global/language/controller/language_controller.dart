@@ -1,7 +1,7 @@
-import 'package:car_wash/dependency_injection/path.dart';
 import 'package:car_wash/global/language/arabic/arabic.dart';
 import 'package:car_wash/global/language/eng/eng.dart';
 import 'package:car_wash/helper/local_db/local_db.dart';
+import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,11 +16,11 @@ class Language extends Translations {
 class LanguageController extends GetxController {
   final List<String> languages = ["English", "Arabic"];
   RxString selectedLanguage = "English".obs;
-  final DBHelper dbHelper = serviceLocator();
 
   RxBool isEnglish = true.obs;
   getLanguageType() async {
-    isEnglish.value = await dbHelper.getValue(key: languageName) ?? true;
+    isEnglish.value =
+        await SharePrefsHelper.getBool(AppConstants.language) ?? true;
 
     debugPrint("Choosed Language===============>>>>>>>>>>>$isEnglish");
 

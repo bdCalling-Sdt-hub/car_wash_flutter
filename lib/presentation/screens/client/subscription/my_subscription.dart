@@ -24,13 +24,13 @@ class ClientSubscription extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: AppStrings.subscription.tr,
+          text: AppStrings.mySubscription.tr,
           fontSize: Dimensions.getFontSizeExtraLarge(context),
           fontWeight: FontWeight.w500,
         ),
       ),
       body: Obx(() {
-        switch (subscriptionController.subscriptionLoading.value) {
+        switch (subscriptionController.mySubscriptionLoading.value) {
           case Status.loading:
             return const CustomLoader();
           case Status.internetError:
@@ -48,7 +48,7 @@ class ClientSubscription extends StatelessWidget {
               },
             );
           case Status.noDataFound:
-            return  Center(
+            return Center(
               child: CustomText(text: AppStrings.noDataFound.tr),
             );
           case Status.completed:

@@ -134,11 +134,12 @@ class LogInScreen extends StatelessWidget {
                             width: context.width / 6, fit: BoxFit.cover),
                       )
                     : CustomButton(onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          authController.signIn(context: context);
-                        }
+                        /// TODO FIX IT
+                        // if (formKey.currentState!.validate()) {
+                        //   authController.signIn(context: context);
+                        // }
 
-                        //authController.signIn(context: context);
+                        authController.signIn(context: context);
                       }),
 
                 Gap(16.h),

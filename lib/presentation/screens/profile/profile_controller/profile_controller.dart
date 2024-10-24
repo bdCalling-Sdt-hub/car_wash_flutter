@@ -14,8 +14,6 @@ import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-DBHelper dbHelper = serviceLocator();
-
 class ProfileController extends GetxController {
   Rx<TextEditingController> nameController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
@@ -29,7 +27,6 @@ class ProfileController extends GetxController {
   RxBool isUpdateProfile = true.obs;
   RxBool updateProfileLoading = false.obs;
   ApiClient apiClient = serviceLocator();
-  final DBHelper _dbHelper = serviceLocator();
 
   /// ========================= Get Profile Information ==========================
 
@@ -38,7 +35,7 @@ class ProfileController extends GetxController {
   Rx<ProfileDataModel> profileModel = ProfileDataModel().obs;
 
   getProfile({BuildContext? context}) async {
-    String role = await _dbHelper.getUserRole();
+    String role = await SharePrefsHelper.getString(AppConstants.userRole);
     var response = await apiClient.get(
         url: role == "CLIENT"
             ? ApiUrl.clientProfile.addBaseUrl
@@ -48,7 +45,8 @@ class ProfileController extends GetxController {
     if (response.statusCode == 200) {
       profileModel.value = ProfileDataModel.fromJson(response.body["data"]);
 
-      dbHelper.storeTokenUserdata(id: profileModel.value.id??"");
+      SharePrefsHelper.setString(
+          AppConstants.userID, profileModel.value.id ?? "");
       SocketApi.init();
 
       profileLoadingMethod(Status.completed);
@@ -83,7 +81,8 @@ class ProfileController extends GetxController {
   /// ============================ Update Profile ===============================
 
   updateProfile({required BuildContext context}) async {
-    String role = await _dbHelper.getUserRole();
+    String role = await SharePrefsHelper.getString(AppConstants.userRole);
+
     updateProfileLoading.value = true;
 
     var body = {
