@@ -4,12 +4,14 @@ class NewOrderModel {
   DateTime? bookedDateTime;
   String? address;
   String? clientPhoneNumber;
+  String? jobDescription;
 
   NewOrderModel(
       {this.jobLocation,
       this.id,
       this.bookedDateTime,
       this.address,
+      this.jobDescription,
       this.clientPhoneNumber});
 
   factory NewOrderModel.fromJson(Map<String, dynamic> json) => NewOrderModel(
@@ -22,6 +24,7 @@ class NewOrderModel {
             : DateTime.parse(json["bookedDateTime"]),
         address: json["address"],
         clientPhoneNumber: json["clientPhoneNumber"],
+        jobDescription: json["jobDescription"],
       );
 }
 

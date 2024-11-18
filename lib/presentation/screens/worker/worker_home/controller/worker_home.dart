@@ -20,7 +20,7 @@ import 'package:intl/intl.dart';
 class WorkerHomeController extends GetxController {
   Rx<TextEditingController> searchController = TextEditingController().obs;
   Rx<PageController> pagecontroller = PageController().obs;
-Location locationController = Location();
+  Location locationController = Location();
 
   var newOrderLoading = Status.loading.obs;
   newOrderLoadingMethod(Status status) => newOrderLoading.value = status;
@@ -46,7 +46,8 @@ Location locationController = Location();
     newOrderLoadingMethod(Status.loading);
 
     var response = await apiClient.get(
-        url: ApiUrl.workerNewOrder.addBaseUrl, showResult: false);
+      url: ApiUrl.workerNewOrder.addBaseUrl,
+    );
 
     if (response.statusCode == 200) {
       newOrderList.value = List<NewOrderModel>.from(response.body["data"]
@@ -73,7 +74,9 @@ Location locationController = Location();
     spamLoadingMethod(Status.loading);
 
     var response = await apiClient.get(
-        url: ApiUrl.getSpamList.addBaseUrl, showResult: true);
+      showResult: true,
+      url: ApiUrl.getSpamList.addBaseUrl,
+    );
 
     if (response.statusCode == 200) {
       spamModel.value = SpamModel.fromJson(response.body["data"]);
@@ -188,13 +191,12 @@ Location locationController = Location();
 //// =================================== Get Location Permission =================================
 
   Future<void> getLocationUpdates() async {
+    // ignore: unused_local_variable
     bool serviceEnabled;
     PermissionStatus permissionGranted;
     serviceEnabled = await locationController.serviceEnabled();
 
-
-      serviceEnabled = await locationController.requestService();
-
+    serviceEnabled = await locationController.requestService();
 
     permissionGranted = await locationController.hasPermission();
 
@@ -205,27 +207,25 @@ Location locationController = Location();
       }
     }
 
-   locationController.onLocationChanged.listen((currentLocation) {
+    locationController.onLocationChanged.listen((currentLocation) {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
-
-          // currentPosition =
-          //     LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          // cameraPosition(currentPosition!);
-        driverLatlon.value = LatLng(currentLocation.latitude??0.0, currentLocation.longitude??0.0);
-        emitDriverLocation();
-
-        debugPrint("Current Location =======>>>>>>>> $currentLocation");
-
+        // currentPosition =
+        //     LatLng(currentLocation.latitude!, currentLocation.longitude!);
+        // cameraPosition(currentPosition!);
+        driverLatlon.value = LatLng(
+            currentLocation.latitude ?? 0.0, currentLocation.longitude ?? 0.0);
+        emitDriverLocation(jobId: spamModel.value.id);
       }
     });
   }
 
-
   /// ======================= Update Worker Location Socket ===========================
 
-  Rx<LatLng> driverLatlon = const  LatLng(0.0, 0.0).obs;
-  emitDriverLocation({String? jobId,}) {
+  Rx<LatLng> driverLatlon = const LatLng(0.0, 0.0).obs;
+  emitDriverLocation({
+    String? jobId,
+  }) {
     // Create the payload to be sent
     var locationData = {
       "jobId": jobId,
@@ -233,19 +233,19 @@ Location locationController = Location();
       "latitude": driverLatlon.value.latitude,
     };
 
+    debugPrint("JOB ID --------------->>>> $jobId");
+
     // Emit the event and handle the acknowledgment (ack)
-    SocketApi.socket.emitWithAck("update-worker-location", locationData, ack: (data) {
-      // Handle the acknowledgment (ack) response here
-      print("Ack received from server: $data");
+    SocketApi.socket.emitWithAck("update-worker-location", locationData,
+        ack: (data) {
+      debugPrint("Ack received from server: $data");
 
       if (data != null) {
-        // You can process the ack data (for example, check if the location was successfully updated)
       } else {
-        print("No acknowledgment received.");
+        debugPrint("No acknowledgment received.");
       }
     });
   }
-
 
   @override
   void onInit() {

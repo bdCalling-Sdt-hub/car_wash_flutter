@@ -7,7 +7,8 @@ class RoutePath {
   static const String errorScreen = 'errorScreen';
   static const String language = 'language';
   static const String notification = 'notification';
-
+  static const String privacyPolicy = 'PrivacyPolicy';
+  static const String termsOfUse = 'Termsofuse';
 
   //=================== Auth screens ===================
   static const String login = 'login';
@@ -21,7 +22,6 @@ class RoutePath {
   static const String workerHome = 'workerHome';
   static const String profile = 'workerProfile';
   static const String orderHistory = 'orderHistory';
-
 
   //==================================== Client screens =====================================
   static const String clientHome = 'clientHome';

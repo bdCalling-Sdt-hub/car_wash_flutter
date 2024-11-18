@@ -9,7 +9,6 @@ import 'package:car_wash/utils/app_const/app_const.dart';
 import 'package:car_wash/utils/static_strings/static_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CurrentService extends StatelessWidget {
   CurrentService({super.key});
@@ -41,7 +40,7 @@ class CurrentService extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return  Center(
+          return Center(
             child: CustomText(
               text: AppStrings.noDataFound.tr,
               top: 40,
@@ -55,19 +54,14 @@ class CurrentService extends StatelessWidget {
             showButtons: false,
             showCarImage: false,
             googleMap: true,
-            userLocation: LatLng(
-                data.assignedWorker?.location?.coordinates?[1] ?? 63.6847545,
-                data.assignedWorker?.location?.coordinates?[0] ?? 63.6847545),
+            userLocation: clientHomeController.driverLocation.value,
             date: DateConverter.estimatedDate(
                 data.bookedDateTime ?? DateTime.now()),
             time:
                 DateConverter.hourMinit(data.bookedDateTime ?? DateTime.now()),
             location: data.address ?? "",
-            number: data.assignedWorker?.phoneNumber ?? "",
-
-            /// TODO Description is missing
-            description:
-                "It is a long established fact that a reader will be distracted by the readable",
+            number: "",
+            description: data.jobDescription ?? "",
             onTapCancle: () {},
             onTapStart: () {},
           );

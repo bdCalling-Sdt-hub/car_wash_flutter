@@ -42,7 +42,7 @@ class SpamScreen extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return  Center(
+          return Center(
             child: CustomText(
               text: AppStrings.noDataFound.tr,
               top: 40,
@@ -55,7 +55,7 @@ class SpamScreen extends StatelessWidget {
             userLocation: LatLng(data.jobLocation?.coordinates?[1] ?? 0.0,
                 data.jobLocation?.coordinates?[0] ?? 0.0),
             showButtons: false,
-            showDescription: false,
+            showDescription: true,
             googleMap: true,
             date: DateConverter.estimatedDate(
                 data.bookedDateTime ?? DateTime.now()),
@@ -63,10 +63,7 @@ class SpamScreen extends StatelessWidget {
                 DateConverter.hourMinit(data.bookedDateTime ?? DateTime.now()),
             location: data.address ?? "",
             number: data.clientPhoneNumber ?? "",
-
-            /// TODO Need to Update Description
-            description:
-                "It is a long established fact that a reader will be distracted by the readable",
+            description: data.jobDescription ?? "",
             onTapCancle: () {},
             onTapStart: () {
               workerHomeController.startWork(

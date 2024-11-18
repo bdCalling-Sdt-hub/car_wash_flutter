@@ -5,6 +5,8 @@ class SpamModel {
   String? clientName;
   String? clientId;
   String? clientPhoneNumber;
+  String? jobDescription;
+
   int? currentServiceNumber;
   DateTime? bookedDateTime;
   String? address;
@@ -24,6 +26,7 @@ class SpamModel {
     this.clientName,
     this.clientId,
     this.clientPhoneNumber,
+    this.jobDescription,
     this.currentServiceNumber,
     this.bookedDateTime,
     this.address,
@@ -45,6 +48,7 @@ class SpamModel {
         id: json["_id"],
         clientName: json["clientName"],
         clientId: json["clientId"],
+        jobDescription: json["jobDescription"],
         clientPhoneNumber: json["clientPhoneNumber"],
         currentServiceNumber: json["currentServiceNumber"],
         bookedDateTime: json["bookedDateTime"] == null

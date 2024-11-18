@@ -40,7 +40,7 @@ class NewOrderScreen extends StatelessWidget {
           );
 
         case Status.noDataFound:
-          return  Center(
+          return Center(
             child: CustomText(
               text: AppStrings.noDataFound.tr,
               top: 40,
@@ -60,12 +60,8 @@ class NewOrderScreen extends StatelessWidget {
                     time: DateConverter.hourMinit(
                         data.bookedDateTime ?? DateTime.now()),
                     location: data.address ?? "",
-
                     number: data.clientPhoneNumber ?? "",
-
-                    /// TODO Change Description
-                    description:
-                        "It is a long established fact that a reader will be distracted by the readable",
+                    description: data.jobDescription ?? "",
                     onTapCancle: () {},
                     onTapStart: () {
                       debugPrint("JobID --------------->>>>>>>> ${data.id}");

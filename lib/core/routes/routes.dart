@@ -13,7 +13,9 @@ import 'package:car_wash/presentation/screens/client/subscription/my_subscriptio
 import 'package:car_wash/presentation/screens/client/subscription/subscriptionlist.dart';
 import 'package:car_wash/presentation/screens/language/choose_language.dart';
 import 'package:car_wash/presentation/screens/notification/notification.dart';
+import 'package:car_wash/presentation/screens/privacy/privacy.dart';
 import 'package:car_wash/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:car_wash/presentation/screens/terms/terms.dart';
 import 'package:car_wash/presentation/screens/worker/worked_history/worked_history.dart';
 import 'package:car_wash/presentation/screens/worker/worker_home/worker_home.dart';
 import 'package:car_wash/presentation/screens/profile/profile.dart';
@@ -155,6 +157,20 @@ class AppRouter {
             builder: (context, state) => CouponScreen(
                   price: state.extra as int,
                 )),
+
+        /// ==================== Terms of Use ===================
+
+        GoRoute(
+            name: RoutePath.termsOfUse,
+            path: RoutePath.termsOfUse.addBasePath,
+            builder: (context, state) => TermsConditionScreen()),
+
+        /// ==================== Privacy Policy ===================
+
+        GoRoute(
+            name: RoutePath.privacyPolicy,
+            path: RoutePath.privacyPolicy.addBasePath,
+            builder: (context, state) => PrivacyScreen()),
       ]);
 
   static GoRouter get route => initRoute;

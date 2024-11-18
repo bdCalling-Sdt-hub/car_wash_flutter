@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const baseUrl = "http://103.161.9.133:8052";
+  static const baseUrl = "http://192.168.10.22:7000"; // LOCAL
   static const imageBaseUrl = '$baseUrl/';
   static socketUrl({String userID = ""}) => '$baseUrl?id=$userID';
 

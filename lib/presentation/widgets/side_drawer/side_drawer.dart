@@ -123,6 +123,40 @@ class SideDrawer extends StatelessWidget {
               )),
           const Divider(),
 
+          //========================== Privacy Policy ==========================
+          IconButton(
+              onPressed: () {
+                context.pushNamed(RoutePath.privacyPolicy);
+              },
+              icon: Row(
+                children: [
+                  const Icon(Icons.privacy_tip_outlined),
+                  CustomText(
+                    text: AppStrings.privacyPolicy.tr,
+                    left: 20.w,
+                    fontSize: Dimensions.getFontSizeLarge(context),
+                  )
+                ],
+              )),
+          const Divider(),
+
+          //========================== Terms Of Use ==========================
+          IconButton(
+              onPressed: () {
+                context.pushNamed(RoutePath.termsOfUse);
+              },
+              icon: Row(
+                children: [
+                  const Icon(Icons.privacy_tip),
+                  CustomText(
+                    text: AppStrings.termsOfUse.tr,
+                    left: 20.w,
+                    fontSize: Dimensions.getFontSizeLarge(context),
+                  )
+                ],
+              )),
+          const Divider(),
+
           const Expanded(child: SizedBox()),
 
           ///========================= Log Out Button =========================

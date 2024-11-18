@@ -141,6 +141,7 @@ class ReqServiceController extends GetxController {
       timeController.value.clear();
       descController.value.clear();
       locationController.value.clear();
+      Navigator.of(context).pop();
 
       clientHomeController.getUpComingService(context: context);
       showSnackBar(
